@@ -4,11 +4,12 @@
 char *USERS = "./data/users.txt";
 
 void loginMenu(char a[50], char pass[50])
-{
+{    
     struct termios oflags, nflags;
 
     system("clear");
-    printf("\n\n\n\t\t\t\t   Bank Management System\n\t\t\t\t\t User Login: ");
+
+    printf("\n\n\n\t\t\t\t   Bank Management System\n\t\t\t\t\t Enter Username:");
     scanf("%s", a);
 
     // disabling echo
@@ -22,8 +23,9 @@ void loginMenu(char a[50], char pass[50])
         perror("tcsetattr");
         return exit(1);
     }
-    printf("\n\n\n\n\n\t\t\t\tEnter the password to login: ");
+    printf("\n\n\n\n\n\t\t\t\tEnter the password to login:");
     scanf("%s", pass);
+
 
     // restore terminal
     if (tcsetattr(fileno(stdin), TCSANOW, &oflags) != 0)
@@ -44,8 +46,10 @@ const char *getPassword(struct User u)
         exit(1);
     }
 
-    while (fscanf(fp, "%s %s", userChecker.name, userChecker.password) != EOF)
+    while (fscanf(fp, "%d %s %s", &userChecker.id, userChecker.name, userChecker.password) != EOF)
     {
+        printf("%d %s %s\n", userChecker.id, userChecker.name, userChecker.password);
+        
         if (strcmp(userChecker.name, u.name) == 0)
         {
             fclose(fp);
@@ -55,5 +59,6 @@ const char *getPassword(struct User u)
     }
 
     fclose(fp);
+
     return "no user found";
 }
