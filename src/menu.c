@@ -52,12 +52,11 @@ void mainMenu(struct User u)
     }
 };
 
-
-
 void initMenu(struct User *u)
 {
     int r = 0;
     int option;
+    int validInput;
     
     do 
     {
@@ -69,7 +68,19 @@ void initMenu(struct User *u)
         printf("\n\t\t[2]- register\n");
         printf("\n\t\t[3]- exit\n");    
 
-        scanf("%d", &option);
+        validInput = scanf("%d", &option);
+
+        if (validInput != 1) {
+            // Clear input buffer if invalid input
+            while (getchar() != '\n');
+            printf("\n\t\tInvalid input. Please enter a number.\n");
+            printf("\t\tPress Enter to continue...");
+            getchar();
+            continue;
+        }
+        
+        // Clear any remaining characters in input buffer
+        while (getchar() != '\n');
 
     } while (option < 1 || option > 3);
        
