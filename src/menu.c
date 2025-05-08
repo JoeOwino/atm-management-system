@@ -54,34 +54,47 @@ void mainMenu(struct User u)
 
 void initMenu(struct User *u)
 {
+
     int r = 0;
     int option;
-    int validInput;
+    char input[100]; // Buffer to store user input as string
+    float temp; // For checking if input is a float
+    char *endptr; // For strtof checking
     
-    do 
-    {
-        system("clear");
-    
+    do {
+        system("clear");  // Note: system("cls") for Windows
         printf("\n\n\t\t======= ATM =======\n");
         printf("\n\t\t-->> Feel free to login / register :\n");
         printf("\n\t\t[1]- login\n");
         printf("\n\t\t[2]- register\n");
-        printf("\n\t\t[3]- exit\n");    
-
-        validInput = scanf("%d", &option);
-
-        if (validInput != 1) {
-            // Clear input buffer if invalid input
-            while (getchar() != '\n');
-            printf("\n\t\tInvalid input. Please enter a number.\n");
+        printf("\n\t\t[3]- exit\n\n");
+        printf("\t\tEnter choice: ");
+        
+        // Get input as a string
+        if (fgets(input, sizeof(input), stdin) == NULL) {
+            continue; // Error in input
+        }
+        
+        // Remove newline if present
+        size_t len = strlen(input);
+        if (len > 0 && input[len-1] == '\n') {
+            input[len-1] = '\0';
+        }
+        
+        // Check if input is a valid integer
+        temp = strtof(input, &endptr);
+        
+        // Check if conversion was successful and it's an integer (no decimal part)
+        if (*endptr != '\0' || temp != (int)temp) {
+            printf("\n\t\tInvalid input. Please enter a whole number (1, 2, or 3).\n");
             printf("\t\tPress Enter to continue...");
             getchar();
             continue;
         }
         
-        // Clear any remaining characters in input buffer
-        while (getchar() != '\n');
-
+        // Convert to integer
+        option = (int)temp;
+        
     } while (option < 1 || option > 3);
        
     switch (option)
@@ -112,3 +125,4 @@ void initMenu(struct User *u)
     }
     
 };
+
