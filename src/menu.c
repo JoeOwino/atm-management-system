@@ -130,15 +130,8 @@ void initMenu(struct User *u)
             break;
             
         case 2:
-            registerUser(u->name, u->password);  // This would be the function to implement
-            if (strcmp(u->password, getPassword(*u)) == 0) {
-                printf("\n\n\t\tPassword Match!\n");
-                printf("\t\tLogin successful.\n");
-            } else {
-                printf("\n\t\tWrong password or username!\n");
-                exit(1);
-            }
-            break;
+            registerUser(u->name, u->password);  
+            exit(0);
             
         case 3:
             printf("\n\t\tThank you for using our ATM service. Goodbye!\n");
