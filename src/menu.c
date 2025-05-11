@@ -1,4 +1,3 @@
-#include <stdbool.h>
 #include "header.h"
 
 bool validateIntegerInput(int min, int max, int *result) {
@@ -97,7 +96,6 @@ void mainMenu(struct User u)
 
 void initMenu(struct User *u)
 {
-    int r = 0;
     int option;
     
     do {
@@ -129,14 +127,17 @@ void initMenu(struct User *u)
                 printf("\n\t\tWrong password or username!\n");
                 exit(1);
             }
-            r = 1;
             break;
             
         case 2:
-            // TODO: Implement registration function
-            printf("\n\t\tRegistration module not implemented yet.\n");
-            // registerUser(u);  // This would be the function to implement
-            r = 1;
+            registerUser(u->name, u->password);  // This would be the function to implement
+            if (strcmp(u->password, getPassword(*u)) == 0) {
+                printf("\n\n\t\tPassword Match!\n");
+                printf("\t\tLogin successful.\n");
+            } else {
+                printf("\n\t\tWrong password or username!\n");
+                exit(1);
+            }
             break;
             
         case 3:
