@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <termios.h>
+#include <stdbool.h>
+
 
 struct Date
 {
@@ -31,7 +34,6 @@ struct User
 
 // authentication functions
 void loginMenu(char a[50], char pass[50]);
-void registerMenu(char a[50], char pass[50]);
 const char *getPassword(struct User u);
 
 // system function
@@ -42,3 +44,6 @@ void checkAllAccounts(struct User u);
 // menu functions
 void mainMenu(struct User u);
 void initMenu(struct User *u);
+
+// registration functions
+void registerUser(char name[50], char pass[50]);
