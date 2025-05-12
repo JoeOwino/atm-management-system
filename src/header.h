@@ -51,3 +51,4 @@ void registerUser(char name[50], char pass[50]);
 
 // fileio functions
 int getID(char *file);
+void writeUser(struct User u);
