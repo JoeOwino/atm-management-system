@@ -3,6 +3,7 @@
 #include <string.h>
 #include <termios.h>
 #include <stdbool.h>
+#include <ctype.h>
 
 
 struct Date
