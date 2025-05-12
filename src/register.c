@@ -72,8 +72,7 @@ void registerUser(char name[50], char pass[50])
 {
 
     struct termios oflags, nflags;
-    do 
-    {
+    do {
         system("clear");
         printf("\n\n\t\t======= ATM =======\n");
         printf("\t\tMember Registration\n\n\n");
@@ -109,19 +108,48 @@ void registerUser(char name[50], char pass[50])
 
     } while (!isUnique_name(name) || isEmpty(name) || !isValidName(name));
     
+    
     // disabling echo
     tcgetattr(fileno(stdin), &oflags);
     nflags = oflags;
     nflags.c_lflag &= ~ECHO;
     nflags.c_lflag |= ECHONL;
 
-    if (tcsetattr(fileno(stdin), TCSANOW, &nflags) != 0)
+
+    do {
+        printf("\n\n\t\tEnter Your password (no spaces):");
+
+        // Get input as a string
+        if (fgets(pass, 50, stdin) == NULL) {
+            printf("\n\t\tError reading input. Please try again.\n");
+            printf("\t\tPress Enter to continue...");
+            getchar();
+            continue;
+        }
+
+        if (isEmpty(pass)) {
+            printf("\n\t\tPassword cannot be empty. Please try again.\n");
+            printf("\t\tPress Enter to continue...");
+            getchar();
+        }
+
+        if (!isValidPassword(pass)) {
+            printf("\n\t\tPassword contains spaces. Please use only letters and numbers.\n");
+            printf("\t\tPress Enter to continue...");
+            getchar();
+        }
+
+    } while (!isValidPassword(pass) || isEmpty(pass));
+
+    // restore terminal
+    if (tcsetattr(fileno(stdin), TCSANOW, &oflags) != 0)
     {
         perror("tcsetattr");
         return exit(1);
     }
-    printf("\n\n\n\n\n\t\tEnter a password of your choice (No spaces):");
-    scanf("%s", pass);
+
+
+
 
     printf("\n\t\t\t\tRegiatered Successfully\nName: %s\nPassword: %s\n", name, pass);
 
