@@ -132,7 +132,7 @@ void initMenu(struct User *u)
         case 2:
             registerUser(u->name, u->password);  
             exit(0);
-            
+            break;
         case 3:
             printf("\n\t\tThank you for using our ATM service. Goodbye!\n");
             exit(0);  // Exit with success code
