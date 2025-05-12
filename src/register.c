@@ -175,10 +175,9 @@ void registerUser(char name[50], char pass[50])
         return exit(1);
     }
 
+    int id = getID("./data/users.txt");
 
-
-
-    printf("\n\t\t\t\tRegiatered Successfully\nName: %s\nPassword: %s\n", name, pass);
+    printf("\n\t\t\t\tRegiatered Successfully\nID: %d\nName: %s\nPassword: %s\n", id, name, pass);
 
     printf("END\n");
 }
