@@ -25,3 +25,18 @@ int getID(char *file)
     
     return id + 1; // Increment the highest ID by 1
 }
+
+void writeUser(struct User u)
+{
+    FILE *fp;
+    
+    if ((fp = fopen("./data/users.txt", "a")) == NULL)
+    {
+        printf("Error! opening file\n");
+        exit(1);
+    }
+    
+    fprintf(fp, "%d %s %s\n", u.id, u.name, u.password);
+    
+    fclose(fp);
+}
