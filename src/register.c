@@ -43,6 +43,31 @@ bool isEmpty(char input[50])
     return false;
 }
 
+bool isValidName(char input[50])
+{
+
+    // Check for spaces or special characters
+    for (int i = 0; i < strlen(input); i++) {
+        if (isspace(input[i]) || !isalnum(input[i])) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool isValidPassword(char input[50])
+{
+    // Check for spaces
+    for (int i = 0; i < strlen(input); i++) {
+        if (isspace(input[i])) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 void registerUser(char name[50], char pass[50])
 {
 
@@ -70,13 +95,19 @@ void registerUser(char name[50], char pass[50])
             getchar();
         }
 
+        if (!isValidName(name)) {
+            printf("\n\t\tName contains spaces or special characters. Please use only letters and numbers.\n");
+            printf("\t\tPress Enter to continue...");
+            getchar();
+        }
+
         if (!isUnique_name(name)) {
             printf("\n\t\tName already taken. Please choose another name.\n");
             printf("\t\tPress Enter to continue...");
             getchar();
         }
 
-    } while (!isUnique_name(name) || isEmpty(name));
+    } while (!isUnique_name(name) || isEmpty(name) || !isValidName(name));
     
     // disabling echo
     tcgetattr(fileno(stdin), &oflags);
