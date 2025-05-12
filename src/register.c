@@ -117,6 +117,11 @@ void registerUser(char name[50], char pass[50])
 
 
     do {
+        system("clear");
+        printf("\n\n\t\t======= ATM =======\n");
+        printf("\t\tMember Registration\n\n\n");
+
+        printf("\t\tEnter Your name (no spaces or special charators):%s", name);
         printf("\n\n\t\tEnter Your password (no spaces):");
 
         // Get input as a string
