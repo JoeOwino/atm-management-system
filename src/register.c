@@ -68,6 +68,23 @@ bool isValidPassword(char input[50])
     return true;
 }
 
+bool isValidLen(char input[50])
+{
+    // Remove newline if present
+    size_t len = strlen(input);
+    if (len > 0 && input[len-1] == '\n') {
+        input[len-1] = '\0';
+        len--;
+    }
+    
+    // Check if input is empty
+    if (len >= 8) {
+        return true;
+    }
+
+    return false;
+}
+
 void registerUser(char name[50], char pass[50])
 {
 
@@ -92,12 +109,14 @@ void registerUser(char name[50], char pass[50])
             printf("\n\t\tName cannot be empty. Please try again.\n");
             printf("\t\tPress Enter to continue...");
             getchar();
+            continue;
         }
 
         if (!isValidName(name)) {
             printf("\n\t\tName contains spaces or special characters. Please use only letters and numbers.\n");
             printf("\t\tPress Enter to continue...");
             getchar();
+            continue;
         }
 
         if (!isUnique_name(name)) {
@@ -122,7 +141,8 @@ void registerUser(char name[50], char pass[50])
         printf("\t\tMember Registration\n\n\n");
 
         printf("\t\tEnter Your name (no spaces or special charators):%s", name);
-        printf("\n\n\t\tEnter Your password (no spaces):");
+
+        printf("\n\n\t\tEnter Your password (at least 8 charactors and no spaces):");
 
         // Get input as a string
         if (fgets(pass, 50, stdin) == NULL) {
@@ -132,19 +152,21 @@ void registerUser(char name[50], char pass[50])
             continue;
         }
 
-        if (isEmpty(pass)) {
-            printf("\n\t\tPassword cannot be empty. Please try again.\n");
+        if (!isValidLen(pass)) {
+            printf("\n\t\tPassword too short. Please try again.\n");
             printf("\t\tPress Enter to continue...");
             getchar();
+            continue;
         }
 
         if (!isValidPassword(pass)) {
             printf("\n\t\tPassword contains spaces. Please use only letters and numbers.\n");
             printf("\t\tPress Enter to continue...");
             getchar();
+            continue;
         }
 
-    } while (!isValidPassword(pass) || isEmpty(pass));
+    } while (!isValidPassword(pass) || !isValidLen(pass));
 
     // restore terminal
     if (tcsetattr(fileno(stdin), TCSANOW, &oflags) != 0)
