@@ -26,13 +26,27 @@ const bool isUnique_name(char name[50])
     return true;
 }
 
+bool isEmpty(char input[50])
+{
+    // Remove newline if present
+    size_t len = strlen(input);
+    if (len > 0 && input[len-1] == '\n') {
+        input[len-1] = '\0';
+        len--;
+    }
+    
+    // Check if input is empty
+    if (len == 0) {
+        return true;
+    }
 
-void registerUser(char name[100], char pass[50])
+    return false;
+}
+
+void registerUser(char name[50], char pass[50])
 {
 
     struct termios oflags, nflags;
-    size_t len;
-
     do 
     {
         system("clear");
@@ -43,36 +57,26 @@ void registerUser(char name[100], char pass[50])
         // scanf("%s", name);
 
         // // Get input as a string
-        if (fgets(name, 100, stdin) == NULL) {
+        if (fgets(name, 50, stdin) == NULL) {
             printf("\n\t\tError reading input. Please try again.\n");
             printf("\t\tPress Enter to continue...");
             getchar();
             continue;
         }
 
-       // Remove newline if present
-        len = strlen(name);
-        if (len > 0 && name[len-1] == '\n') {
-            name[len-1] = '\0';
-            len--;
-        }
-        
-        // Check if input is empty
-        if (len == 0) {
+        if (isEmpty(name)) {
             printf("\n\t\tName cannot be empty. Please try again.\n");
             printf("\t\tPress Enter to continue...");
             getchar();
-            continue;
         }
 
         if (!isUnique_name(name)) {
             printf("\n\t\tName already taken. Please choose another name.\n");
             printf("\t\tPress Enter to continue...");
             getchar();
-            //continue;
         }
 
-    } while (!isUnique_name(name) || len == 0);
+    } while (!isUnique_name(name) || isEmpty(name));
     
     // disabling echo
     tcgetattr(fileno(stdin), &oflags);
