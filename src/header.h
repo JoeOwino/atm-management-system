@@ -4,6 +4,7 @@
 #include <termios.h>
 #include <stdbool.h>
 #include <ctype.h>
+#include <time.h>
 
 
 struct Date
