@@ -44,19 +44,35 @@ bool validateIntegerInput(int min, int max, int *result) {
 
 void mainMenu(struct User u)
 {
-    int option;
-    system("clear");
-    printf("\n\n\t\t======= ATM =======\n\n");
-    printf("\n\t\t-->> Feel free to choose one of the options below <<--\n");
-    printf("\n\t\t[1]- Create a new account\n");
-    printf("\n\t\t[2]- Update account information\n");
-    printf("\n\t\t[3]- Check accounts\n");
-    printf("\n\t\t[4]- Check list of owned account\n");
-    printf("\n\t\t[5]- Make Transaction\n");
-    printf("\n\t\t[6]- Remove existing account\n");
-    printf("\n\t\t[7]- Transfer ownership\n");
-    printf("\n\t\t[8]- Exit\n");
-    scanf("%d", &option);
+    int option = 0;
+    int attempts = 0;
+
+    do {
+        system("clear");
+        printf("\n\n\t\t======= ATM =======\n\n");
+        printf("\n\t\t-->> Feel free to choose one of the options below <<--\n");
+        printf("\n\t\t[1]- Create a new account\n");
+        printf("\n\t\t[2]- Update account information\n");
+        printf("\n\t\t[3]- Check accounts\n");
+        printf("\n\t\t[4]- Check list of owned account\n");
+        printf("\n\t\t[5]- Make Transaction\n");
+        printf("\n\t\t[6]- Remove existing account\n");
+        printf("\n\t\t[7]- Transfer ownership\n");
+        printf("\n\t\t[8]- Exit\n");
+        printf("\n\t\tEnter choice: ");
+        
+        if (!validateIntegerInput(1, 8, &option) && attempts > 0) {
+            printf("\n\t\tInvalid input. Please enter a whole number between 1 and 8.\n");
+            printf("\t\tPress Enter to continue...");
+            getchar();
+            continue;
+        }
+
+        if (attempts == 0) {
+            attempts ++;
+        }
+
+    }while (option < 1 || option > 8);
 
     switch (option)
     {
@@ -107,7 +123,6 @@ void initMenu(struct User *u)
         printf("\n\t\t[3]- exit\n\n");
         printf("\t\tEnter choice: ");
         
-        // Use our validation function
         if (!validateIntegerInput(1, 3, &option)) {
             printf("\n\t\tInvalid input. Please enter a whole number (1, 2, or 3).\n");
             printf("\t\tPress Enter to continue...");
