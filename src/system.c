@@ -2,6 +2,80 @@
 
 const char *RECORDS = "./data/records.txt";
 
+bool isValidDate(struct Date *dt)
+{
+    char input[50]; // Fixed: Properly allocate memory for input buffer
+    
+    // Get input as a string
+    if (fgets(input, sizeof(input), stdin) == NULL) {
+        return false; // Error in input
+    }
+    
+    // Remove newline if present
+    size_t len = strlen(input);
+    if (len > 0 && input[len-1] == '\n') {
+        input[len-1] = '\0';
+    }
+    
+    // Check if input is empty
+    if (strlen(input) == 0) {
+        return false;
+    }
+    
+    // Fixed: Use sscanf instead of scanf to parse the input string
+    if (sscanf(input, "%d/%d/%d", &dt->month, &dt->day, &dt->year) != 3) {
+        printf("Invalid date format. Please use MM/DD/YYYY format.\n");
+        return false;
+    }
+    
+    // Check if the date is valid
+    if (dt->month < 1 || dt->month > 12) {
+        printf("Invalid month. Please enter a valid date.\n");
+        return false;
+    }
+    
+    if (dt->day < 1 || dt->day > 31) {
+        printf("Invalid day. Please enter a valid date.\n");
+        return false;
+    }
+    
+    if (dt->year < 1900 || dt->year > 2100) {
+        printf("Invalid year. Please enter a valid date.\n");
+        return false;
+    }
+    
+    if ((dt->month == 4 || dt->month == 6 || dt->month == 9 || dt->month == 11) && dt->day > 30) {
+        printf("Invalid day for the given month. Please enter a valid date.\n");
+        return false;
+    }
+    
+    if (dt->month == 2) {
+        if ((dt->year % 4 == 0 && dt->year % 100 != 0) || (dt->year % 400 == 0)) {
+            if (dt->day > 29) {
+                printf("Invalid day for February in a leap year. Please enter a valid date.\n");
+                return false;
+            }
+        } else {
+            if (dt->day > 28) {
+                printf("Invalid day for February. Please enter a valid date.\n");
+                return false;
+            }
+        }
+    }
+    
+    // Check if the date is in the future
+    time_t t = time(NULL);
+    struct tm *tm = localtime(&t);
+    if (dt->year > tm->tm_year + 1900 ||
+        (dt->year == tm->tm_year + 1900 && dt->month > tm->tm_mon + 1) ||
+        (dt->year == tm->tm_year + 1900 && dt->month == tm->tm_mon + 1 && dt->day > tm->tm_mday)) {
+        printf("Invalid date. The date cannot be in the future.\n");
+        return false;
+    }
+    
+    return true;
+}
+
 int getAccountFromFile(FILE *ptr, char name[50], struct Record *r)
 {
     return fscanf(ptr, "%d %d %s %d %d/%d/%d %s %d %lf %s",
@@ -102,35 +176,76 @@ void createNewAcc(struct User u)
     struct Record cr;
     char userName[50];
     FILE *pf = fopen(RECORDS, "a+");
-
-noAccount:
-    system("clear");
-    printf("\t\t\t===== New record =====\n");
-
-    printf("\nEnter today's date(mm/dd/yyyy):");
-    scanf("%d/%d/%d", &r.deposit.month, &r.deposit.day, &r.deposit.year);
-    printf("\nEnter the account number:");
+    struct Date dt;
+    
+    if (pf == NULL) { // Fixed: Check if file was opened successfully
+        printf("Error opening file.\n");
+        return;
+    }
+    
+    do {
+        system("clear");
+        printf("\t\t====== Create new account =====\n\n");
+        printf("\t\tEnter the date of deposit (MM/DD/YYYY): "); // Fixed: Added format hint
+        
+        if (!isValidDate(&dt)) {
+            // The error message is already printed in isValidDate
+            printf("\t\tPress Enter to continue...");
+            while (getchar() != '\n'); // Fixed: Clear input buffer
+            continue;
+        }
+        
+        // Fixed: Store the date in the record
+        r.deposit.day = dt.day;
+        r.deposit.month = dt.month;
+        r.deposit.year = dt.year;
+        
+        break; // If we get here, the date is valid, so exit the loop
+    } while (1);
+    
+    printf("\nEnter the account number: ");
     scanf("%d", &r.accountNbr);
-
-    while (getAccountFromFile(pf, userName, &cr))
-    {
-        if (strcmp(userName, u.name) == 0 && cr.accountNbr == r.accountNbr)
-        {
+    while (getchar() != '\n'); // Fixed: Clear input buffer
+    
+    // Fixed: Reset file position to beginning for reading
+    rewind(pf);
+    
+    // Check if account exists
+    bool accountExists = false;
+    while (getAccountFromFile(pf, userName, &cr)) {
+        if (strcmp(userName, u.name) == 0 && cr.accountNbr == r.accountNbr) {
             printf("✖ This Account already exists for this user\n\n");
-            goto noAccount;
+            accountExists = true;
+            break;
         }
     }
-    printf("\nEnter the country:");
-    scanf("%s", r.country);
-    printf("\nEnter the phone number:");
+    
+    if (accountExists) {
+        fclose(pf);
+        success(u);
+        return;
+    }
+    
+    // Reset file position to end for appending
+    fseek(pf, 0, SEEK_END);
+    
+    printf("\nEnter the country: ");
+    scanf("%49s", r.country); // Fixed: Added limit to prevent buffer overflow
+    while (getchar() != '\n'); // Fixed: Clear input buffer
+    
+    printf("\nEnter the phone number: ");
     scanf("%d", &r.phone);
+    while (getchar() != '\n'); // Fixed: Clear input buffer
+    
     printf("\nEnter amount to deposit: $");
     scanf("%lf", &r.amount);
-    printf("\nChoose the type of account:\n\t-> saving\n\t-> current\n\t-> fixed01(for 1 year)\n\t-> fixed02(for 2 years)\n\t-> fixed03(for 3 years)\n\n\tEnter your choice:");
-    scanf("%s", r.accountType);
-
+    while (getchar() != '\n'); // Fixed: Clear input buffer
+    
+    printf("\nChoose the type of account:\n\t-> saving\n\t-> current\n\t-> fixed01(for 1 year)\n\t-> fixed02(for 2 years)\n\t-> fixed03(for 3 years)\n\n\tEnter your choice: ");
+    scanf("%49s", r.accountType); // Fixed: Added limit to prevent buffer overflow
+    while (getchar() != '\n'); // Fixed: Clear input buffer
+    
     saveAccountToFile(pf, u, r);
-
     fclose(pf);
     success(u);
 }
