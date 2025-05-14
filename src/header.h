@@ -55,9 +55,9 @@ int getID(char *file);
 void writeUser(struct User u);
 
 // validation functions
-bool validateIntegerInput(int min, int max, int *result);
 bool isValidDate(struct Date *dt);
 bool isValidName(char input[50]);
 bool isValidPassword(char input[50]);
-bool isValidLen(char input[50]);
-bool isvalidMenuInput(int min, int max, int *result);
+bool isvalidIntegerInput(int min, int max, int *result);
+bool isValidPhoneNo(char *input);
+
