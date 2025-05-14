@@ -31,7 +31,7 @@ void registerUser(char name[50], char pass[50])
     nflags.c_lflag |= ECHONL;
 
 
-    do {
+    while(1) {
         system("clear");
         printf("\n\n\t\t======= ATM =======\n");
         printf("\t\tMember Registration\n\n\n");
@@ -41,28 +41,14 @@ void registerUser(char name[50], char pass[50])
         printf("\n\n\t\tEnter Your password (at least 8 charactors and no spaces):");
 
         // Get input as a string
-        if (fgets(pass, 50, stdin) == NULL) {
-            printf("\n\t\tError reading input. Please try again.\n");
-            printf("\t\tPress Enter to continue...");
-            getchar();
-            continue;
-        }
-
-        if (!isValidLen(pass)) {
-            printf("\n\t\tPassword too short. Please try again.\n");
-            printf("\t\tPress Enter to continue...");
-            getchar();
-            continue;
-        }
-
         if (!isValidPassword(pass)) {
-            printf("\n\t\tPassword contains spaces. Please use only letters and numbers.\n");
             printf("\t\tPress Enter to continue...");
             getchar();
             continue;
         }
 
-    } while (!isValidPassword(pass) || !isValidLen(pass));
+        break;
+    } 
 
     // restore terminal
     if (tcsetattr(fileno(stdin), TCSANOW, &oflags) != 0)
