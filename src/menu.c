@@ -19,7 +19,7 @@ void mainMenu(struct User u)
         printf("\n\t\t[8]- Exit\n");
         printf("\n\t\tEnter choice: ");
         
-        if (!validateIntegerInput(1, 8, &option) && attempts > 0) {
+        if (!isvalidMenuInput(1, 8, &option) && attempts > 0) {
             printf("\n\t\tInvalid input. Please enter a whole number between 1 and 8.\n");
             printf("\t\tPress Enter to continue...");
             getchar();
@@ -81,7 +81,7 @@ void initMenu(struct User *u)
         printf("\n\t\t[3]- exit\n\n");
         printf("\t\tEnter choice: ");
         
-        if (!validateIntegerInput(1, 3, &option)) {
+        if (!isvalidMenuInput(1, 3, &option)) {
             printf("\n\t\tInvalid input. Please enter a whole number (1, 2, or 3).\n");
             printf("\t\tPress Enter to continue...");
             getchar();
