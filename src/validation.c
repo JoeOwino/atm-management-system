@@ -76,7 +76,7 @@ bool isUnique_name(char name[50])
     return true;
 }
 
-bool isvalidMenuInput(int min, int max, int *result) {
+bool isvalidIntegerInput(int min, int max, int *result) {
     char input[100]; // Buffer to store user input as string
     float temp; // For checking if input is a float
     char *endptr; // For strtof checking
@@ -218,4 +218,44 @@ bool isValidPassword(char *input)
     }
 
     return true;
+}
+
+bool isValidPhoneNo(char *input) 
+{    
+    if (!validateStringInput(input, 50)) {
+        return false; // Error in input
+    }
+    
+    // Check if the phone number is valid
+    if (strlen(input) != 10 || !isdigit(input[0])) {
+        printf("Invalid phone number. Please enter a valid 10-digit phone number.\n");
+        fflush(stdout); 
+        return false;
+    }
+    
+    for (int i = 0; i < strlen(input); i++) {
+        if (!isdigit(input[i])) {
+            printf("Invalid phone number. Please enter a valid 10-digit phone number.\n");
+            fflush(stdout); 
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+bool isValidAccNo(char *input) 
+{
+    if (!validateStringInput(input, 50)) {
+        return false; // Error in input
+    }
+
+    if (isContainsSpaces(input)) {
+        printf("Invalid Account Number. Please enter a valid password without spaces.\n");
+        fflush(stdout); 
+        return false;
+    }
+
+    return true;
+
 }
