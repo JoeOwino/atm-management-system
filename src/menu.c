@@ -20,10 +20,9 @@ void mainMenu(struct User u)
         printf("\n\t\tEnter choice: ");
         
         if (!isvalidMenuInput(1, 8, &option) && attempts > 0) {
-            printf("\n\t\tInvalid input. Please enter a whole number between 1 and 8.\n");
+            //printf("\n\t\tInvalid input. Please enter a whole number between 1 and 8.\n");
             printf("\t\tPress Enter to continue...");
             getchar();
-            continue;
         }
 
         if (attempts == 0) {
@@ -72,7 +71,7 @@ void initMenu(struct User *u)
 {
     int option;
     
-    do {
+    while(1) {
         system("clear");  // Note: system("cls") for Windows
         printf("\n\n\t\t======= ATM =======\n");
         printf("\n\t\t-->> Feel free to login / register :\n");
@@ -87,8 +86,10 @@ void initMenu(struct User *u)
             getchar();
             continue;
         }
+
+        break;
         
-    } while (option < 1 || option > 3);
+    }
     
     switch (option) {
         case 1:
