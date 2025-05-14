@@ -1,8 +1,13 @@
 #include "header.h"
 
-bool validateStringInput(char *input) {
+bool validateStringInput(char *input, size_t size)
+{
+    if (input == NULL || size == 0) {
+        return false;
+    }
+    
     // Get input as a string
-    if (fgets(input, sizeof(input), stdin) == NULL) {
+    if (fgets(input, size, stdin) == NULL) {
         printf("Error reading input.\n");
         return false; // Error in input
     }
@@ -11,14 +16,24 @@ bool validateStringInput(char *input) {
     size_t len = strlen(input);
     if (len > 0 && input[len-1] == '\n') {
         input[len-1] = '\0';
+        len--; // Update length
     }
     
     // Check if input is empty
-    if (strlen(input) == 0) {
-        printf("Empty input. Please enter a date.\n");
+    if (len == 0) {
+        printf("Empty input. Please enter a value.\n");
         return false;
     }
-
+    
+    // Check if input was truncated (buffer was too small)
+    if (len == size - 1 && input[len-1] != '\n') {
+        // Input might have been truncated
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF); // Clear remaining input
+        printf("Input too long. Maximum %zu characters allowed.\n", size - 1);
+        return false;
+    }
+    
     return true;
 }
 
@@ -65,7 +80,7 @@ bool isvalidMenuInput(int min, int max, int *result) {
     float temp; // For checking if input is a float
     char *endptr; // For strtof checking
     
-    if (!validateStringInput(input)) {
+    if (!validateStringInput(input, 100)) {
         return false; // Error in input
     }
     
@@ -92,9 +107,9 @@ bool isvalidMenuInput(int min, int max, int *result) {
 
 bool isValidDate(struct Date *dt)
 {
-    char input[50]; 
+    char input[100]; 
     
-    if (!validateStringInput(input)) {
+    if (!validateStringInput(input, 50)) {
         return false; // Error in input
     }
     
@@ -164,7 +179,7 @@ bool isValidDate(struct Date *dt)
 bool isValidName(char *input)
 {
 
-    if (!validateStringInput(input)) {
+    if (!validateStringInput(input, 50)) {
         return false; // Error in input
     }
 
