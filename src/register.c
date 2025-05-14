@@ -4,7 +4,7 @@ void registerUser(char name[50], char pass[50])
 {
 
     struct termios oflags, nflags;
-    do {
+    while(1) {
         system("clear");
         printf("\n\n\t\t======= ATM =======\n");
         printf("\t\tMember Registration\n\n\n");
@@ -13,34 +13,15 @@ void registerUser(char name[50], char pass[50])
         // scanf("%s", name);
 
         // // Get input as a string
-        if (fgets(name, 50, stdin) == NULL) {
-            printf("\n\t\tError reading input. Please try again.\n");
-            printf("\t\tPress Enter to continue...");
-            getchar();
-            continue;
-        }
-
-        if (isEmpty(name)) {
-            printf("\n\t\tName cannot be empty. Please try again.\n");
-            printf("\t\tPress Enter to continue...");
-            getchar();
-            continue;
-        }
-
         if (!isValidName(name)) {
-            printf("\n\t\tName contains spaces or special characters. Please use only letters and numbers.\n");
             printf("\t\tPress Enter to continue...");
             getchar();
             continue;
         }
 
-        if (!isUnique_name(name)) {
-            printf("\n\t\tName already taken. Please choose another name.\n");
-            printf("\t\tPress Enter to continue...");
-            getchar();
-        }
+        break;
 
-    } while (!isUnique_name(name) || isEmpty(name) || !isValidName(name));
+    } 
     
     
     // disabling echo
