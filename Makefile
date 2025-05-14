@@ -1,4 +1,4 @@
-objects = src/main.o src/system.o src/auth.o src/menu.o src/register.o src/docs.o src/validation.0
+objects = src/main.o src/system.o src/auth.o src/menu.o src/register.o src/docs.o src/validation.o
 
 atm: $(objects)
 	cc -o atm $(objects)
