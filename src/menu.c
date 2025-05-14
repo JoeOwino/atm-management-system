@@ -1,47 +1,5 @@
 #include "header.h"
 
-bool validateIntegerInput(int min, int max, int *result) {
-    char input[100]; // Buffer to store user input as string
-    float temp; // For checking if input is a float
-    char *endptr; // For strtof checking
-    
-    // Get input as a string
-    if (fgets(input, sizeof(input), stdin) == NULL) {
-        return false; // Error in input
-    }
-    
-    // Remove newline if present
-    size_t len = strlen(input);
-    if (len > 0 && input[len-1] == '\n') {
-        input[len-1] = '\0';
-    }
-    
-    // Check if input is empty
-    if (strlen(input) == 0) {
-        return false;
-    }
-    
-    // Check if input is a valid integer
-    temp = strtof(input, &endptr);
-    
-    // Check if conversion was successful and it's an integer (no decimal part)
-    if (*endptr != '\0' || temp != (int)temp) {
-        return false; // Not an integer
-    }
-    
-    // Convert to integer
-    int value = (int)temp;
-    
-    // Check range
-    if (value < min || value > max) {
-        return false; // Out of range
-    }
-    
-    // All checks passed, store result and return success
-    *result = value;
-    return true;
-}
-
 void mainMenu(struct User u)
 {
     int option = 0;
