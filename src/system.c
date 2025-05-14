@@ -115,7 +115,7 @@ void createNewAcc(struct User u)
         printf("\t\tEnter the date of deposit (MM/DD/YYYY): "); 
         
         if (!isValidDate(&dt)) {
-            printf("\t\tPress any key to try again...");
+            printf("\t\tPress enter to continue...");
             getchar(); 
             continue;
         }
