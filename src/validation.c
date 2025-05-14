@@ -40,13 +40,14 @@ bool validateStringInput(char *input, size_t size)
 bool isContainsSpaces(char input[50])
 {
     // Check for spaces or special characters
+    
     for (int i = 0; i < strlen(input); i++) {
-        if (isspace(input[i]) || !isalnum(input[i])) {
-            return false;
+        if (isspace(input[i])) {
+            return true;
         }
     }
 
-    return true;
+    return false;
 }
 
 bool isUnique_name(char name[50])
@@ -198,31 +199,23 @@ bool isValidName(char *input)
     return true;
 }
 
-bool isValidPassword(char input[50])
+bool isValidPassword(char *input)
 {
-    // Check for spaces
-    for (int i = 0; i < strlen(input); i++) {
-        if (isspace(input[i])) {
-            return false;
-        }
+    if (!validateStringInput(input, 50)) {
+        return false; // Error in input
+    }
+
+    if (isContainsSpaces(input)) {
+        printf("Invalid password. Please enter a valid password without spaces.\n");
+        fflush(stdout); 
+        return false;
+    }
+
+    if (strlen(input) < 8) {
+        printf("Password must be at least 8 characters long.\n");
+        fflush(stdout); 
+        return false;
     }
 
     return true;
-}
-
-bool isValidLen(char input[50])
-{
-    // Remove newline if present
-    size_t len = strlen(input);
-    if (len > 0 && input[len-1] == '\n') {
-        input[len-1] = '\0';
-        len--;
-    }
-    
-    // Check if input is empty
-    if (len >= 8) {
-        return true;
-    }
-
-    return false;
 }
