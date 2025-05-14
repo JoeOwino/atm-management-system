@@ -57,8 +57,7 @@ void writeUser(struct User u);
 // validation functions
 bool validateIntegerInput(int min, int max, int *result);
 bool isValidDate(struct Date *dt);
-const bool isUnique_name(char name[50]);
-bool isEmpty(char input[50]);
 bool isValidName(char input[50]);
 bool isValidPassword(char input[50]);
 bool isValidLen(char input[50]);
+bool isvalidMenuInput(int min, int max, int *result);
