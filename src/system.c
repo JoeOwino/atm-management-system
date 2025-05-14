@@ -2,91 +2,6 @@
 
 const char *RECORDS = "./data/records.txt";
 
-bool isValidDate(struct Date *dt)
-{
-    char input[50]; 
-    
-    // Get input as a string
-    if (fgets(input, sizeof(input), stdin) == NULL) {
-        printf("Error reading input.\n");
-        return false; // Error in input
-    }
-    
-    // Remove newline if present
-    size_t len = strlen(input);
-    if (len > 0 && input[len-1] == '\n') {
-        input[len-1] = '\0';
-    }
-    
-    // Check if input is empty
-    if (strlen(input) == 0) {
-        printf("Empty input. Please enter a date.\n");
-        return false;
-    }
-    
-    // Use sscanf instead of scanf to parse the input string
-    int items = sscanf(input, "%d/%d/%d", &dt->month, &dt->day, &dt->year);
-    if (items != 3) {
-        printf("Invalid date format. Please use MM/DD/YYYY format.\n");
-        fflush(stdout); 
-        return false;
-    }
-    
-    // Check if the date is valid
-    if (dt->month < 1 || dt->month > 12) {
-        printf("Invalid month. Please enter a valid date.\n");
-        fflush(stdout); 
-        return false;
-    }
-    
-    if (dt->day < 1 || dt->day > 31) {
-        printf("Invalid day. Please enter a valid date.\n");
-        fflush(stdout); 
-        return false;
-    }
-    
-    if (dt->year < 1900 || dt->year > 2100) {
-        printf("Invalid year. Please enter a valid date.\n");
-        fflush(stdout); 
-        return false;
-    }
-    
-    if ((dt->month == 4 || dt->month == 6 || dt->month == 9 || dt->month == 11) && dt->day > 30) {
-        printf("Invalid day for the given month. Please enter a valid date.\n");
-        fflush(stdout); 
-        return false;
-    }
-    
-    if (dt->month == 2) {
-        if ((dt->year % 4 == 0 && dt->year % 100 != 0) || (dt->year % 400 == 0)) {
-            if (dt->day > 29) {
-                printf("Invalid day for February in a leap year. Please enter a valid date.\n");
-                fflush(stdout); 
-                return false;
-            }
-        } else {
-            if (dt->day > 28) {
-                printf("Invalid day for February. Please enter a valid date.\n");
-                fflush(stdout); 
-                return false;
-            }
-        }
-    }
-    
-    // Check if the date is in the future
-    time_t t = time(NULL);
-    struct tm *tm = localtime(&t);
-    if (dt->year > tm->tm_year + 1900 ||
-        (dt->year == tm->tm_year + 1900 && dt->month > tm->tm_mon + 1) ||
-        (dt->year == tm->tm_year + 1900 && dt->month == tm->tm_mon + 1 && dt->day > tm->tm_mday)) {
-        printf("Invalid date. The date cannot be in the future.\n");
-        fflush(stdout); // Ensure the message is displayed
-        return false;
-    }
-    
-    return true;
-}
-
 int getAccountFromFile(FILE *ptr, char name[50], struct Record *r)
 {
     return fscanf(ptr, "%d %d %s %d %d/%d/%d %s %d %lf %s",
@@ -215,7 +130,7 @@ void createNewAcc(struct User u)
     
     printf("\nEnter the account number: ");
     scanf("%d", &r.accountNbr);
-    while (getchar() != '\n'); // Clear input buffer
+    while (getchar() != '\n'); 
     
     // Reset file position to beginning for reading
     rewind(pf);
