@@ -76,12 +76,13 @@ bool isUnique_name(char name[50])
     return true;
 }
 
-bool isvalidIntegerInput(int min, int max, int *result) {
+bool isvalidIntegerInput(int *result) {
     char input[100]; // Buffer to store user input as string
     float temp; // For checking if input is a float
     char *endptr; // For strtof checking
     
     if (!validateStringInput(input, 100)) {
+        printf("Error reading input\n");
         return false; // Error in input
     }
     
@@ -90,19 +91,27 @@ bool isvalidIntegerInput(int min, int max, int *result) {
     
     // Check if conversion was successful and it's an integer (no decimal part)
     if (*endptr != '\0' || temp != (int)temp) {
+        printf("Invalid input. Please enter a whole number.\n");
         return false; // Not an integer
     }
     
     // Convert to integer
-    int value = (int)temp;
+    *result = (int)temp;
     
-    // Check range
-    if (value < min || value > max) {
+    return true;
+}
+
+bool isValidMenuInput(int min, int max, int *result) {
+
+    if (!isvalidIntegerInput(result)) {
+        return false; // Error in input
+    }
+    
+    if (*result < min || *result > max) {
+        printf("Invalid input. Please enter a whole number between %d and %d.\n", min, max);
         return false; // Out of range
     }
     
-    // All checks passed, store result and return success
-    *result = value;
     return true;
 }
 
@@ -220,8 +229,12 @@ bool isValidPassword(char *input)
     return true;
 }
 
-bool isValidPhoneNo(char *input) 
+bool isValidPhoneNo(char *acc) 
 {    
+    char input[100]; // Buffer to store user input as string
+    float temp; // For checking if input is a float
+    char *endptr; // For strtof checking
+
     if (!validateStringInput(input, 50)) {
         return false; // Error in input
     }
@@ -244,18 +257,3 @@ bool isValidPhoneNo(char *input)
     return true;
 }
 
-bool isValidAccNo(char *input) 
-{
-    if (!validateStringInput(input, 50)) {
-        return false; // Error in input
-    }
-
-    if (isContainsSpaces(input)) {
-        printf("Invalid Account Number. Please enter a valid password without spaces.\n");
-        fflush(stdout); 
-        return false;
-    }
-
-    return true;
-
-}
