@@ -127,10 +127,23 @@ void createNewAcc(struct User u)
         
         break;
     }
+
+    while (1)
+    {
+        system("clear");
+        printf("\t\t====== Create new account =====\n\n");
+        printf("\t\tEnter the date of deposit (MM/DD/YYYY): %d/%d/%d", dt.month, dt.day, dt.year); 
+
+        printf("\nEnter the account number: ");
+        if (!isvalidIntegerInput(&r.accountNbr)) {
+            printf("\t\tPress enter to continue...");
+            getchar(); 
+            continue;
+        }
+
+        break;
+    }
     
-    printf("\nEnter the account number: ");
-    scanf("%d", &r.accountNbr);
-    while (getchar() != '\n'); 
     
     // Reset file position to beginning for reading
     rewind(pf);
