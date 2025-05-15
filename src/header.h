@@ -58,6 +58,8 @@ void writeUser(struct User u);
 bool isValidDate(struct Date *dt);
 bool isValidName(char input[50]);
 bool isValidPassword(char input[50]);
-bool isvalidIntegerInput(int min, int max, int *result);
+bool isvalidIntegerInput(int *result);
 bool isValidPhoneNo(char *input);
+bool isValidMenuInput(int min, int max, int *result);
+
 
