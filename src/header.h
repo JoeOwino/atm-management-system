@@ -53,13 +53,14 @@ void registerUser(char name[50], char pass[50]);
 // fileio functions
 int getID(char *file);
 void writeUser(struct User u);
+int getAccountFromFile(FILE *ptr, char name[50], struct Record *r);
+
 
 // validation functions
 bool isValidDate(struct Date *dt);
-bool isValidName(char input[50]);
 bool isValidPassword(char input[50]);
+bool isValidName(char *input);
 bool isvalidIntegerInput(int *result);
 bool isValidPhoneNo(char *input);
 bool isValidMenuInput(int min, int max, int *result);
-
-
+bool isUniqueName(char name[50]);
