@@ -50,7 +50,7 @@ bool isContainsSpaces(char input[50])
     return false;
 }
 
-bool isUnique_name(char name[50])
+bool isUniqueName(char name[50])
 {
     FILE *fp;
     struct User userChecker;
@@ -73,6 +73,32 @@ bool isUnique_name(char name[50])
 
     fclose(fp);
 
+    return true;
+}
+
+bool isUniqueAcc(int acc) {
+    FILE *fp;
+    struct Record r;
+    struct User u;
+    
+    if ((fp = fopen("./data/records.txt", "r")) == NULL) {
+        printf("Error! opening file");
+        exit(1); 
+    }
+    
+    // Option 1: Fix the format string to match your actual file format
+    while (fscanf(fp, "%d %d %s %d %d/%d/%d %s %d %lf %s\n", 
+                 &r.id, &u.id, u.name, &r.accountNbr, 
+                 &r.deposit.month, &r.deposit.day, &r.deposit.year, 
+                 r.country, &r.phone, &r.amount, r.accountType) == 11) {
+
+        if (r.accountNbr == acc) {
+            fclose(fp);
+            return false; 
+        } 
+    }
+    
+    fclose(fp);
     return true;
 }
 
@@ -199,7 +225,7 @@ bool isValidName(char *input)
         return false;
     }
 
-    if (!isUnique_name(input)) {
+    if (!isUniqueName(input)) {
         printf("Name already taken. Please choose another name.\n");
         fflush(stdout); 
         return false;
