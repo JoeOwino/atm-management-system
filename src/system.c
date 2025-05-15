@@ -2,22 +2,6 @@
 
 const char *RECORDS = "./data/records.txt";
 
-int getAccountFromFile(FILE *ptr, char name[50], struct Record *r)
-{
-    return fscanf(ptr, "%d %d %s %d %d/%d/%d %s %d %lf %s",
-                  &r->id,
-		  &r->userId,
-		  name,
-                  &r->accountNbr,
-                  &r->deposit.month,
-                  &r->deposit.day,
-                  &r->deposit.year,
-                  r->country,
-                  &r->phone,
-                  &r->amount,
-                  r->accountType) != EOF;
-}
-
 void saveAccountToFile(FILE *ptr, struct User u, struct Record r)
 {
     fprintf(ptr, "%d %d %s %d %d/%d/%d %s %d %.2lf %s\n\n",
@@ -141,28 +125,35 @@ void createNewAcc(struct User u)
             continue;
         }
 
+        if (!getAccountFromFile(pf, userName, &cr)) {
+            printf("failed to get the Account from the file");
+            printf("\t\tPress enter to continue...");
+            getchar(); 
+            continue;
+        }
+
+        if (!isUniqueAcc(r.accountNbr)) {
+            printf("Account number already taken. Please enter a unique account number.\n");
+            printf("\t\tPress enter to continue...");
+            getchar(); 
+            continue;
+        }
+        
         break;
     }
     
     
     // Reset file position to beginning for reading
-    rewind(pf);
+    // rewind(pf);
     
     // Check if account exists
-    bool accountExists = false;
-    while (getAccountFromFile(pf, userName, &cr)) {
-        if (strcmp(userName, u.name) == 0 && cr.accountNbr == r.accountNbr) {
-            printf("✖ This Account already exists for this user\n\n");
-            accountExists = true;
-            break;
-        }
-    }
+    // bool accountExists = false;
     
-    if (accountExists) {
-        fclose(pf);
-        success(u);
-        return;
-    }
+    // if (accountExists) {
+    //     fclose(pf);
+    //     success(u);
+    //     return;
+    // }
     
     // Reset file position to end for appending
     fseek(pf, 0, SEEK_END);
