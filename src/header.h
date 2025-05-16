@@ -19,7 +19,7 @@ struct Record
     int userId;
     char name[100];
     char country[100];
-    int phone;
+    char phone[50];
     char accountType[10];
     int accountNbr;
     double amount;
@@ -61,7 +61,7 @@ bool isValidDate(struct Date *dt);
 bool isValidPassword(char input[50]);
 bool isValidName(char *input);
 bool isvalidIntegerInput(int *result);
-bool isValidPhoneNo(char *input);
+bool isValidPhoneNo(char *phone);
 bool isValidMenuInput(int min, int max, int *result);
 bool isUniqueName(char name[50]);
 bool validateStringInput(char *input, size_t size);
