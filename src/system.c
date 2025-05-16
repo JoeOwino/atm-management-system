@@ -207,10 +207,36 @@ void createNewAcc(struct User u)
 
     }
 
-    printf("\nChoose the type of account:\n\t-> saving\n\t-> current\n\t-> fixed01(for 1 year)\n\t-> fixed02(for 2 years)\n\t-> fixed03(for 3 years)\n\n\tEnter your choice: ");
-    scanf("%49s", r.accountType); // Added limit to prevent buffer overflow
-    while (getchar() != '\n'); // Clear input buffer
+    while (1)
+    {
+        system("clear");
+        printf("\t\t====== Create new account =====\n\n");
+        printf("\t\tEnter the date of deposit (MM/DD/YYYY): %d/%d/%d", dt.month, dt.day, dt.year); 
+        printf("\nEnter the account number: %d", r.accountNbr);
+        printf("\nEnter the country: %s", r.country);
+        printf("\nEnter the phone number: %s", r.phone);
+        printf("\nAmount deposited: $%.2f", r.amount);
+
+        printf("\nChoose the type of account:\n\t-> saving\n\t-> current\n\t-> fixed01(for 1 year)\n\t-> fixed02(for 2 years)\n\t-> fixed03(for 3 years)\n\n\tEnter your choice: ");
+
+        if (!validateStringInput(r.accountType, 20)) {
+            printf("\t\tPress enter to continue...");
+            getchar(); 
+            continue;
+        }
+
+   if (strcmp(r.accountType, "current") != 0 && strcmp(r.accountType, "saving") != 0 && strcmp(r.accountType, "fixed01") != 0 && strcmp(r.accountType, "fixed02") != 0 && strcmp(r.accountType, "fixed03") != 0) {
+        
+        printf("\n\t\tInvalid account type. Please select from the available options.");
+        printf("\n\t\tPress enter to continue...");
+        getchar();
+        continue;
+    }
+
+        break;
+    }
     
+
     saveAccountToFile(pf, u, r);
     fclose(pf);
     success(u);
