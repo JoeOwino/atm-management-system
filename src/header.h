@@ -64,3 +64,7 @@ bool isvalidIntegerInput(int *result);
 bool isValidPhoneNo(char *input);
 bool isValidMenuInput(int min, int max, int *result);
 bool isUniqueName(char name[50]);
+bool validateStringInput(char *input, size_t size);
+bool isContainsSpaces(char input[50]);
+bool isUniqueAcc(int acc);
+
