@@ -282,3 +282,34 @@ bool isValidPhoneNo(char *phone)
     return true;
 }
 
+bool isvalidAmount(double *amount, double min, double max) {
+    char input[100]; // Buffer to store user input as string
+    double temp; // Changed from float to double for consistency
+    char *endptr; // For strtod checking
+
+    if (!validateStringInput(input, 100)) {
+        printf("Error reading input\n");
+        return false; // Error in input
+    }
+
+    // Check if input is a valid double
+    temp = strtod(input, &endptr); // Using strtod instead of strtof for double precision
+    
+    // Check if conversion was successful
+    if (*endptr != '\0') { // This condition should be != '\0', not == '\0'
+        printf("Invalid input. Please enter a valid number.\n");
+        return false;
+    }
+    
+    // Convert to double (no need to cast since strtod already returns double)
+    *amount = temp;
+    
+    // Check if amount is within range
+    if (*amount < min || *amount > max) {
+        // Fixed format specifiers to %g for displaying double values
+        printf("Invalid input. Please enter a number between %g and %g.\n", min, max);
+        return false; // Out of range
+    }
+    
+    return true;
+}
