@@ -87,10 +87,10 @@ bool isUniqueAcc(int acc) {
     }
     
     // Option 1: Fix the format string to match your actual file format
-    while (fscanf(fp, "%d %d %s %d %d/%d/%d %s %d %lf %s\n", 
+    while (fscanf(fp, "%d %d %s %d %d/%d/%d %s %s %lf %s\n", 
                  &r.id, &u.id, u.name, &r.accountNbr, 
                  &r.deposit.month, &r.deposit.day, &r.deposit.year, 
-                 r.country, &r.phone, &r.amount, r.accountType) == 11) {
+                 r.country, r.phone, &r.amount, r.accountType) == 11) {
 
         if (r.accountNbr == acc) {
             fclose(fp);
@@ -103,6 +103,7 @@ bool isUniqueAcc(int acc) {
 }
 
 bool isvalidIntegerInput(int *result) {
+
     char input[100]; // Buffer to store user input as string
     float temp; // For checking if input is a float
     char *endptr; // For strtof checking
@@ -255,31 +256,29 @@ bool isValidPassword(char *input)
     return true;
 }
 
-bool isValidPhoneNo(char *acc) 
+bool isValidPhoneNo(char *phone) 
 {    
-    char input[100]; // Buffer to store user input as string
-    float temp; // For checking if input is a float
-    char *endptr; // For strtof checking
 
-    if (!validateStringInput(input, 50)) {
+    if (!validateStringInput(phone, 50)) {
         return false; // Error in input
     }
-    
+
     // Check if the phone number is valid
-    if (strlen(input) != 10 || !isdigit(input[0])) {
+    if (strlen(phone) != 10 ) {
         printf("Invalid phone number. Please enter a valid 10-digit phone number.\n");
         fflush(stdout); 
         return false;
     }
     
-    for (int i = 0; i < strlen(input); i++) {
-        if (!isdigit(input[i])) {
-            printf("Invalid phone number. Please enter a valid 10-digit phone number.\n");
-            fflush(stdout); 
+   // Verify that all characters are digits
+    for (int i = 0; i < strlen(phone); i++) {
+        if (!isdigit(phone[i])) {
+            printf("Invalid phone number. Please enter only digits (0-9).\n");
+            fflush(stdout);
             return false;
         }
     }
-    
+
     return true;
 }
 
