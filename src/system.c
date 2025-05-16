@@ -183,15 +183,30 @@ void createNewAcc(struct User u)
             continue;
         }
 
-        break;;
+        break;
 
     }
-    
-    
-    printf("\nEnter amount to deposit: $");
-    scanf("%lf", &r.amount);
-    while (getchar() != '\n'); // Clear input buffer
-    
+
+    while (1)
+    {
+        system("clear");
+        printf("\t\t====== Create new account =====\n\n");
+        printf("\t\tEnter the date of deposit (MM/DD/YYYY): %d/%d/%d", dt.month, dt.day, dt.year); 
+        printf("\nEnter the account number: %d", r.accountNbr);
+        printf("\nEnter the country: %s", r.country);
+        printf("\nEnter the phone number: %s", r.phone);
+
+        printf("\nEnter amount to deposit: ");
+        if (!isvalidAmount(&r.amount, 50, 1000000)) {
+            printf("\t\tPress enter to continue...");
+            getchar(); 
+            continue;
+        }
+
+        break;
+
+    }
+
     printf("\nChoose the type of account:\n\t-> saving\n\t-> current\n\t-> fixed01(for 1 year)\n\t-> fixed02(for 2 years)\n\t-> fixed03(for 3 years)\n\n\tEnter your choice: ");
     scanf("%49s", r.accountType); // Added limit to prevent buffer overflow
     while (getchar() != '\n'); // Clear input buffer
