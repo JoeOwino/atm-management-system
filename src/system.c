@@ -142,26 +142,36 @@ void createNewAcc(struct User u)
         break;
     }
     
-    
-    // Reset file position to beginning for reading
-    // rewind(pf);
-    
-    // Check if account exists
-    // bool accountExists = false;
-    
-    // if (accountExists) {
-    //     fclose(pf);
-    //     success(u);
-    //     return;
-    // }
-    
     // Reset file position to end for appending
-    fseek(pf, 0, SEEK_END);
+    // fseek(pf, 0, SEEK_END);
     
-    printf("\nEnter the country: ");
-    scanf("%49s", r.country); // Added limit to prevent buffer overflow
-    while (getchar() != '\n'); // Clear input buffer
+    while (1)
+    {
+        system("clear");
+        printf("\t\t====== Create new account =====\n\n");
+        printf("\t\tEnter the date of deposit (MM/DD/YYYY): %d/%d/%d", dt.month, dt.day, dt.year); 
+        printf("\nEnter the account number: %d", r.accountNbr);
+
+        printf("\nEnter the country: ");
+        if (!validateStringInput(r.country, 50)) {
+            printf("Invalid country name. Please try again.\n");
+            printf("\t\tPress enter to continue...");
+            getchar(); 
+            continue;
+        }
+
+        if (isContainsSpaces(r.country)) {
+            printf("Invalid country name. Please enter a valid country name without spaces.\n");
+            printf("\t\tPress enter to continue...");
+            getchar(); 
+            continue;
+        }
+
+        break;
+
+    }
     
+
     printf("\nEnter the phone number: ");
     scanf("%d", &r.phone);
     while (getchar() != '\n'); // Clear input buffer
