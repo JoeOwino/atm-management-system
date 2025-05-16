@@ -67,4 +67,5 @@ bool isUniqueName(char name[50]);
 bool validateStringInput(char *input, size_t size);
 bool isContainsSpaces(char input[50]);
 bool isUniqueAcc(int acc);
+bool isvalidAmount(double *amount, double min, double max);
 
