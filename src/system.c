@@ -4,7 +4,7 @@ const char *RECORDS = "./data/records.txt";
 
 void saveAccountToFile(FILE *ptr, struct User u, struct Record r)
 {
-    fprintf(ptr, "%d %d %s %d %d/%d/%d %s %d %.2lf %s\n\n",
+    fprintf(ptr, "%d %d %s %d %d/%d/%d %s %s %.2lf %s\n\n",
             r.id,
 	        u.id,
 	        u.name,
@@ -126,14 +126,12 @@ void createNewAcc(struct User u)
         }
 
         if (!getAccountFromFile(pf, userName, &cr)) {
-            printf("failed to get the Account from the file");
             printf("\t\tPress enter to continue...");
             getchar(); 
             continue;
         }
 
         if (!isUniqueAcc(r.accountNbr)) {
-            printf("Account number already taken. Please enter a unique account number.\n");
             printf("\t\tPress enter to continue...");
             getchar(); 
             continue;
@@ -154,14 +152,12 @@ void createNewAcc(struct User u)
 
         printf("\nEnter the country: ");
         if (!validateStringInput(r.country, 50)) {
-            printf("Invalid country name. Please try again.\n");
             printf("\t\tPress enter to continue...");
             getchar(); 
             continue;
         }
 
         if (isContainsSpaces(r.country)) {
-            printf("Invalid country name. Please enter a valid country name without spaces.\n");
             printf("\t\tPress enter to continue...");
             getchar(); 
             continue;
@@ -170,11 +166,27 @@ void createNewAcc(struct User u)
         break;
 
     }
-    
 
-    printf("\nEnter the phone number: ");
-    scanf("%d", &r.phone);
-    while (getchar() != '\n'); // Clear input buffer
+    while (1)
+    {
+        system("clear");
+        printf("\t\t====== Create new account =====\n\n");
+        printf("\t\tEnter the date of deposit (MM/DD/YYYY): %d/%d/%d", dt.month, dt.day, dt.year); 
+        printf("\nEnter the account number: %d", r.accountNbr);
+        printf("\nEnter the country: %s", r.country);
+
+        printf("\nEnter the phone number: ");
+
+        if (!isValidPhoneNo(r.phone)) {
+            printf("\t\tPress enter to continue...");
+            getchar(); 
+            continue;
+        }
+
+        break;;
+
+    }
+    
     
     printf("\nEnter amount to deposit: $");
     scanf("%lf", &r.amount);
@@ -203,7 +215,7 @@ void checkAllAccounts(struct User u)
         if (strcmp(userName, u.name) == 0)
         {
             printf("_____________________\n");
-            printf("\nAccount number:%d\nDeposit Date:%d/%d/%d \ncountry:%s \nPhone number:%d \nAmount deposited: $%.2f \nType Of Account:%s\n",
+            printf("\nAccount number:%d\nDeposit Date:%d/%d/%d \ncountry:%s \nPhone number:%s \nAmount deposited: $%.2f \nType Of Account:%s\n",
                    r.accountNbr,
                    r.deposit.day,
                    r.deposit.month,
