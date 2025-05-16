@@ -43,7 +43,7 @@ void writeUser(struct User u)
 
 int getAccountFromFile(FILE *ptr, char name[50], struct Record *r)
 {
-    return fscanf(ptr, "%d %d %s %d %d/%d/%d %s %d %lf %s",
+    return fscanf(ptr, "%d %d %s %d %d/%d/%d %s %s %lf %s",
                   &r->id,
 		  &r->userId,
 		  name,
@@ -52,7 +52,7 @@ int getAccountFromFile(FILE *ptr, char name[50], struct Record *r)
                   &r->deposit.day,
                   &r->deposit.year,
                   r->country,
-                  &r->phone,
+                  r->phone,
                   &r->amount,
                   r->accountType) != EOF;
 }
