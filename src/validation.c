@@ -83,7 +83,7 @@ bool isUniqueAcc(int acc) {
     
     if ((fp = fopen("./data/records.txt", "r")) == NULL) {
         printf("Error! opening file");
-        exit(1); 
+        return false; 
     }
     
     // Option 1: Fix the format string to match your actual file format
