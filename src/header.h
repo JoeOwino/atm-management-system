@@ -69,3 +69,5 @@ bool isContainsSpaces(char input[50]);
 bool isUniqueAcc(int acc);
 bool isvalidAmount(double *amount, double min, double max);
 
+// Account Functions
+bool getAccount(int acc, struct Record *r, struct User *u);
