@@ -50,11 +50,11 @@ void initMenu(struct User *u);
 // registration functions
 void registerUser(char name[50], char pass[50]);
 
-// fileio functions
+// fileio IO functions
 int getID(char *file);
 void writeUser(struct User u);
 int getAccountFromFile(FILE *ptr, char name[50], struct Record *r);
-
+int saveUpdatedRecord(struct Record updated, struct User u); 
 
 // validation functions
 bool isValidDate(struct Date *dt);
