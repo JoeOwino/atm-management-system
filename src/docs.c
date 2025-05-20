@@ -56,3 +56,58 @@ int getAccountFromFile(FILE *ptr, char name[50], struct Record *r)
                   &r->amount,
                   r->accountType) != EOF;
 }
+
+
+#define RECORDS_FILE "./data/records.txt"
+
+// Updates the record for a given account in the file
+int saveUpdatedRecord(struct Record updated, struct User u) 
+{
+    FILE *fp = fopen(RECORDS_FILE, "r");
+    if (!fp) {
+        perror("Error opening file for reading");
+        return 0;
+    }
+
+    FILE *temp = fopen("./data/temp.txt", "w");
+    if (!temp) {
+        perror("Error opening temporary file for writing");
+        fclose(fp);
+        return 0;
+    }
+
+    struct Record r;
+    int found = 0;
+
+   while (fscanf(fp, "%d %d %s %d %d/%d/%d %s %s %lf %s\n", 
+                 &r.id, &u.id, u.name, &r.accountNbr, 
+                 &r.deposit.month, &r.deposit.day, &r.deposit.year, 
+                 r.country, r.phone, &r.amount, r.accountType) == 11) {
+
+        if (r.id == updated.id) {
+            r = updated;
+            found = 1;
+        }
+
+        fprintf(temp, "%d %d %s %d %d/%d/%d %s %s %lf %s\n", 
+                 r.id, u.id, u.name, r.accountNbr, 
+                 r.deposit.month, r.deposit.day, r.deposit.year, 
+                 r.country, r.phone, r.amount, r.accountType);
+    }
+
+    fclose(fp);
+    fclose(temp);
+
+    if (!found) {
+        printf("Record not found.\n");
+        remove("data/temp.txt");
+        return 0;
+    }
+
+    // Replace original file with updated temp file
+    remove(RECORDS_FILE);
+    rename("data/temp.txt", RECORDS_FILE);
+
+    return 1;
+}
+
