@@ -34,6 +34,15 @@ struct User
     char password[50];
 };
 
+struct Transaction
+{
+    int id;
+    int accountNbr;
+    struct Date date;
+    char type[20];
+    double amount;
+};
+
 // authentication functions
 void loginMenu(char a[50], char pass[50]);
 const char *getPassword(struct User u);
@@ -70,6 +79,9 @@ bool isUniqueAcc(int acc);
 bool isvalidAmount(double *amount, double min, double max);
 
 // Account Functions
-bool getAccount(int acc, struct Record *r, struct User *u);
+bool getAccount(int acc, struct Record *r, struct User *u, int userID);
 void printAccount(struct Record r, struct User u);
 void updateAccount(struct User u);
+
+// Transaction Functions
+void createTransaction(struct User u);
