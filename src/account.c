@@ -1,6 +1,6 @@
 #include "header.h"
 
-bool getAccount(int acc, struct Record *r, struct User *u)
+bool getAccount(int acc, struct Record *r, struct User *u, int userID)
 {
     FILE *fp;
     if ((fp = fopen("./data/records.txt", "r")) == NULL) {
@@ -12,7 +12,10 @@ bool getAccount(int acc, struct Record *r, struct User *u)
            &r->id, &u->id, u->name, &r->accountNbr,
            &r->deposit.month, &r->deposit.day, &r->deposit.year,
            r->country, r->phone, &r->amount, r->accountType) == 11) {
-        if (r->accountNbr == acc) {
+            
+            printf("\n%d == %d\n", userID, u->id);
+
+        if (r->accountNbr == acc && userID == u->id) {
             fclose(fp);
             return true;
         }
@@ -40,7 +43,7 @@ void updateAccount(struct User u)
                 continue;
             }
             
-            if (!getAccount(acc, &r, &u)) {
+            if (!getAccount(acc, &r, &u, u.id)) {
                 printf("\n\tAccount not found!\n");
                 printf("\t\tPress enter to continue...");
                 getchar();
