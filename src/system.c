@@ -126,11 +126,6 @@ void createNewAcc(struct User u)
         }
 
         if (!isUniqueAcc(r.accountNbr)) {
-            printf("%d %d %s %d %d/%d/%d %s %s %lf %s\n", 
-                 r.id, u.id, u.name, r.accountNbr, 
-                 r.deposit.month, r.deposit.day, r.deposit.year, 
-                 r.country, r.phone, r.amount, r.accountType);
-                 
             printf("\t\tPress enter to continue...");
             getchar(); 
             continue;
