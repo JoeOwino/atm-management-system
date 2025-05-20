@@ -40,7 +40,7 @@ void mainMenu(struct User u)
         // student TODO : add your **Update account information** function
         updateAccount(u);
         break;
-        
+
    case 3:
     {
         struct User u;
@@ -55,7 +55,7 @@ void mainMenu(struct User u)
                 continue;
             }
             
-            if (!getAccount(acc, &r, &u)) {
+            if (!getAccount(acc, &r, &u, u.id)) {
                 printf("\n\tAccount not found!\n");
                 printf("\t\tPress enter to continue...");
                 getchar();
@@ -76,7 +76,7 @@ void mainMenu(struct User u)
         break;
     case 5:
         // student TODO : add your **Make transaction** function
-        // here
+        createTransaction(u);
         break;
     case 6:
         // student TODO : add your **Remove existing account** function
