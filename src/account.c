@@ -31,7 +31,7 @@ void updateAccount(struct User u)
         {
             system("clear");
             printf("\n\n\t\t======= Acount Update =======\n\n");
-            printf("\n\t\t-->> Please enter the account number to update: \n");
+            printf("\n\t\t-->> Please enter the account number to update: ");
 
             if (!isvalidIntegerInput(&acc)) {
                 printf("\t\tPress enter to continue...");
@@ -93,7 +93,28 @@ void updateAccount(struct User u)
 
         case 2:
             /* Country */
+            while (1)
+            {
+                system("clear");
+                printf("\n\n\t\t======= Update Counry for Account %d =======\n\n", acc);
 
+                printf("\n\t\t-->> Please enter the new country: ");
+
+                if (!validateStringInput(r.country, sizeof(r.country))) {
+                    printf("\t\tPress enter to continue...");
+                    getchar();
+                    continue;
+                }
+
+                if (isContainsSpaces(r.country)) {
+                    printf("\t\tPress enter to continue...");
+                    getchar(); 
+                    continue;
+                }
+            
+                break;
+            }
+            
             break;
         
         default:
