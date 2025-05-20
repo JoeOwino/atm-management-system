@@ -26,6 +26,7 @@ void updateAccount(struct User u)
         struct Record r;
         int acc;
         int option;
+        bool isUpdated = false;
 
         while (1)
         {
@@ -46,6 +47,7 @@ void updateAccount(struct User u)
                 continue;
             } 
 
+            isUpdated = true;
             break;
         }
         
@@ -89,6 +91,7 @@ void updateAccount(struct User u)
                 break;
             }
         
+            isUpdated = true;
             break;
 
         case 2:
@@ -122,7 +125,15 @@ void updateAccount(struct User u)
             break;
         }
 
-        
+    if (!isUpdated) {
+        printf("\n\t\tNo changes made to the account.\n");
+        printf("\t\tPress enter to continue...");
+        getchar();
+        return;
+    }
+
+    saveUpdatedRecord(r, u);
+    printf("\n\t\tAccount updated successfully!\n");
 }
 
 void printAccount(struct Record r, struct User u)
