@@ -21,6 +21,89 @@ bool getAccount(int acc, struct Record *r, struct User *u)
     return false;
 }
 
+void updateAccount(struct User u)
+{
+        struct Record r;
+        int acc;
+        int option;
+
+        while (1)
+        {
+            system("clear");
+            printf("\n\n\t\t======= Acount Update =======\n\n");
+            printf("\n\t\t-->> Please enter the account number to update: \n");
+
+            if (!isvalidIntegerInput(&acc)) {
+                printf("\t\tPress enter to continue...");
+                getchar();
+                continue;
+            }
+            
+            if (!getAccount(acc, &r, &u)) {
+                printf("\n\tAccount not found!\n");
+                printf("\t\tPress enter to continue...");
+                getchar();
+                continue;
+            } 
+
+            break;
+        }
+        
+        
+        while (1)
+        {
+            system("clear");
+            printf("\n\n\t\t======= Acount Update =======\n\n");
+            printf("\n\t\t-->> Please enter the account number to update: %d\n", acc);
+            printf("\n\t\t- Select the account information you want to update: \n");
+            printf("\n\t\t[1]- Phone Noumber: \n");
+            printf("\n\t\t[2]- County\n");
+
+            printf("\n\t\tEnter choice: ");
+
+            if (!isValidMenuInput(1, 2, &option)) {
+                printf("\t\tPress Enter to continue...");
+                getchar();
+                continue;
+            }
+
+            break;
+        }
+
+        switch (option)
+        {
+        case 1:
+            /* Phone Number */
+            while (1)
+            {
+                system("clear");
+                printf("\n\n\t\t======= Update Phone numebre for Account %d =======\n\n", acc);
+
+                printf("\n\t\t-->> Please enter the new phone number: ");
+                if (!isValidPhoneNo(r.phone)) {
+                    printf("\t\tPress enter to continue...");
+                    getchar();
+                    continue;
+                }
+
+                break;
+            }
+        
+            break;
+
+        case 2:
+            /* Country */
+
+            break;
+        
+        default:
+            printf("Invalid operation!\n");
+            break;
+        }
+
+        
+}
+
 void printAccount(struct Record r, struct User u)
 {
     system("clear");
