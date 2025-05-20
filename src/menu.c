@@ -38,8 +38,9 @@ void mainMenu(struct User u)
         break;
     case 2:
         // student TODO : add your **Update account information** function
-        // here
+        updateAccount(u);
         break;
+        
    case 3:
     {
         struct User u;
@@ -67,8 +68,7 @@ void mainMenu(struct User u)
             printAccount(r, u);
             break;
         }
-        printf("\n\tPress enter to continue...");
-        getchar();
+
         break;
 
     case 4:
