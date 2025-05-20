@@ -29,7 +29,7 @@ void mainMenu(struct User u)
             attempts ++;
         }
 
-    }while (option < 1 || option > 8);
+    } while (option < 1 || option > 8);
 
     switch (option)
     {
@@ -54,30 +54,22 @@ void mainMenu(struct User u)
                 continue;
             }
             
-            if (getAccount(acc, &r, &u)) {
-                printf("\n=== Account Details ===\n");
-                printf("Record ID: %d\n", r.id);
-                printf("User ID: %d\n", u.id);
-                printf("Name: %s\n", u.name);
-                printf("Account Number: %d\n", r.accountNbr);
-                printf("Date: %d/%d/%d\n", r.deposit.month, r.deposit.day, r.deposit.year);
-                printf("Country: %s\n", r.country);
-                printf("Phone: %s\n", r.phone);
-                printf("Balance: %.2lf\n", r.amount);
-                printf("Account Type: %s\n", r.accountType);
-                printf("======================\n");
-            } else {
+            if (!getAccount(acc, &r, &u)) {
                 printf("\n\tAccount not found!\n");
                 printf("\t\tPress enter to continue...");
                 getchar();
                 continue;
+            } 
+
+            break;
+
             }
+            printAccount(r, u);
             break;
         }
         printf("\n\tPress enter to continue...");
         getchar();
         break;
-    }
 
     case 4:
         checkAllAccounts(u);
@@ -100,7 +92,7 @@ void mainMenu(struct User u)
     default:
         printf("Invalid operation!\n");
     }
-};
+}
 
 void initMenu(struct User *u)
 {
