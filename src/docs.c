@@ -1,6 +1,6 @@
 #include "header.h"
 
-int getID(char *file)
+int getUserID(char *file)
 {
     FILE *fp;
     struct User userChecker;
