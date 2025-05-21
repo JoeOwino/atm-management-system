@@ -13,8 +13,6 @@ bool getAccount(int acc, struct Record *r, struct User *u, int userID)
            &r->deposit.month, &r->deposit.day, &r->deposit.year,
            r->country, r->phone, &r->amount, r->accountType) == 11) {
             
-            printf("\n%d == %d\n", userID, u->id);
-
         if (r->accountNbr == acc && userID == u->id) {
             fclose(fp);
             return true;
