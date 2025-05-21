@@ -45,7 +45,7 @@ struct Transaction
 
 // authentication functions
 void loginMenu(char a[50], char pass[50]);
-const char *getPassword(struct User u);
+const char *getPassword(struct User *u);
 
 // system function
 void createNewAcc(struct User u);
@@ -60,7 +60,7 @@ void initMenu(struct User *u);
 void registerUser(char name[50], char pass[50]);
 
 // fileio IO functions
-int getID(char *file);
+int getUserID(char *file);
 void writeUser(struct User u);
 int getAccountFromFile(FILE *ptr, char name[50], struct Record *r);
 int saveUpdatedRecord(struct Record updated, struct User u); 
