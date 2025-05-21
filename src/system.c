@@ -82,9 +82,6 @@ invalid:
 
 void createNewAcc(struct User u)
 {
-    printf("ID = %d\n", u.id); 
-    printf("Name = %s\n", u.name); 
-
     struct Record r;
     struct Record cr;
     char userName[50];
@@ -110,7 +107,7 @@ void createNewAcc(struct User u)
 
 
     while (1) {
-        //system("clear");
+        system("clear");
         printf("\t\t====== Create new account =====\n\n");
         printf("\t\tEnter the date of deposit (MM/DD/YYYY): "); 
         
