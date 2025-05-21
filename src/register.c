@@ -57,9 +57,8 @@ void registerUser(char name[50], char pass[50])
         return exit(1);
     }
 
-    int id = getID("./data/users.txt");
     struct User u;
-    u.id = id;
+    u.id = getUserID("./data/users.txt");;
     strcpy(u.name, name);
     strcpy(u.password, pass);
     writeUser(u);
@@ -68,7 +67,7 @@ void registerUser(char name[50], char pass[50])
     printf("\n\n\t\t======= ATM =======\n");
     printf("\t\tMember Registration\n\n\n");
     printf("\t\t\t\tRegiatered Successfully\n");
-    printf("\t\tID: %d\n", id);
+    printf("\t\tID: %d\n", u.id);
     printf("\t\tName: %s\n", name);
     printf("\t\tPassword: %s\n", pass);
     printf("\t\tPress Enter to continue...");
