@@ -5,6 +5,9 @@ void createTransaction(struct User u)
     struct Transaction t;
     struct Record r;
     int option;
+    struct Date dt;
+
+    t.id = getTransID("./data/transactions.txt");
 
     while (1) 
     {
@@ -37,7 +40,6 @@ void createTransaction(struct User u)
         }
 
         printf("\n\t\t-->> Please enter the Account Number: ");
-        
         if (!isvalidIntegerInput(&t.accountNbr)) {
             printf("\t\tPress enter to continue...");
             getchar(); 
@@ -54,7 +56,54 @@ void createTransaction(struct User u)
         break;
     }
 
-    
+    while (1)
+    {
+        system("clear");
+        printf("\n\n\t\t======= Create  Transaction =======\n");
+        printf("\n\n\t\tTransaction: %s", t.type);
+        printf("\n\n\t\tAccount: %d", t.accountNbr);
+
+        printf("\n\t\t-->> Please enter the transaction date: ");
+        if (!isValidDate(&dt)) {
+            printf("\t\tPress enter to continue...");
+            getchar(); 
+            continue;
+        } 
+
+        t.date.month = dt.month;
+        t.date.day = dt.day;
+        t.date.year = dt.year;
+
+        break;
+    }
+
+    while (1)
+    {
+        system("clear");
+        printf("\n\n\t\t======= Create  Transaction =======\n");
+        printf("\n\n\t\tTransaction: %s", t.type);
+        printf("\n\n\t\tAccount: %d", t.accountNbr);
+        printf("\n\n\t\tDated: %d/%d/%d", t.date.month, t.date.day, t.date.year);
+
+        printf("\n\t\t-->> Please enter the amount: ");
+        if (!isvalidAmount(&t.amount, 50, 999999999)) {
+            printf("\t\tPress enter to continue...");
+            getchar(); 
+            continue;
+        } 
+
+        break;
+    }
+
+    writeTrans(t);
+    printf("\n\n\t\t======= Transaction Created =======\n");
+
+    printf("\n\n\t\tID: %d", t.id);
+    printf("\n\n\t\tDate: %d/%d/%d", t.date.month, t.date.day, t.date.year);
+    printf("\n\n\t\tAccount: %d", t.accountNbr);
+    printf("\n\n\t\tTransaction: %s", t.type);
+    printf("\n\n\t\tDated: %d/%d/%d", t.date.month, t.date.day, t.date.year);
+    printf("\n\n\t\tAmount: %lf\n", t.amount);
     
 }
 
