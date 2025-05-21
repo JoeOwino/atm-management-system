@@ -64,6 +64,8 @@ int getUserID(char *file);
 void writeUser(struct User u);
 int getAccountFromFile(FILE *ptr, char name[50], struct Record *r);
 int saveUpdatedRecord(struct Record updated, struct User u); 
+int getTransID(char *file);
+void writeTrans(struct Transaction t);
 
 // validation functions
 bool isValidDate(struct Date *dt);
@@ -85,3 +87,4 @@ void updateAccount(struct User u);
 
 // Transaction Functions
 void createTransaction(struct User u);
+
