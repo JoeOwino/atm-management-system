@@ -82,6 +82,9 @@ invalid:
 
 void createNewAcc(struct User u)
 {
+    printf("ID = %d\n", u.id); 
+    printf("Name = %s\n", u.name); 
+
     struct Record r;
     struct Record cr;
     char userName[50];
@@ -93,8 +96,21 @@ void createNewAcc(struct User u)
         return;
     }
     
+    // Get the next available ID for the new record
+    fseek(pf, 0, SEEK_END); 
+    if (ftell(pf) == 0) {
+        r.id = 1; // If file is empty, start with ID 1
+    } else {
+        fseek(pf, 0, SEEK_SET); // Reset file position to start
+        while (getAccountFromFile(pf, userName, &cr)) {
+            r.id = cr.id + 1; // Increment the last ID found
+        }
+    }
+    r.userId = u.id; // Set the user ID for the new record
+
+
     while (1) {
-        system("clear");
+        //system("clear");
         printf("\t\t====== Create new account =====\n\n");
         printf("\t\tEnter the date of deposit (MM/DD/YYYY): "); 
         
