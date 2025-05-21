@@ -26,6 +26,32 @@ int getUserID(char *file)
     return id + 1; // Increment the highest ID by 1
 }
 
+int getTransID(char *file)
+{
+    FILE *fp;
+    struct Transaction t;
+    
+    if ((fp = fopen(file, "r")) == NULL)
+    {
+        printf("Error! opening file\n");
+        exit(1);
+    }
+    
+    int id = 0;
+    
+    while (fscanf(fp, "%d %d/%d/%d %d, %s %lf", &t.id, &t.date.month, &t.date.day, &t.date.year, &t.accountNbr, t.type, &t.amount) != EOF)
+    {
+        if (t.id > id)
+        {
+            id = t.id;
+        }
+    }
+    
+    fclose(fp);
+    
+    return id + 1; // Increment the highest ID by 1
+}
+
 void writeUser(struct User u)
 {
     FILE *fp;
@@ -109,5 +135,19 @@ int saveUpdatedRecord(struct Record updated, struct User u)
     rename("data/temp.txt", RECORDS_FILE);
 
     return 1;
+}
+
+void writeTrans(struct Transaction t) {
+    FILE *fp;
+    
+    if ((fp = fopen("./data/transactions.txt", "a")) == NULL)
+    {
+        printf("Error! opening file\n");
+        exit(1);
+    }
+    
+    fprintf(fp, "%d %d/%d/%d %d, %s %lf", t.id, t.date.month, t.date.day, t.date.year, t.accountNbr, t.type, t.amount);
+    
+    fclose(fp);
 }
 
