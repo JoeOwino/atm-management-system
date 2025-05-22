@@ -37,6 +37,7 @@ struct User
 struct Transaction
 {
     int id;
+    int userId;
     int accountNbr;
     struct Date date;
     char type[20];
