@@ -64,7 +64,7 @@ void registerUser(char name[50], char pass[50]);
 int getUserID(char *file);
 void writeUser(struct User u);
 int getAccountFromFile(FILE *ptr, char name[50], struct Record *r);
-int saveUpdatedRecord(struct Record updated, struct User u); 
+int saveUpdatedRecord(struct Record updated, struct User u, char *action);
 int getTransID(char *file);
 void writeTrans(struct Transaction t);
 
