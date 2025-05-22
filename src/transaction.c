@@ -8,6 +8,7 @@ void createTransaction(struct User u)
     struct Date dt;
 
     t.id = getTransID("./data/transactions.txt");
+    t.userId = u.id;
 
     while (1) 
     {
@@ -99,6 +100,8 @@ void createTransaction(struct User u)
     printf("\n\n\t\t======= Transaction Created =======\n");
 
     printf("\n\n\t\tID: %d", t.id);
+    printf("\n\n\t\tUser ID: %d", t.userId);
+    printf("\n\n\t\tBy: %s", u.name);
     printf("\n\n\t\tDate: %d/%d/%d", t.date.month, t.date.day, t.date.year);
     printf("\n\n\t\tAccount: %d", t.accountNbr);
     printf("\n\n\t\tTransaction: %s", t.type);
