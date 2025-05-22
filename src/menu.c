@@ -80,7 +80,7 @@ void mainMenu(struct User u)
         break;
     case 6:
         // student TODO : add your **Remove existing account** function
-        // here
+        removeAccount(u);
         break;
     case 7:
         // student TODO : add your **Transfer owner** function
