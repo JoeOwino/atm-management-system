@@ -85,6 +85,7 @@ bool isvalidAmount(double *amount, double min, double max);
 bool getAccount(int acc, struct Record *r, struct User *u, int userID);
 void printAccount(struct Record r, struct User u);
 void updateAccount(struct User u);
+void removeAccount(struct User u);
 
 // Transaction Functions
 void createTransaction(struct User u);
