@@ -207,3 +207,96 @@ void removeAccount(struct User u)
     saveUpdatedRecord(r, u, "delete");
     printf("\n\t\tAccount deleted successfully!\n");
 }   
+
+void transferOwnership(struct User u)
+{
+    struct Record r;
+    int acc;
+    int option;
+
+    while (1)
+    {
+        system("clear");
+        printf("\n\n\t\t======= Acount Transfer =======\n\n");
+        printf("\n\t\t-->> Please enter the account number to transfer: ");
+
+        if (!isvalidIntegerInput(&acc)) {
+            printf("\t\tPress enter to continue...");
+            getchar();
+            continue;
+        }
+        
+        if (!getAccount(acc, &r, &u, u.id)) {
+            printf("\n\tAccount not found!\n");
+            printf("\t\tPress enter to continue...");
+            getchar();
+            continue;
+        } 
+
+        break;
+    }
+
+    while (1)
+    {
+        system("clear");
+        printf("\n\n\t\t======= Acount Transfer =======\n\n");
+        printf("\n\t\t-->> Please enter the account number to transfer: %d\n", acc);
+        printf("\n\t\t-->> Please enter the new owner name: ");
+
+        if (!validateStringInput(r.name, 50)) {
+            printf("\t\tPress enter to continue...");
+            getchar();
+            continue;
+        }
+
+        if (isContainsSpaces(r.name)) {
+            printf("\t\tPress enter to continue...");
+            getchar(); 
+            continue;
+        }
+
+        if (isUniqueName(r.name, &u)) {
+            printf("Name Does not exist. Please choose another New Owner.\n");
+            printf("\t\tPress enter to continue...");
+            getchar();
+            continue;
+        }
+
+        if (isContainsSpaces(r.name)) {
+            printf("\t\tPress enter to continue...");
+            getchar(); 
+            continue;
+        }
+        
+        break;
+    }
+
+    while (1) {
+        system("clear");
+        printf("\n\n\t\t======= Acount Transfer =======\n\n");
+        printf("\n\t\t-->> This action will is not reverseble\n");
+        printf("\n\t\tAre you sure you want to transfer ownership of account %d to %s? \n", acc, r.name);
+        printf("\n\t\t[1]- Cancel\n");
+        printf("\n\t\t[2]- Confirm\n");
+        printf("\n\t\tEnter choice: ");
+
+        if (!isValidMenuInput(1, 2, &option)) {
+            printf("\t\tPress Enter to continue...");
+            getchar();
+            continue;
+        }
+
+        break;
+    }
+
+    if (option == 0) {
+        printf("\n\t\tAccount transfer cancelled.\n");
+        return;
+    }
+
+    strcpy(r.name, u.name);
+    r.userId = u.id;
+
+    saveUpdatedRecord(r, u, "transfer");
+    printf("\n\t\tAccount transfered successfully!  to %d: %s\n", u.id, u.name);
+}
