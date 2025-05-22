@@ -50,7 +50,7 @@ bool isContainsSpaces(char input[50])
     return false;
 }
 
-bool isUniqueName(char name[50])
+bool isUniqueName(char name[50], struct User *u)
 {
     FILE *fp;
     struct User userChecker;
@@ -66,6 +66,10 @@ bool isUniqueName(char name[50])
         
         if (strcmp(userChecker.name, name) == 0)
         {
+            u -> id = userChecker.id;
+            strcpy(u -> name, userChecker.name);
+            strcpy(u -> password, userChecker.password);
+
             fclose(fp);
             return false;
         }
@@ -213,8 +217,9 @@ bool isValidDate(struct Date *dt)
     return true;
 }
 
-bool isValidName(char *input)
+bool isValidName(char *input, struct User *u)
 {
+
 
     if (!validateStringInput(input, 50)) {
         return false; // Error in input
@@ -226,7 +231,7 @@ bool isValidName(char *input)
         return false;
     }
 
-    if (!isUniqueName(input)) {
+    if (!isUniqueName(input, u)) {
         printf("Name already taken. Please choose another name.\n");
         fflush(stdout); 
         return false;
