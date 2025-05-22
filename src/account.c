@@ -133,7 +133,7 @@ void updateAccount(struct User u)
         return;
     }
 
-    saveUpdatedRecord(r, u);
+    saveUpdatedRecord(r, u, "update");
     printf("\n\t\tAccount updated successfully!\n");
 }
 
@@ -204,6 +204,6 @@ void removeAccount(struct User u)
         return;
     }
 
-    saveUpdatedRecord(r, u);
+    saveUpdatedRecord(r, u, "delete");
     printf("\n\t\tAccount deleted successfully!\n");
 }   
