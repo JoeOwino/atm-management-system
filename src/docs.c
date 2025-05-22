@@ -87,7 +87,7 @@ int getAccountFromFile(FILE *ptr, char name[50], struct Record *r)
 #define RECORDS_FILE "./data/records.txt"
 
 // Updates the record for a given account in the file
-int saveUpdatedRecord(struct Record updated, struct User u) 
+int saveUpdatedRecord(struct Record updated, struct User u, char *action) 
 {
     FILE *fp = fopen(RECORDS_FILE, "r");
     if (!fp) {
@@ -113,7 +113,12 @@ int saveUpdatedRecord(struct Record updated, struct User u)
         if (r.id == updated.id) {
             r = updated;
             found = 1;
+            
+            if (strcmp(action, "delete") == 0) {
+                continue; // Skip writing this record to the temp file
+            }
         }
+
 
         fprintf(temp, "%d %d %s %d %d/%d/%d %s %s %lf %s\n", 
                  r.id, u.id, u.name, r.accountNbr, 
