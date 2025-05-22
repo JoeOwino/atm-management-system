@@ -71,12 +71,13 @@ void writeTrans(struct Transaction t);
 // validation functions
 bool isValidDate(struct Date *dt);
 bool isValidPassword(char input[50]);
-bool isValidName(char *input);
+bool isValidPhoneNo(char *phone);
+bool isValidName(char *input, struct User *u);
 bool isvalidIntegerInput(int *result);
 bool isValidPhoneNo(char *phone);
 bool isValidMenuInput(int min, int max, int *result);
-bool isUniqueName(char name[50]);
 bool validateStringInput(char *input, size_t size);
+bool isUniqueName(char name[50], struct User *u);
 bool isContainsSpaces(char input[50]);
 bool isUniqueAcc(int acc);
 bool isvalidAmount(double *amount, double min, double max);
@@ -86,6 +87,7 @@ bool getAccount(int acc, struct Record *r, struct User *u, int userID);
 void printAccount(struct Record r, struct User u);
 void updateAccount(struct User u);
 void removeAccount(struct User u);
+void transferOwnership(struct User u);
 
 // Transaction Functions
 void createTransaction(struct User u);
