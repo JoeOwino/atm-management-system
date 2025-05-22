@@ -2,7 +2,7 @@
 
 void registerUser(char name[50], char pass[50])
 {
-
+    struct User u;
     struct termios oflags, nflags;
     while(1) {
         system("clear");
@@ -13,7 +13,7 @@ void registerUser(char name[50], char pass[50])
         // scanf("%s", name);
 
         // // Get input as a string
-        if (!isValidName(name)) {
+        if (!isValidName(name, &u)) {
             printf("\t\tPress Enter to continue...");
             getchar();
             continue;
@@ -57,7 +57,6 @@ void registerUser(char name[50], char pass[50])
         return exit(1);
     }
 
-    struct User u;
     u.id = getUserID("./data/users.txt");;
     strcpy(u.name, name);
     strcpy(u.password, pass);
