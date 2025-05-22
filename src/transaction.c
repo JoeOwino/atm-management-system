@@ -98,15 +98,5 @@ void createTransaction(struct User u)
 
     writeTrans(t);
     printf("\n\n\t\t======= Transaction Created =======\n");
-
-    printf("\n\n\t\tID: %d", t.id);
-    printf("\n\n\t\tUser ID: %d", t.userId);
-    printf("\n\n\t\tBy: %s", u.name);
-    printf("\n\n\t\tDate: %d/%d/%d", t.date.month, t.date.day, t.date.year);
-    printf("\n\n\t\tAccount: %d", t.accountNbr);
-    printf("\n\n\t\tTransaction: %s", t.type);
-    printf("\n\n\t\tDated: %d/%d/%d", t.date.month, t.date.day, t.date.year);
-    printf("\n\n\t\tAmount: %lf\n", t.amount);
-    
 }
 
