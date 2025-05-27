@@ -42,37 +42,11 @@ void mainMenu(struct User u)
         break;
 
    case 3:
-    {
-        struct User u;
-        struct Record r;
-        int acc;
-        while (1)
-        {
-            printf("\nEnter the account number: ");
-            if (!isvalidIntegerInput(&acc)) {
-                printf("\t\tPress enter to continue...");
-                getchar();
-                continue;
-            }
-            
-            if (!getAccount(acc, &r, &u, u.id)) {
-                printf("\n\tAccount not found!\n");
-                printf("\t\tPress enter to continue...");
-                getchar();
-                continue;
-            } 
-
-            break;
-
-            }
-            printAccount(r, u);
-            break;
-        }
-
+        checkAllAccounts(u);
         break;
 
     case 4:
-        checkAllAccounts(u);
+        checkAccounts(u);
         break;
     case 5:
         // student TODO : add your **Make transaction** function
@@ -142,4 +116,3 @@ void initMenu(struct User *u)
             // This should never execute due to the do-while validation
     }
 }
-
