@@ -139,18 +139,16 @@ void updateAccount(struct User u)
 
 void printAccount(struct Record r, struct User u)
 {
-    system("clear");
-    printf("\n=== Account Details ===\n");
-    printf("Record ID: %d\n", r.id);
-    printf("User ID: %d\n", u.id);
-    printf("Name: %s\n", u.name);
-    printf("Account Number: %d\n", r.accountNbr);
-    printf("Date: %d/%d/%d\n", r.deposit.month, r.deposit.day, r.deposit.year);
-    printf("Country: %s\n", r.country);
-    printf("Phone: %s\n", r.phone);
-    printf("Balance: %.2lf\n", r.amount);
-    printf("Account Type: %s\n", r.accountType);
-    printf("======================\n");
+    printf("_____________________\n");
+    printf("\nAccount number:%d\nDeposit Date:%d/%d/%d \ncountry:%s \nPhone number:%s \nAmount deposited: $%.2f \nType Of Account:%s\n",
+            r.accountNbr,
+            r.deposit.day,
+            r.deposit.month,
+            r.deposit.year,
+            r.country,
+            r.phone,
+            r.amount,
+            r.accountType);
 }
 
 void removeAccount(struct User u)
@@ -357,3 +355,23 @@ double calculateInterest(int accNbr, char *accType, double amount)
     return amount * interestRate / 12;
 
 }
+
+void checkAllAccounts(struct User u)
+{
+    char userName[100];
+    struct Record r;
+
+    FILE *pf = fopen("./data/records.txt", "r");
+
+    system("clear");
+    printf("\t\t====== All accounts from user, %s =====\n\n", u.name);
+    while (getAccountFromFile(pf, userName, &r))
+    {
+        if (strcmp(userName, u.name) == 0)
+        {
+            printAccount(r, u);
+        }
+    }
+    fclose(pf);
+}
+
