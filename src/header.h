@@ -88,6 +88,8 @@ void printAccount(struct Record r, struct User u);
 void updateAccount(struct User u);
 void removeAccount(struct User u);
 void transferOwnership(struct User u);
+void checkAccounts(struct User u);
+double calculateInterest(int accNbr, char *accType, double amount);
 
 // Transaction Functions
 void createTransaction(struct User u);
