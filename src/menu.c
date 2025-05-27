@@ -1,13 +1,5 @@
 #include "header.h"
 
-// void success(struct User u)
-// {
-//     printf("\n\t\tOperation completed successfully!\n");
-//     printf("\t\tPress Enter to continue...");
-//     getchar();
-//     mainMenu(u);
-// }
-
 int mainMenuLoop(struct User u)
 {
     int option = 0;
@@ -43,16 +35,33 @@ int mainMenuLoop(struct User u)
 
 }
 
+void success(struct User u)
+{
+    int option;
+    printf("\n✔ Success!\n\n");
+invalid:
+    printf("Enter any cahracter(s) to go to the main menu and 0 to exit!: ");
+    scanf("%d", &option);
+    system("clear");
+
+    if (option == 0)
+    {
+        exit(1);
+    }
+ 
+    mainMenu(u);
+}
+
 void mainMenu(struct User u)
 {
 
     int option = mainMenuLoop(u);
 
-    switch (option)
-    {
+    switch (option) {
     case 1:
         createNewAcc(u);
         break;
+
     case 2:
         // student TODO : add your **Update account information** function
         updateAccount(u);
@@ -83,7 +92,10 @@ void mainMenu(struct User u)
         break;
     default:
         printf("Invalid operation!\n");
+        break;
     }
+
+    success(u);
 }
 
 void initMenu(struct User *u)
