@@ -1,6 +1,14 @@
 #include "header.h"
 
-void mainMenu(struct User u)
+// void success(struct User u)
+// {
+//     printf("\n\t\tOperation completed successfully!\n");
+//     printf("\t\tPress Enter to continue...");
+//     getchar();
+//     mainMenu(u);
+// }
+
+int mainMenuLoop(struct User u)
 {
     int option = 0;
     int attempts = 0;
@@ -31,6 +39,15 @@ void mainMenu(struct User u)
 
     } while (option < 1 || option > 8);
 
+    return option;
+
+}
+
+void mainMenu(struct User u)
+{
+
+    int option = mainMenuLoop(u);
+
     switch (option)
     {
     case 1:
@@ -42,12 +59,13 @@ void mainMenu(struct User u)
         break;
 
    case 3:
-        checkAllAccounts(u);
+        checkAccounts(u);
         break;
 
     case 4:
-        checkAccounts(u);
+        checkAllAccounts(u);
         break;
+
     case 5:
         // student TODO : add your **Make transaction** function
         createTransaction(u);
