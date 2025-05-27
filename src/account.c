@@ -151,6 +151,9 @@ void printAccount(struct Record r, struct User u)
     printf("Balance: %.2lf\n", r.amount);
     printf("Account Type: %s\n", r.accountType);
     printf("======================\n");
+
+    printf("You will get %.2lf as interest on day %d of every month", 
+           calculateInterest(r.accountNbr, r.accountType, r.amount), r.deposit.day);
 }
 
 void removeAccount(struct User u)
@@ -299,4 +302,53 @@ void transferOwnership(struct User u)
 
     saveUpdatedRecord(r, u, "transfer");
     printf("\n\t\tAccount transfered successfully!  to %d: %s\n", u.id, u.name);
+}
+
+void checkAccounts(struct User u)
+{
+    struct Record r;
+    int acc;
+    int option;
+
+    while (1)
+    {
+        system("clear");
+        printf("\n\n\t\t======= Acount Check =======\n\n");
+        printf("\n\t\t-->> Please enter the account number to check: ");
+
+        if (!isvalidIntegerInput(&acc)) {
+            printf("\t\tPress enter to continue...");
+            getchar();
+            continue;
+        }
+        
+        if (!getAccount(acc, &r, &u, u.id)) {
+            printf("\n\tAccount not found!\n");
+            printf("\t\tPress enter to continue...");
+            getchar();
+            continue;
+        } 
+
+        break;
+    }
+
+    printAccount(r, u);
+}
+
+double calculateInterest(int accNbr, char *accType, double amount)
+{
+    double interestRate = 0.0;
+
+    if (strcmp(accType, "savings") == 0) {
+        interestRate = 0.07; 
+    } else if (strcmp(accType, "fixed01") == 0) {
+        interestRate = 0.04;
+    } else if (strcmp(accType, "fixed02") == 0) {
+        interestRate = 0.05; 
+    } else if (strcmp(accType, "fixed03") == 0) {
+        interestRate = 0.08; 
+    }
+
+    return amount * interestRate / 12;
+
 }
