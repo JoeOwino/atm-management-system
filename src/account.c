@@ -151,9 +151,6 @@ void printAccount(struct Record r, struct User u)
     printf("Balance: %.2lf\n", r.amount);
     printf("Account Type: %s\n", r.accountType);
     printf("======================\n");
-
-    printf("You will get %.2lf as interest on day %d of every month", 
-           calculateInterest(r.accountNbr, r.accountType, r.amount), r.deposit.day);
 }
 
 void removeAccount(struct User u)
@@ -333,13 +330,21 @@ void checkAccounts(struct User u)
     }
 
     printAccount(r, u);
+
+    double interest = calculateInterest(r.accountNbr, r.accountType, r.amount);
+    if (interest == 0.0) {
+        printf("You will not get interests because the account is of type %s\n", r.accountType);
+        return;
+    }
+
+    printf("You will get %.2lf as interest on day %d of every month\n", interest, r.deposit.day);
 }
 
 double calculateInterest(int accNbr, char *accType, double amount)
 {
     double interestRate = 0.0;
 
-    if (strcmp(accType, "savings") == 0) {
+    if (strcmp(accType, "saving") == 0) {
         interestRate = 0.07; 
     } else if (strcmp(accType, "fixed01") == 0) {
         interestRate = 0.04;
