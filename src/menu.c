@@ -76,7 +76,6 @@ void mainMenu(struct User u)
         break;
 
     case 5:
-        // student TODO : add your **Make transaction** function
         createTransaction(u);
         break;
     case 6:
