@@ -2,6 +2,7 @@
 
 void createTransaction(struct User u)
 {
+
     struct Transaction t;
     struct Record r;
     int option;
@@ -93,10 +94,24 @@ void createTransaction(struct User u)
             continue;
         } 
 
+        if (strcmp(t.type, "WITHDRAWAL") == 0 && t.amount > r.amount) {
+            printf("\n\t\tInsufficient funds for withdrawal!\n");
+            printf("\t\tPress enter to continue...");
+            getchar();
+            continue;
+        }
+
         break;
     }
 
+    if (strcmp(t.type, "WITHDRAWAL") == 0) {
+        r.amount -= t.amount; // Deduct amount for withdrawal
+    } else {
+        r.amount += t.amount; // Add amount for deposit
+    }
+
     writeTrans(t);
+    saveUpdatedRecord(r, u, "update");
     printf("\n\n\t\t======= Transaction Created =======\n");
 }
 
