@@ -56,6 +56,7 @@ void checkAllAccounts(struct User u);
 // menu functions
 void mainMenu(struct User u);
 void initMenu(struct User *u);
+void printWelcomeMessage(struct User u);
 
 // registration functions
 void registerUser(char name[50], char pass[50]);
