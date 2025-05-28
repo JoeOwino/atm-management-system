@@ -111,9 +111,9 @@ void initMenu(struct User *u)
     int option;
     
     while(1) {
-        system("clear");  // Note: system("cls") for Windows
+        system("clear");  
         printf("\n\n\t\t======= ATM =======\n");
-        printf("\n\t\t-->> Feel free to login / register :\n");
+        printf("\n\t\tFeel free to login / register\n");
         printf("\n\t\t[1]- login\n");
         printf("\n\t\t[2]- register\n");
         printf("\n\t\t[3]- exit\n\n");
