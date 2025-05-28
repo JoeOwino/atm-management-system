@@ -1,13 +1,22 @@
 #include "header.h"
 
+void printWelcomeMessage(struct User u)
+{
+    system("clear");
+    printf("\n\n\t\t=======================  ATM  ==========================\n");
+    printf("\t\t                    Welcome %s\n", u.name);
+    printf("\t\t  Yuo can exit the system at any point by prssing ctr+c\n");
+    printf("\t\t==========================================================\n\n");
+
+}
+
 int mainMenuLoop(struct User u)
 {
     int option = 0;
     int attempts = 0;
 
     do {
-        system("clear");
-        printf("\n\n\t\t======= ATM =======\n\n");
+        printWelcomeMessage(u);
         printf("\n\t\t-->> Feel free to choose one of the options below <<--\n");
         printf("\n\t\t[1]- Create a new account\n");
         printf("\n\t\t[2]- Update account information\n");
