@@ -5,7 +5,8 @@ void registerUser(char name[50], char pass[50])
     struct User u;
     struct termios oflags, nflags;
     while(1) {
-        system("clear");
+        printWelcomeMessage(u);
+
         printf("\n\n\t\t======= ATM =======\n");
         printf("\t\tMember Registration\n\n\n");
 
@@ -32,9 +33,9 @@ void registerUser(char name[50], char pass[50])
 
 
     while(1) {
-        system("clear");
-        printf("\n\n\t\t======= ATM =======\n");
-        printf("\t\tMember Registration\n\n\n");
+        printWelcomeMessage(u);
+
+        printf("\t\t========== User Registration ==========\n\n\n");
 
         printf("\t\tEnter Your name (no spaces or special charators):%s", name);
 
@@ -61,15 +62,5 @@ void registerUser(char name[50], char pass[50])
     strcpy(u.name, name);
     strcpy(u.password, pass);
     writeUser(u);
-
-    system("clear");
-    printf("\n\n\t\t======= ATM =======\n");
-    printf("\t\tMember Registration\n\n\n");
-    printf("\t\t\t\tRegiatered Successfully\n");
-    printf("\t\tID: %d\n", u.id);
-    printf("\t\tName: %s\n", name);
-    printf("\t\tPassword: %s\n", pass);
-    printf("\t\tPress Enter to continue...");
-    getchar();
    
 }
