@@ -39,12 +39,13 @@ int getTransID(char *file)
     
     int id = 0;
     
-    while (fscanf(fp, "%d %d %d/%d/%d %d, %s %lf", &t.id, &t.userId, &t.date.month, &t.date.day, &t.date.year, &t.accountNbr, t.type, &t.amount) != EOF)
+    while (fscanf(fp, "%d %d %d/%d/%d %d %s %lf", &t.id, &t.userId, &t.date.month, &t.date.day, &t.date.year, &t.accountNbr, t.type, &t.amount) != EOF)
     {
         if (t.id > id)
         {
             id = t.id;
         }
+
     }
     
     fclose(fp);
