@@ -1,5 +1,34 @@
 #include "header.h"
 
+const char *getPassword(struct User *u)
+{
+    FILE *fp;
+    struct User userChecker;
+
+    if ((fp = fopen("./data/users.txt", "r")) == NULL)
+    {
+        printf("Error! opening file");
+        exit(1);
+    }
+
+    while (fscanf(fp, "%d %s %s", &userChecker.id, userChecker.name, userChecker.password) != EOF)
+    {
+        // printf("%d %s %s\n", userChecker.id, userChecker.name, userChecker.password);
+        
+        if (strcmp(userChecker.name, u->name) == 0)
+        {
+            u -> id = userChecker.id;
+            fclose(fp);
+            char *buff = userChecker.password;
+            return buff;
+        }
+    }
+
+    fclose(fp);
+
+    return "no user found";
+}
+
 int getUserID(char *file)
 {
     FILE *fp;
