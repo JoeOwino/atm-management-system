@@ -1,15 +1,22 @@
 #include "header.h"
 
-const char *getPassword(struct User *u)
-{
-    FILE *fp;
-    struct User userChecker;
+#define RECORDS_FILE "./data/records.txt"
 
-    if ((fp = fopen("./data/users.txt", "r")) == NULL)
-    {
-        printf("Error! opening file");
+
+FILE *openUserFile(const char *filePath) {
+    FILE *fp = fopen(filePath, "r");
+    if (fp == NULL) {
+        printf("\t\tError! opening file: %s\n", filePath);
         exit(1);
     }
+    return fp;
+}
+
+const char *getPassword(struct User *u)
+{
+    FILE *fp = openUserFile("./data/users.txt");
+    struct User userChecker;
+
 
     while (fscanf(fp, "%d %s %s", &userChecker.id, userChecker.name, userChecker.password) != EOF)
     {
@@ -31,14 +38,9 @@ const char *getPassword(struct User *u)
 
 int getUserID(char *file)
 {
-    FILE *fp;
+    FILE *fp = openUserFile(file);
+
     struct User userChecker;
-    
-    if ((fp = fopen(file, "r")) == NULL)
-    {
-        printf("Error! opening file\n");
-        exit(1);
-    }
     
     int id = 0;
     
@@ -57,14 +59,8 @@ int getUserID(char *file)
 
 int getTransID(char *file)
 {
-    FILE *fp;
+    FILE *fp = openUserFile(file);
     struct Transaction t;
-    
-    if ((fp = fopen(file, "r")) == NULL)
-    {
-        printf("Error! opening file\n");
-        exit(1);
-    }
     
     int id = 0;
     
@@ -88,7 +84,7 @@ void writeUser(struct User u)
     
     if ((fp = fopen("./data/users.txt", "a")) == NULL)
     {
-        printf("Error! opening file\n");
+        printf("\t\tError! opening file\n");
         exit(1);
     }
     
@@ -114,25 +110,20 @@ int getAccountFromFile(FILE *ptr, char name[50], struct Record *r)
 }
 
 
-#define RECORDS_FILE "./data/records.txt"
 
-// Updates the record for a given account in the file
 int saveUpdatedRecord(struct Record updated, struct User u, char *action)
 {
-    // printf("Updated ID: %d\n", updated.userId);
-    // printf("Updated User ID: %d\n", u.id);
-    // printf("Updated Name: %s\n", u.name);
-    // printf("Updated Name: %s\n", updated.name);
+
     
     FILE *fp = fopen(RECORDS_FILE, "r");
     if (!fp) {
-        perror("Error opening file for reading");
+        perror("\t\tError opening file for reading");
         return 0;
     }
     
     FILE *temp = fopen("./data/temp.txt", "w");
     if (!temp) {
-        perror("Error opening temporary file for writing");
+        perror("\t\tError opening temporary file for writing");
         fclose(fp);
         return 0;
     }
@@ -173,20 +164,20 @@ int saveUpdatedRecord(struct Record updated, struct User u, char *action)
     fclose(temp);
     
     if (!found) {
-        printf("Record not found.\n");
+        printf("\t\tRecord not found.\n");
         remove("./data/temp.txt");
         return 0;
     }
     
     // Replace original file with updated temp file
     if (remove(RECORDS_FILE) != 0) {
-        perror("Error removing original file");
+        perror("\t\tError removing original file");
         remove("./data/temp.txt");
         return 0;
     }
     
     if (rename("./data/temp.txt", RECORDS_FILE) != 0) {
-        perror("Error renaming temp file");
+        perror("\t\tError renaming temp file");
         return 0;
     }
     
@@ -198,12 +189,34 @@ void writeTrans(struct Transaction t) {
     
     if ((fp = fopen("./data/transactions.txt", "a")) == NULL)
     {
-        printf("Error! opening file\n");
+        printf("\t\tError! opening file\n");
         exit(1);
     }
     
     fprintf(fp, "%d %d %d/%d/%d %d %s %lf\n", t.id, t.userId, t.date.month, t.date.day, t.date.year, t.accountNbr, t.type, t.amount);
     
     fclose(fp);
+}
+
+bool getAccount(int acc, struct Record *r, struct User *u, int userID)
+{
+    FILE *fp;
+    if ((fp = fopen("./data/records.txt", "r")) == NULL) {
+        printf("\t\tError! opening file");
+        return false;
+    }
+    
+    while (fscanf(fp, "%d %d %s %d %d/%d/%d %s %s %lf %s\n",
+           &r->id, &u->id, u->name, &r->accountNbr,
+           &r->deposit.month, &r->deposit.day, &r->deposit.year,
+           r->country, r->phone, &r->amount, r->accountType) == 11) {
+            
+        if (r->accountNbr == acc && userID == u->id) {
+            fclose(fp);
+            return true;
+        }
+    }
+    fclose(fp);
+    return false;
 }
 
