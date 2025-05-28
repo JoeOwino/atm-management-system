@@ -8,7 +8,7 @@ void loginMenu(char a[50], char pass[50])
 
     system("clear");
 
-    printf("\n\n\n\t\t\t\t   Bank Management System\n\t\t\t\t\t Enter Username:");
+    printf("\n\n\n\t\t\t\t   Bank Management System\n\t\t\t\t\t Enter Username: ");
     scanf("%s", a);
 
     // disabling echo
@@ -22,7 +22,7 @@ void loginMenu(char a[50], char pass[50])
         perror("tcsetattr");
         return exit(1);
     }
-    printf("\n\n\n\n\n\t\t\t\tEnter the password to login:");
+    printf("\n\n\n\n\n\t\t\t\tEnter the password to login: ");
     scanf("%s", pass);
 
 
@@ -34,31 +34,4 @@ void loginMenu(char a[50], char pass[50])
     }
 }
 
-const char *getPassword(struct User *u)
-{
-    FILE *fp;
-    struct User userChecker;
 
-    if ((fp = fopen("./data/users.txt", "r")) == NULL)
-    {
-        printf("Error! opening file");
-        exit(1);
-    }
-
-    while (fscanf(fp, "%d %s %s", &userChecker.id, userChecker.name, userChecker.password) != EOF)
-    {
-        // printf("%d %s %s\n", userChecker.id, userChecker.name, userChecker.password);
-        
-        if (strcmp(userChecker.name, u->name) == 0)
-        {
-            u -> id = userChecker.id;
-            fclose(fp);
-            char *buff = userChecker.password;
-            return buff;
-        }
-    }
-
-    fclose(fp);
-
-    return "no user found";
-}
