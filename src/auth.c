@@ -7,8 +7,12 @@ void loginMenu(char a[50], char pass[50])
     struct termios oflags, nflags;
 
     system("clear");
+    printf("\n\n\t\t=======================  ATM  ==========================\n");
+    printf("\t\t                    Login to continue \n");
+    printf("\t\t  Yuo can exit the system at any point by prssing ctr+c\n");
+    printf("\t\t==========================================================\n\n");
 
-    printf("\n\n\n\t\t\t\t   Bank Management System\n\t\t\t\t\t Enter Username: ");
+    printf("\n\t\t\t\t\t Enter Username: ");
     scanf("%s", a);
 
     // disabling echo
