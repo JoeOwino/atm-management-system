@@ -8,7 +8,7 @@ bool validateStringInput(char *input, size_t size)
     
     // Get input as a string
     if (fgets(input, size, stdin) == NULL) {
-        printf("Error reading input.\n");
+        printf("\t\tError reading input.\n");
         return false; // Error in input
     }
     
@@ -21,7 +21,7 @@ bool validateStringInput(char *input, size_t size)
     
     // Check if input is empty
     if (len == 0) {
-        printf("Empty input. Please enter a value.\n");
+        printf("\t\tEmpty input. Please enter a value.\n");
         return false;
     }
     
@@ -30,7 +30,7 @@ bool validateStringInput(char *input, size_t size)
         // Input might have been truncated
         int c;
         while ((c = getchar()) != '\n' && c != EOF); // Clear remaining input
-        printf("Input too long. Maximum %zu characters allowed.\n", size - 1);
+        printf("\t\tInput too long. Maximum %zu characters allowed.\n", size - 1);
         return false;
     }
     
@@ -86,7 +86,7 @@ bool isUniqueAcc(int acc) {
     struct User u;
     
     if ((fp = fopen("./data/records.txt", "r")) == NULL) {
-        printf("Error! opening file");
+        printf("\t\tError! opening file");
         return false; 
     }
     
@@ -113,7 +113,7 @@ bool isvalidIntegerInput(int *result) {
     char *endptr; // For strtof checking
     
     if (!validateStringInput(input, 100)) {
-        printf("Error reading input\n");
+        printf("\t\tError reading input\n");
         return false; // Error in input
     }
     
@@ -122,7 +122,7 @@ bool isvalidIntegerInput(int *result) {
     
     // Check if conversion was successful and it's an integer (no decimal part)
     if (*endptr != '\0' || temp != (int)temp) {
-        printf("Invalid input. Please enter a whole number.\n");
+        printf("\t\tInvalid input. Please enter a whole number.\n");
         return false; // Not an integer
     }
     
@@ -139,7 +139,7 @@ bool isValidMenuInput(int min, int max, int *result) {
     }
     
     if (*result < min || *result > max) {
-        printf("Invalid input. Please enter a whole number between %d and %d.\n", min, max);
+        printf("\t\tInvalid input. Please enter a whole number between %d and %d.\n", min, max);
         return false; // Out of range
     }
     
@@ -157,32 +157,32 @@ bool isValidDate(struct Date *dt)
     // Use sscanf instead of scanf to parse the input string
     int items = sscanf(input, "%d/%d/%d", &dt->month, &dt->day, &dt->year);
     if (items != 3) {
-        printf("Invalid date format. Please use MM/DD/YYYY format.\n");
+        printf("\t\tInvalid date format. Please use MM/DD/YYYY format.\n");
         fflush(stdout); 
         return false;
     }
     
     // Check if the date is valid
     if (dt->month < 1 || dt->month > 12) {
-        printf("Invalid month. Please enter a valid date.\n");
+        printf("\t\tInvalid month. Please enter a valid date.\n");
         fflush(stdout); 
         return false;
     }
     
     if (dt->day < 1 || dt->day > 31) {
-        printf("Invalid day. Please enter a valid date.\n");
+        printf("\t\tInvalid day. Please enter a valid date.\n");
         fflush(stdout); 
         return false;
     }
     
     if (dt->year < 1900 || dt->year > 2100) {
-        printf("Invalid year. Please enter a valid date.\n");
+        printf("\t\tInvalid year. Please enter a valid date.\n");
         fflush(stdout); 
         return false;
     }
     
     if ((dt->month == 4 || dt->month == 6 || dt->month == 9 || dt->month == 11) && dt->day > 30) {
-        printf("Invalid day for the given month. Please enter a valid date.\n");
+        printf("\t\tInvalid day for the given month. Please enter a valid date.\n");
         fflush(stdout); 
         return false;
     }
@@ -190,13 +190,13 @@ bool isValidDate(struct Date *dt)
     if (dt->month == 2) {
         if ((dt->year % 4 == 0 && dt->year % 100 != 0) || (dt->year % 400 == 0)) {
             if (dt->day > 29) {
-                printf("Invalid day for February in a leap year. Please enter a valid date.\n");
+                printf("\t\tInvalid day for February in a leap year. Please enter a valid date.\n");
                 fflush(stdout); 
                 return false;
             }
         } else {
             if (dt->day > 28) {
-                printf("Invalid day for February. Please enter a valid date.\n");
+                printf("\t\tInvalid day for February. Please enter a valid date.\n");
                 fflush(stdout); 
                 return false;
             }
@@ -209,7 +209,7 @@ bool isValidDate(struct Date *dt)
     if (dt->year > tm->tm_year + 1900 ||
         (dt->year == tm->tm_year + 1900 && dt->month > tm->tm_mon + 1) ||
         (dt->year == tm->tm_year + 1900 && dt->month == tm->tm_mon + 1 && dt->day > tm->tm_mday)) {
-        printf("Invalid date. The date cannot be in the future.\n");
+        printf("\t\tInvalid date. The date cannot be in the future.\n");
         fflush(stdout); // Ensure the message is displayed
         return false;
     }
@@ -226,13 +226,13 @@ bool isValidName(char *input, struct User *u)
     }
 
     if (isContainsSpaces(input)) {
-        printf("Invalid name. Please enter a valid name without spaces.\n");
+        printf("\t\tInvalid name. Please enter a valid name without spaces.\n");
         fflush(stdout); 
         return false;
     }
 
     if (!isUniqueName(input, u)) {
-        printf("Name already taken. Please choose another name.\n");
+        printf("\t\tName already taken. Please choose another name.\n");
         fflush(stdout); 
         return false;
     }
@@ -247,13 +247,13 @@ bool isValidPassword(char *input)
     }
 
     if (isContainsSpaces(input)) {
-        printf("Invalid password. Please enter a valid password without spaces.\n");
+        printf("\t\tInvalid password. Please enter a valid password without spaces.\n");
         fflush(stdout); 
         return false;
     }
 
     if (strlen(input) < 8) {
-        printf("Password must be at least 8 characters long.\n");
+        printf("\t\tPassword must be at least 8 characters long.\n");
         fflush(stdout); 
         return false;
     }
@@ -269,8 +269,8 @@ bool isValidPhoneNo(char *phone)
     }
 
     // Check if the phone number is valid
-    if (strlen(phone) != 10 ) {
-        printf("Invalid phone number. Please enter a valid 10-digit phone number.\n");
+    if (strlen(phone) < 8 || strlen(phone) > 15) {
+        printf("\t\tInvalid phone number. Please enter a valid 8 to 15 digit phone number.\n");
         fflush(stdout); 
         return false;
     }
@@ -278,7 +278,7 @@ bool isValidPhoneNo(char *phone)
    // Verify that all characters are digits
     for (int i = 0; i < strlen(phone); i++) {
         if (!isdigit(phone[i])) {
-            printf("Invalid phone number. Please enter only digits (0-9).\n");
+            printf("\t\tInvalid phone number. Please enter only digits (0-9).\n");
             fflush(stdout);
             return false;
         }
@@ -293,7 +293,7 @@ bool isvalidAmount(double *amount, double min, double max) {
     char *endptr; // For strtod checking
 
     if (!validateStringInput(input, 100)) {
-        printf("Error reading input\n");
+        printf("\t\tError reading input\n");
         return false; // Error in input
     }
 
@@ -302,7 +302,7 @@ bool isvalidAmount(double *amount, double min, double max) {
     
     // Check if conversion was successful
     if (*endptr != '\0') { // This condition should be != '\0', not == '\0'
-        printf("Invalid input. Please enter a valid number.\n");
+        printf("\t\tInvalid input. Please enter a valid number.\n");
         return false;
     }
     
@@ -312,7 +312,7 @@ bool isvalidAmount(double *amount, double min, double max) {
     // Check if amount is within range
     if (*amount < min || *amount > max) {
         // Fixed format specifiers to %g for displaying double values
-        printf("Invalid input. Please enter a number between %g and %g.\n", min, max);
+        printf("\t\tInvalid input. Please enter a number between %g and %g.\n", min, max);
         return false; // Out of range
     }
     
