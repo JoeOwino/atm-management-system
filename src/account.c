@@ -314,7 +314,6 @@ void updateAccount(struct User u)
 void printAccount(struct Record r, struct User u)
 {
     printWelcomeMessage(u);
-
     printf("\n\t\t====== Account Details =======\n\n");
     printf("\t\tAccount number: %d\n\t\tDeposit Date: %d/%d/%d \n\t\tcountry: %s \n\t\tPhone number: %s \n\t\tAmount deposited: $%.2f \n\t\tType Of Account: %s\n",
             r.accountNbr,
@@ -485,8 +484,7 @@ void checkAccounts(struct User u)
 
     while (1)
     {
-        printWelcomeMessage(u);
-        
+        printWelcomeMessage(u);        
         printf("\n\n\t\t======= Acount Check =======\n\n");
         printf("\n\t\t-->> Please enter the account number to check: ");
 
