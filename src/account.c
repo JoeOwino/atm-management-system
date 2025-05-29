@@ -99,7 +99,7 @@ void createNewAcc(struct User u)
         printf("\t\tEnter the date of deposit (MM/DD/YYYY): %d/%d/%d", dt.month, dt.day, dt.year); 
         printf("\n\t\tEnter the account number: %d", r.accountNbr);
 
-        printf("\nEnter the country: ");
+        printf("\n\t\tEnter the country: ");
         if (!validateStringInput(r.country, 50)) {
             printf("\t\tPress enter to continue...");
             getchar(); 
@@ -147,7 +147,7 @@ void createNewAcc(struct User u)
         printf("\n\t\tEnter the country: %s", r.country);
         printf("\n\t\tEnter the phone number: %s", r.phone);
 
-        printf("\nEnter amount to deposit: ");
+        printf("\n\t\tEnter amount to deposit: ");
         if (!isvalidAmount(&r.amount, 50, 1000000)) {
             printf("\t\tPress enter to continue...");
             getchar(); 
@@ -316,7 +316,7 @@ void printAccount(struct Record r, struct User u)
     printWelcomeMessage(u);
 
     printf("\n\t\t====== Account Details =======\n\n");
-    printf("\t\tAccount number:%d\n\t\tDeposit Date:%d/%d/%d \n\t\tcountry:%s \n\t\tPhone number:%s \n\t\tAmount deposited: $%.2f \n\t\tType Of Account:%s\n",
+    printf("\t\tAccount number: %d\n\t\tDeposit Date: %d/%d/%d \n\t\tcountry: %s \n\t\tPhone number: %s \n\t\tAmount deposited: $%.2f \n\t\tType Of Account: %s\n",
             r.accountNbr,
             r.deposit.day,
             r.deposit.month,
@@ -497,7 +497,7 @@ void checkAccounts(struct User u)
         }
         
         if (!getAccount(acc, &r, &u, u.id)) {
-            printf("\n\tAccount not found!\n");
+            printf("\n\t\tAccount not found!\n");
             printf("\t\tPress enter to continue...");
             getchar();
             continue;
@@ -510,11 +510,15 @@ void checkAccounts(struct User u)
 
     double interest = calculateInterest(r.accountNbr, r.accountType, r.amount);
     if (interest == 0.0) {
-        printf("You will not get interests because the account is of type %s\n", r.accountType);
+        printf("\t\tYou will not get interests because the account is of type %s\n", r.accountType);
         return;
     }
 
-    printf("You will get %.2lf as interest on day %d of every month\n", interest, r.deposit.day);
+    if (strcmp(r.accountType, "saving") == 0) {
+        printf("\n\t\tYou will get %.2lf as interest on day %d of every month\n", interest, r.deposit.day);
+    } else {
+        printf("\n\t\tYou will get %.2lf as interest on %d/%d/%d\n", interest, r.deposit.month, r.deposit.day, r.deposit.year+1);
+    }
 }
 
 double calculateInterest(int accNbr, char *accType, double amount)
@@ -522,7 +526,7 @@ double calculateInterest(int accNbr, char *accType, double amount)
     double interestRate = 0.0;
 
     if (strcmp(accType, "saving") == 0) {
-        interestRate = 0.07; 
+        interestRate = 0.07 / 12; 
     } else if (strcmp(accType, "fixed01") == 0) {
         interestRate = 0.04;
     } else if (strcmp(accType, "fixed02") == 0) {
@@ -531,7 +535,7 @@ double calculateInterest(int accNbr, char *accType, double amount)
         interestRate = 0.08; 
     }
 
-    return amount * interestRate / 12;
+    return amount * interestRate;
 
 }
 
