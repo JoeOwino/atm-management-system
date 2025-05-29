@@ -45,7 +45,7 @@ struct Transaction
 };
 
 // authentication functions
-void loginMenu(char name[50], char pass[50]);
+void loginMenu(struct User *u);
 const char *getPassword(struct User *u);
 
 // system function
