@@ -200,6 +200,8 @@ void writeTrans(struct Transaction t) {
 
 bool getAccount(int acc, struct Record *r, struct User *u, int userID)
 {
+    struct User tempUser = *u; 
+    
     FILE *fp;
     if ((fp = fopen("./data/records.txt", "r")) == NULL) {
         printf("\t\tError! opening file");
@@ -217,6 +219,8 @@ bool getAccount(int acc, struct Record *r, struct User *u, int userID)
         }
     }
     fclose(fp);
+
+    *u = tempUser; 
     return false;
 }
 
