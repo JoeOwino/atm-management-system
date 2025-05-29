@@ -72,7 +72,6 @@ void mainMenu(struct User u)
         break;
 
     case 2:
-        // student TODO : add your **Update account information** function
         updateAccount(u);
         break;
 
@@ -134,7 +133,7 @@ void initMenu(struct User *u)
     
     switch (option) {
         case 1:
-            loginMenu(u->name, u->password);
+            loginMenu(u);
             break;
             
         case 2:
