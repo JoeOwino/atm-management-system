@@ -47,9 +47,9 @@ int mainMenuLoop(struct User u)
 void success(struct User u)
 {
     int option;
-    printf("\n✔ Success!\n\n");
+    printf("\n\n\t\t✔ Success!\n");
 invalid:
-    printf("Enter any cahracter(s) to go to the main menu and 0 to exit!: ");
+    printf("\t\tEnter any cahracter(s) to go to the main menu and 0 to exit!: ");
     scanf("%d", &option);
     system("clear");
 
@@ -111,9 +111,12 @@ void initMenu(struct User *u)
     int option;
     
     while(1) {
-        system("clear");  
-        printf("\n\n\t\t======= ATM =======\n");
-        printf("\n\t\tFeel free to login / register\n");
+        system("clear");
+        printf("\n\n\t\t=======================  ATM  ==========================\n");
+        printf("\t\t             Login or register to continue \n");
+        printf("\t\t  You can exit the system at any point by pressing ctrl+c\n");
+        printf("\t\t==========================================================\n");
+
         printf("\n\t\t[1]- login\n");
         printf("\n\t\t[2]- register\n");
         printf("\n\t\t[3]- exit\n\n");
@@ -132,13 +135,6 @@ void initMenu(struct User *u)
     switch (option) {
         case 1:
             loginMenu(u->name, u->password);
-            if (strcmp(u->password, getPassword(u)) == 0) {
-                // printf("\n\n\t\tPassword Match!\n");
-                // printf("\t\tLogin successful.\n");
-            } else {
-                printf("\n\t\tWrong password or username!\n");
-                exit(1);
-            }
             break;
             
         case 2:
