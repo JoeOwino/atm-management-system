@@ -2,10 +2,12 @@
 
 char *USERS = "./data/users.txt";
 
-void loginMenu(char name[50], char pass[50])
+void loginMenu(struct User *u)
 {
     struct termios oflags, nflags;
-    struct User u;
+    char pass[50];
+    char name[50];
+    char userPass [50];
 
     while (1)
     {
@@ -31,9 +33,9 @@ void loginMenu(char name[50], char pass[50])
             continue;
         }
 
-        strcpy(u.name, name);
+        strcpy(u->name, name);
 
-        if (isUniqueName(name, &u)) {
+        if (isUniqueName(name, u)) {
             printf("\t\tUser with name %s not found.\n", name);
             printf("\t\tPress enter to continue....");
             getchar(); 
@@ -75,8 +77,10 @@ void loginMenu(char name[50], char pass[50])
 
         // Remove trailing newline from fgets
         pass[strcspn(pass, "\n")] = 0;
+        strcpy(userPass, getPassword(u));
+        
 
-        if (strcmp(pass, getPassword(&u)) != 0) {
+        if (strcmp(pass, userPass) != 0) {
             printf("\n\t\tWrong password!\n");
             printf("\t\tPress enter to continue....");
             getchar();
