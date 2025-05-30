@@ -13,7 +13,6 @@ void printWelcomeMessage(struct User u)
 int mainMenuLoop(struct User u)
 {
     int option = 0;
-    int attempts = 0;
 
     do {
         printWelcomeMessage(u);
@@ -28,14 +27,9 @@ int mainMenuLoop(struct User u)
         printf("\n\t\t[8]- Exit\n");
         printf("\n\t\tEnter choice: ");
         
-        if (!isValidMenuInput(1, 8, &option) && attempts > 0) {
-            //printf("\n\t\tInvalid input. Please enter a whole number between 1 and 8.\n");
+        if (!isValidMenuInput(1, 8, &option)) {
             printf("\t\tPress Enter to continue...");
             getchar();
-        }
-
-        if (attempts == 0) {
-            attempts ++;
         }
 
     } while (option < 1 || option > 8);
