@@ -27,7 +27,7 @@ void createNewAcc(struct User u)
     struct Date dt;
     
     if (pf == NULL) { 
-        printf("Error opening file.\n");
+        printf("\n\nError opening file.\n");
         return;
     }
     
@@ -69,7 +69,7 @@ void createNewAcc(struct User u)
         printWelcomeMessage(u);
         
         printf("\t\t====== Create new account =====\n\n");
-        printf("\t\tEnter the date of deposit (MM/DD/YYYY): %d/%d/%d", dt.month, dt.day, dt.year); 
+        printf("\t\tEnter the date of deposit (MM/DD/YYYY): %d/%d/%d\n", dt.month, dt.day, dt.year); 
 
         printf("\n\t\tEnter the account number: ");
         if (!isvalidIntegerInput(&r.accountNbr)) {
@@ -97,7 +97,7 @@ void createNewAcc(struct User u)
         
         printf("\t\t====== Create new account =====\n\n");
         printf("\t\tEnter the date of deposit (MM/DD/YYYY): %d/%d/%d", dt.month, dt.day, dt.year); 
-        printf("\n\t\tEnter the account number: %d", r.accountNbr);
+        printf("\n\t\tEnter the account number: %d\n", r.accountNbr);
 
         printf("\n\t\tEnter the country: ");
         if (!validateStringInput(r.country, 50)) {
@@ -123,7 +123,7 @@ void createNewAcc(struct User u)
         printf("\t\t====== Create new account =====\n\n");
         printf("\t\tEnter the date of deposit (MM/DD/YYYY): %d/%d/%d", dt.month, dt.day, dt.year); 
         printf("\n\t\tEnter the account number: %d", r.accountNbr);
-        printf("\n\t\tEnter the country: %s", r.country);
+        printf("\n\t\tEnter the country: %s\n", r.country);
 
         printf("\n\t\tEnter the phone number: ");
 
@@ -145,7 +145,7 @@ void createNewAcc(struct User u)
         printf("\t\tEnter the date of deposit (MM/DD/YYYY): %d/%d/%d", dt.month, dt.day, dt.year); 
         printf("\n\t\tEnter the account number: %d", r.accountNbr);
         printf("\n\t\tEnter the country: %s", r.country);
-        printf("\n\t\tEnter the phone number: %s", r.phone);
+        printf("\n\t\tEnter the phone number: %s\n", r.phone);
 
         printf("\n\t\tEnter amount to deposit: ");
         if (!isvalidAmount(&r.amount, 50, 1000000)) {
@@ -167,7 +167,7 @@ void createNewAcc(struct User u)
         printf("\n\t\tEnter the account number: %d", r.accountNbr);
         printf("\n\t\tEnter the country: %s", r.country);
         printf("\n\t\tEnter the phone number: %s", r.phone);
-        printf("\n\t\tAmount deposited: $%.2f", r.amount);
+        printf("\n\t\tAmount deposited: $%.2f\n", r.amount);
 
         printf("\n\t\tChoose the type of account:\n\t\t\t-> saving\n\t\t\t-> current\n\t\t\t-> fixed01(for 1 year)\n\t\t\t-> fixed02(for 2 years)\n\t\t\t-> fixed03(for 3 years)\n\n\t\t\tEnter your choice: ");
 
