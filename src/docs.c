@@ -1,8 +1,5 @@
 #include "header.h"
 
-const char *RECORDS = "./data/records.txt";
-const char *USERS = "./data/users.txt";
-
 FILE *openUserFile(const char *filePath) {
     FILE *fp = fopen(filePath, "r");
     if (fp == NULL) {
@@ -14,7 +11,7 @@ FILE *openUserFile(const char *filePath) {
 
 const char *getPassword(struct User *u)
 {
-    FILE *fp = openUserFile("./data/users.txt");
+    FILE *fp = openUserFile(USERS_FILE);
     struct User userChecker;
 
 
@@ -82,7 +79,7 @@ void writeUser(struct User u)
 {
     FILE *fp;
     
-    if ((fp = fopen("./data/users.txt", "a")) == NULL)
+    if ((fp = fopen(USERS_FILE, "a")) == NULL)
     {
         printf("\t\tError! opening file\n");
         exit(1);
@@ -115,7 +112,7 @@ int saveUpdatedRecord(struct Record updated, struct User u, char *action)
 {
 
     
-    FILE *fp = fopen(RECORDS, "r");
+    FILE *fp = fopen(RECORDS_FILE, "r");
     if (!fp) {
         perror("\t\tError opening file for reading");
         return 0;
@@ -170,13 +167,13 @@ int saveUpdatedRecord(struct Record updated, struct User u, char *action)
     }
     
     // Replace original file with updated temp file
-    if (remove(RECORDS) != 0) {
+    if (remove(RECORDS_FILE) != 0) {
         perror("\t\tError removing original file");
         remove("./data/temp.txt");
         return 0;
     }
     
-    if (rename("./data/temp.txt", RECORDS) != 0) {
+    if (rename("./data/temp.txt", RECORDS_FILE) != 0) {
         perror("\t\tError renaming temp file");
         return 0;
     }
@@ -203,7 +200,7 @@ bool getAccount(int acc, struct Record *r, struct User *u, int userID)
     struct User tempUser = *u; 
     
     FILE *fp;
-    if ((fp = fopen("./data/records.txt", "r")) == NULL) {
+    if ((fp = fopen(RECORDS_FILE, "r")) == NULL) {
         printf("\t\tError! opening file");
         return false;
     }
