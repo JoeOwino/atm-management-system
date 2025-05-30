@@ -1,3 +1,6 @@
+#ifndef HEADER_H
+#define HEADER_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -5,6 +8,10 @@
 #include <stdbool.h>
 #include <ctype.h>
 #include <time.h>
+
+#define RECORDS_FILE "./data/records.txt"
+#define USERS_FILE "./data/users.txt"
+
 
 
 struct Date
@@ -95,3 +102,4 @@ double calculateInterest(int accNbr, char *accType, double amount);
 // Transaction Functions
 void createTransaction(struct User u);
 
+#endif
