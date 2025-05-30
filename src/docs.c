@@ -1,7 +1,7 @@
 #include "header.h"
 
-#define RECORDS_FILE "./data/records.txt"
-
+const char *RECORDS = "./data/records.txt";
+const char *USERS = "./data/users.txt";
 
 FILE *openUserFile(const char *filePath) {
     FILE *fp = fopen(filePath, "r");
@@ -115,7 +115,7 @@ int saveUpdatedRecord(struct Record updated, struct User u, char *action)
 {
 
     
-    FILE *fp = fopen(RECORDS_FILE, "r");
+    FILE *fp = fopen(RECORDS, "r");
     if (!fp) {
         perror("\t\tError opening file for reading");
         return 0;
@@ -170,13 +170,13 @@ int saveUpdatedRecord(struct Record updated, struct User u, char *action)
     }
     
     // Replace original file with updated temp file
-    if (remove(RECORDS_FILE) != 0) {
+    if (remove(RECORDS) != 0) {
         perror("\t\tError removing original file");
         remove("./data/temp.txt");
         return 0;
     }
     
-    if (rename("./data/temp.txt", RECORDS_FILE) != 0) {
+    if (rename("./data/temp.txt", RECORDS) != 0) {
         perror("\t\tError renaming temp file");
         return 0;
     }
