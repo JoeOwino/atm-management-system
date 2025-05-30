@@ -1,6 +1,5 @@
 #include "header.h"
 
-char *USERS = "./data/users.txt";
 
 void loginMenu(struct User *u)
 {
