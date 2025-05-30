@@ -55,7 +55,7 @@ bool isUniqueName(char name[50], struct User *u)
     FILE *fp;
     struct User userChecker;
 
-    if ((fp = fopen("./data/users.txt", "r")) == NULL)
+    if ((fp = fopen(USERS_FILE, "r")) == NULL)
     {
         printf("\n\n\t\tError! opening file");
         exit(1);
@@ -85,7 +85,7 @@ bool isUniqueAcc(int acc) {
     struct Record r;
     struct User u;
     
-    if ((fp = fopen("./data/records.txt", "r")) == NULL) {
+    if ((fp = fopen(RECORDS_FILE, "r")) == NULL) {
         printf("\n\n\t\tError! opening file");
         return false; 
     }
