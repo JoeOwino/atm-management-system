@@ -38,7 +38,7 @@ void createTransaction(struct User u)
             printf("\n\t\t-->>Make Deposit\n");
             strcpy(t.type, "DEPOSIT");
         } else {
-            printf("\n\t\t-->>Make a Withdrawal \n");
+            printf("\n\t\t-->>Make a Withdrawal\n");
             strcpy(t.type, "WITHDRAWAL");
         }
 
@@ -73,7 +73,7 @@ void createTransaction(struct User u)
         
         printf("\n\n\t\t======= Create  Transaction =======\n");
         printf("\n\n\t\tTransaction: %s", t.type);
-        printf("\n\n\t\tAccount: %d", t.accountNbr);
+        printf("\n\n\t\tAccount: %d\n", t.accountNbr);
 
         printf("\n\t\t-->> Please enter the transaction date: ");
         if (!isValidDate(&dt)) {
@@ -96,7 +96,7 @@ void createTransaction(struct User u)
         printf("\n\n\t\t======= Create  Transaction =======\n");
         printf("\n\n\t\tTransaction: %s", t.type);
         printf("\n\n\t\tAccount: %d", t.accountNbr);
-        printf("\n\n\t\tDated: %d/%d/%d", t.date.month, t.date.day, t.date.year);
+        printf("\n\n\t\tDated: %d/%d/%d\n", t.date.month, t.date.day, t.date.year);
 
         printf("\n\t\t-->> Please enter the amount: ");
         if (!isvalidAmount(&t.amount, 50, 999999999)) {
