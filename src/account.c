@@ -1,7 +1,5 @@
 #include "header.h"
 
-const char *RECORDS = "./data/records.txt";
-
 void saveAccountToFile(FILE *ptr, struct User u, struct Record r)
 {
     fprintf(ptr, "%d %d %s %d %d/%d/%d %s %s %.2lf %s\n\n",
@@ -23,7 +21,7 @@ void createNewAcc(struct User u)
     struct Record r;
     struct Record cr;
     char userName[50];
-    FILE *pf = fopen(RECORDS, "a+");
+    FILE *pf = fopen(RECORDS_FILE, "a+");
     struct Date dt;
     
     if (pf == NULL) { 
