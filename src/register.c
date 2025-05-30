@@ -58,7 +58,7 @@ void registerUser(char name[50], char pass[50])
         return exit(1);
     }
 
-    u.id = getUserID("./data/users.txt");;
+    u.id = getUserID(USERS_FILE);;
     strcpy(u.name, name);
     strcpy(u.password, pass);
     writeUser(u);
