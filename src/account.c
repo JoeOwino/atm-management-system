@@ -79,6 +79,7 @@ void createNewAcc(struct User u)
         }
 
         if (!isUniqueAcc(r.accountNbr)) {
+            printf("\n\t\tAccount number already exists. Please enter a unique account number.\n");
             printf("\t\tPress enter to continue...");
             getchar(); 
             continue;
@@ -87,9 +88,6 @@ void createNewAcc(struct User u)
         
         break;
     }
-    
-    // Reset file position to end for appending
-    // fseek(pf, 0, SEEK_END);
     
     while (1)
     {
@@ -147,7 +145,7 @@ void createNewAcc(struct User u)
         printf("\n\t\tEnter the country: %s", r.country);
         printf("\n\t\tEnter the phone number: %s\n", r.phone);
 
-        printf("\n\t\tEnter amount to deposit: ");
+        printf("\n\t\tEnter amount to deposit: $");
         if (!isvalidAmount(&r.amount, 50, 1000000)) {
             printf("\t\tPress enter to continue...");
             getchar(); 
