@@ -82,13 +82,13 @@ void createTransaction(struct User u)
         }
 
         if (!getAccount(t.accountNbr, &r, &u, u.id)) {
-            printf("\n\tAccount not found!\n"); 
+            printf("\n\t\tAccount not found!\n"); 
             printf("\t\tPress enter to continue...");
             getchar(); 
             continue;
         }
 
-        if (strcmp(r.accountType, "fixed01") || strcmp(r.accountType, "fixed02") || strcmp(r.accountType, "fixed03")) {
+        if (strcmp(r.accountType, "fixed01") == 0 || strcmp(r.accountType, "fixed02") == 0 || strcmp(r.accountType, "fixed03") == 0) {
             printf("\n\t\tThis account is not eligible for transactions!\n");
             printf("\t\tPress enter to continue...");
             getchar();
@@ -97,7 +97,6 @@ void createTransaction(struct User u)
 
         break;
     }
-
 
     while (1)
     {
