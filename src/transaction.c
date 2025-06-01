@@ -8,6 +8,12 @@ void createTransaction(struct User u)
     int option;
     struct Date dt;
 
+    FILE *fp = fopen(RECORDS_FILE, "a+");
+    if (fp == NULL) { 
+        printf("\n\nError opening file.\n");
+        return;
+    }
+
     t.id = getTransID("./data/transactions.txt");
     t.userId = u.id;
 
@@ -122,7 +128,7 @@ void createTransaction(struct User u)
     }
 
     writeTrans(t);
-    saveUpdatedRecord(r, u, "update");
+    saveUpdatedRecord(fp, u, r, "update");
     printf("\n\n\t\t======= Transaction Created =======\n");
 }
 
