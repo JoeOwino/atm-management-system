@@ -11,8 +11,7 @@
 
 #define RECORDS_FILE "./data/records.txt"
 #define USERS_FILE "./data/users.txt"
-
-
+#define TRANS_FILE "./data/transactions.txt"
 
 struct Date
 {
@@ -74,8 +73,9 @@ void writeUser(struct User u);
 int getAccountFromFile(FILE *fp, char name[50], struct Record *r);
 void saveAccountToFile(FILE *fp, struct User u, struct Record r);
 int saveUpdatedRecord(FILE *fp, struct User u, struct Record updated, char *action);
-int getTransID(char *file);
+int getTransID();
 void writeTrans(struct Transaction t);
+FILE *openAccFile(struct User u, char *msg);
 
 // validation functions
 bool isValidDate(struct Date *dt);
