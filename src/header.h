@@ -68,14 +68,15 @@ void printWelcomeMessage(struct User u);
 void registerUser(char name[50], char pass[50]);
 
 // fileio IO functions
-int getUserID(char *file);
+int getUserID();
+FILE *openUserFile(struct User u);
+FILE *openAccFile(struct User u, char *msg);
 void writeUser(struct User u);
 int getAccountFromFile(FILE *fp, char name[50], struct Record *r);
 void saveAccountToFile(FILE *fp, struct User u, struct Record r);
 int saveUpdatedRecord(FILE *fp, struct User u, struct Record updated, char *action);
 int getTransID();
 void writeTrans(struct Transaction t);
-FILE *openAccFile(struct User u, char *msg);
 
 // validation functions
 bool isValidDate(struct Date *dt);
