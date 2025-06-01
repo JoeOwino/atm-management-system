@@ -14,7 +14,7 @@ FILE *openFile(struct User u) {
         
         printf("\n\n\t\t======= Acount Update =======\n\n");
         printf("\n\t\tNo Accounts record created yet.\n");
-        printf("\t\tEnter 1 to create account, any other character(s) to exit: ");
+        printf("\t\tEnter 1 to create account, any other character(s) to go to main menu: ");
     
         char choice[10];
         fgets(choice, sizeof(choice), stdin);
@@ -22,9 +22,7 @@ FILE *openFile(struct User u) {
         if (choice[0] == '1') {
             createNewAcc(u);
         } else {
-            printf("Exiting...\n");
-            system("clear");
-            exit(1);
+         mainMenu(u);
         }
     }
     
@@ -212,6 +210,9 @@ void updateAccount(struct User u)
         bool isUpdated = false;
 
         FILE *fp = openFile(u);
+        if (fp == NULL) { 
+            return;
+        }
 
         while (1)
         {
@@ -346,9 +347,8 @@ void removeAccount(struct User u)
     int acc;
     int option;
 
-    FILE *fp = fopen(RECORDS_FILE, "a+");
+    FILE *fp = openFile(u);
     if (fp == NULL) { 
-        printf("\n\nError opening file.\n");
         return;
     }
 
@@ -407,9 +407,8 @@ void transferOwnership(struct User u)
     int acc;
     int option;
 
-    FILE *fp = fopen(RECORDS_FILE, "a+");
+    FILE *fp = openFile(u);
     if (fp == NULL) { 
-        printf("\n\nError opening file.\n");
         return;
     }
 
@@ -508,6 +507,11 @@ void checkAccounts(struct User u)
     int acc;
     int option;
 
+    FILE *fp = openFile(u);
+    if (fp == NULL) { 
+        return;
+    }
+
     while (1)
     {
         printWelcomeMessage(u);        
@@ -568,17 +572,21 @@ void checkAllAccounts(struct User u)
     char userName[100];
     struct Record r;
 
-    FILE *pf = fopen(RECORDS_FILE, "r");
+    FILE *fp = openFile(u);
+    if (fp == NULL) { 
+        return;
+    }
 
     system("clear");
     printf("\t\t====== All accounts from user, %s =====\n\n", u.name);
-    while (getAccountFromFile(pf, userName, &r))
+    while (getAccountFromFile(fp, userName, &r))
     {
         if (strcmp(userName, u.name) == 0)
         {
             printAccount(r, u);
         }
     }
-    fclose(pf);
+
+    fclose(fp);
 }
 
