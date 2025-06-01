@@ -9,115 +9,16 @@ FILE *openUserFile(const char *filePath) {
     return fp;
 }
 
-const char *getPassword(struct User *u)
+void saveAccountToFile(FILE *fp, struct User u, struct Record r)
 {
-    FILE *fp = openUserFile(USERS_FILE);
-    struct User userChecker;
-
-
-    while (fscanf(fp, "%d %s %s", &userChecker.id, userChecker.name, userChecker.password) != EOF)
-    {
-        // printf("%d %s %s\n", userChecker.id, userChecker.name, userChecker.password);
-        
-        if (strcmp(userChecker.name, u->name) == 0)
-        {
-            u -> id = userChecker.id;
-            fclose(fp);
-            char *buff = userChecker.password;
-            return buff;
-        }
-    }
-
-    fclose(fp);
-
-    return "no user found";
+    fprintf(fp, "%d %d %s %d %d/%d/%d %s %s %.2lf %s\n\n", 
+        r.id, u.id, u.name, r.accountNbr, r.deposit.month, 
+        r.deposit.day, r.deposit.year,r.country, r.phone, 
+        r.amount,r.accountType);
 }
 
-int getUserID(char *file)
-{
-    FILE *fp = openUserFile(file);
-
-    struct User userChecker;
-    
-    int id = 0;
-    
-    while (fscanf(fp, "%d %s %s", &userChecker.id, userChecker.name, userChecker.password) != EOF)
-    {
-        if (userChecker.id > id)
-        {
-            id = userChecker.id;
-        }
-    }
-    
-    fclose(fp);
-    
-    return id + 1; // Increment the highest ID by 1
-}
-
-int getTransID(char *file)
-{
-    FILE *fp = openUserFile(file);
-    struct Transaction t;
-    
-    int id = 0;
-    
-    while (fscanf(fp, "%d %d %d/%d/%d %d %s %lf", &t.id, &t.userId, &t.date.month, &t.date.day, &t.date.year, &t.accountNbr, t.type, &t.amount) != EOF)
-    {
-        if (t.id > id)
-        {
-            id = t.id;
-        }
-
-    }
-    
-    fclose(fp);
-    
-    return id + 1; // Increment the highest ID by 1
-}
-
-void writeUser(struct User u)
-{
-    FILE *fp;
-    
-    if ((fp = fopen(USERS_FILE, "a")) == NULL)
-    {
-        printf("\t\tError! opening file\n");
-        exit(1);
-    }
-    
-    fprintf(fp, "%d %s %s\n", u.id, u.name, u.password);
-    
-    fclose(fp);
-}
-
-int getAccountFromFile(FILE *ptr, char name[50], struct Record *r)
-{
-    return fscanf(ptr, "%d %d %s %d %d/%d/%d %s %s %lf %s",
-                  &r->id,
-		  &r->userId,
-		  name,
-                  &r->accountNbr,
-                  &r->deposit.month,
-                  &r->deposit.day,
-                  &r->deposit.year,
-                  r->country,
-                  r->phone,
-                  &r->amount,
-                  r->accountType) != EOF;
-}
-
-
-
-int saveUpdatedRecord(struct Record updated, struct User u, char *action)
-{
-
-    
-    FILE *fp = fopen(RECORDS_FILE, "r");
-    if (!fp) {
-        perror("\t\tError opening file for reading");
-        return 0;
-    }
-    
+int saveUpdatedRecord(FILE *fp, struct User u, struct Record updated, char *action)
+{       
     FILE *temp = fopen("./data/temp.txt", "w");
     if (!temp) {
         perror("\t\tError opening temporary file for writing");
@@ -219,5 +120,102 @@ bool getAccount(int acc, struct Record *r, struct User *u, int userID)
 
     *u = tempUser; 
     return false;
+}
+
+const char *getPassword(struct User *u)
+{
+    FILE *fp = openUserFile(USERS_FILE);
+    struct User userChecker;
+
+
+    while (fscanf(fp, "%d %s %s", &userChecker.id, userChecker.name, userChecker.password) != EOF)
+    {
+        // printf("%d %s %s\n", userChecker.id, userChecker.name, userChecker.password);
+        
+        if (strcmp(userChecker.name, u->name) == 0)
+        {
+            u -> id = userChecker.id;
+            fclose(fp);
+            char *buff = userChecker.password;
+            return buff;
+        }
+    }
+
+    fclose(fp);
+
+    return "no user found";
+}
+
+int getUserID(char *file)
+{
+    FILE *fp = openUserFile(file);
+
+    struct User userChecker;
+    
+    int id = 0;
+    
+    while (fscanf(fp, "%d %s %s", &userChecker.id, userChecker.name, userChecker.password) != EOF)
+    {
+        if (userChecker.id > id)
+        {
+            id = userChecker.id;
+        }
+    }
+    
+    fclose(fp);
+    
+    return id + 1; // Increment the highest ID by 1
+}
+
+int getTransID(char *file)
+{
+    FILE *fp = openUserFile(file);
+    struct Transaction t;
+    
+    int id = 0;
+    
+    while (fscanf(fp, "%d %d %d/%d/%d %d %s %lf", &t.id, &t.userId, &t.date.month, &t.date.day, &t.date.year, &t.accountNbr, t.type, &t.amount) != EOF)
+    {
+        if (t.id > id)
+        {
+            id = t.id;
+        }
+
+    }
+    
+    fclose(fp);
+    
+    return id + 1; // Increment the highest ID by 1
+}
+
+void writeUser(struct User u)
+{
+    FILE *fp;
+    
+    if ((fp = fopen(USERS_FILE, "a")) == NULL)
+    {
+        printf("\t\tError! opening file\n");
+        exit(1);
+    }
+    
+    fprintf(fp, "%d %s %s\n", u.id, u.name, u.password);
+    
+    fclose(fp);
+}
+
+int getAccountFromFile(FILE *ptr, char name[50], struct Record *r)
+{
+    return fscanf(ptr, "%d %d %s %d %d/%d/%d %s %s %lf %s",
+                  &r->id,
+		  &r->userId,
+		  name,
+                  &r->accountNbr,
+                  &r->deposit.month,
+                  &r->deposit.day,
+                  &r->deposit.year,
+                  r->country,
+                  r->phone,
+                  &r->amount,
+                  r->accountType) != EOF;
 }
 
