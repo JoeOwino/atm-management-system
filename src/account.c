@@ -1,34 +1,5 @@
 #include "header.h"
 
-FILE *openFile(struct User u) {
-    FILE *fp = fopen(RECORDS_FILE, "a+");
-
-    if (fp == NULL) {
-        perror("Error opening file");
-        return NULL;
-    }
-
-    fseek(fp, 0, SEEK_END); 
-    if (ftell(fp) == 0) {
-        printWelcomeMessage(u);
-        
-        printf("\n\n\t\t======= Acount Update =======\n\n");
-        printf("\n\t\tNo Accounts record created yet.\n");
-        printf("\t\tEnter 1 to create account, any other character(s) to go to main menu: ");
-    
-        char choice[10];
-        fgets(choice, sizeof(choice), stdin);
-    
-        if (choice[0] == '1') {
-            createNewAcc(u);
-        } else {
-         mainMenu(u);
-        }
-    }
-    
-    return fp;
-}
-
 void createNewAcc(struct User u)
 {
     struct Record r;
@@ -53,7 +24,6 @@ void createNewAcc(struct User u)
         }
     }
     r.userId = u.id; // Set the user ID for the new record
-
 
     while (1) {
         printWelcomeMessage(u);
@@ -209,7 +179,7 @@ void updateAccount(struct User u)
         int option;
         bool isUpdated = false;
 
-        FILE *fp = openFile(u);
+        FILE *fp = openAccFile(u, "Update Accounts");
         if (fp == NULL) { 
             return;
         }
@@ -347,7 +317,7 @@ void removeAccount(struct User u)
     int acc;
     int option;
 
-    FILE *fp = openFile(u);
+    FILE *fp = openAccFile(u, "Account Deletion");
     if (fp == NULL) { 
         return;
     }
@@ -355,7 +325,7 @@ void removeAccount(struct User u)
     while (1)
     {
         printWelcomeMessage(u);
-        printf("\n\n\t\t======= Acount Deletion =======\n\n");
+        printf("\n\n\t\t======= Account Deletion =======\n\n");
         printf("\n\t\t-->> Please enter the account number to delete: ");
 
         if (!isvalidIntegerInput(&acc)) {
@@ -407,7 +377,7 @@ void transferOwnership(struct User u)
     int acc;
     int option;
 
-    FILE *fp = openFile(u);
+    FILE *fp = openAccFile(u, "Account Transfer");
     if (fp == NULL) { 
         return;
     }
@@ -415,7 +385,7 @@ void transferOwnership(struct User u)
     while (1)
     {
         printWelcomeMessage(u);
-        printf("\n\n\t\t======= Acount Transfer =======\n\n");
+        printf("\n\n\t\t======= Account Transfer =======\n\n");
         printf("\n\t\t-->> Please enter the account number to transfer: ");
 
         if (!isvalidIntegerInput(&acc)) {
@@ -507,7 +477,7 @@ void checkAccounts(struct User u)
     int acc;
     int option;
 
-    FILE *fp = openFile(u);
+    FILE *fp = openAccFile(u, "Account Check");
     if (fp == NULL) { 
         return;
     }
@@ -572,13 +542,14 @@ void checkAllAccounts(struct User u)
     char userName[100];
     struct Record r;
 
-    FILE *fp = openFile(u);
+    FILE *fp = openAccFile(u, "List of Accounts");
     if (fp == NULL) { 
         return;
     }
 
-    system("clear");
-    printf("\t\t====== All accounts from user, %s =====\n\n", u.name);
+    printWelcomeMessage(u);        
+    
+    printf("\t\t====== List of Account =====\n\n");
     while (getAccountFromFile(fp, userName, &r))
     {
         if (strcmp(userName, u.name) == 0)
