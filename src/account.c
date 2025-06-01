@@ -1,5 +1,36 @@
 #include "header.h"
 
+FILE *openFile(struct User u) {
+    FILE *fp = fopen(RECORDS_FILE, "a+");
+
+    if (fp == NULL) {
+        perror("Error opening file");
+        return NULL;
+    }
+
+    fseek(fp, 0, SEEK_END); 
+    if (ftell(fp) == 0) {
+        printWelcomeMessage(u);
+        
+        printf("\n\n\t\t======= Acount Update =======\n\n");
+        printf("\n\t\tNo Accounts record created yet.\n");
+        printf("\t\tEnter 1 to create account, any other character(s) to exit: ");
+    
+        char choice[10];
+        fgets(choice, sizeof(choice), stdin);
+    
+        if (choice[0] == '1') {
+            createNewAcc(u);
+        } else {
+            printf("Exiting...\n");
+            system("clear");
+            exit(1);
+        }
+    }
+    
+    return fp;
+}
+
 void createNewAcc(struct User u)
 {
     struct Record r;
@@ -180,31 +211,7 @@ void updateAccount(struct User u)
         int option;
         bool isUpdated = false;
 
-        FILE *fp = fopen(RECORDS_FILE, "a+");
-        if (fp == NULL) {
-            perror("Error opening file");
-            return;
-        }
-
-        fseek(fp, 0, SEEK_END); 
-        if (ftell(fp) == 0) {
-            printWelcomeMessage(u);
-            
-            printf("\n\n\t\t======= Acount Update =======\n\n");
-            printf("\n\t\tNo Accounts record created yet.\n");
-            printf("\t\tEnter 1 to create account, any other character(s) to exit: ");
-        
-            char choice[10];
-            fgets(choice, sizeof(choice), stdin);
-        
-            if (choice[0] == '1') {
-                createNewAcc(u);
-            } else {
-                printf("Exiting...\n");
-                system("clear");
-                exit(1);
-            }
-        }
+        FILE *fp = openFile(u);
 
         while (1)
         {
