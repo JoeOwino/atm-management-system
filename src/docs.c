@@ -9,6 +9,35 @@ FILE *openUserFile(const char *filePath) {
     return fp;
 }
 
+FILE *openAccFile(struct User u, char *msg) {
+    FILE *fp = fopen(RECORDS_FILE, "a+");
+
+    if (fp == NULL) {
+        perror("Error opening file");
+        return NULL;
+    }
+
+    fseek(fp, 0, SEEK_END); 
+    if (ftell(fp) == 0) {
+        printWelcomeMessage(u);
+        
+        printf("\n\t\t======= %s =======\n\n", msg);
+        printf("\n\t\tNo Accounts record created yet.\n");
+        printf("\t\tEnter 1 to create account, any other character(s) to go to main menu: ");
+    
+        char choice[10];
+        fgets(choice, sizeof(choice), stdin);
+    
+        if (choice[0] == '1') {
+            createNewAcc(u);
+        } else {
+         mainMenu(u);
+        }
+    }
+    
+    return fp;
+}
+
 void saveAccountToFile(FILE *fp, struct User u, struct Record r)
 {
     fprintf(fp, "%d %d %s %d %d/%d/%d %s %s %.2lf %s\n\n", 
@@ -85,7 +114,7 @@ int saveUpdatedRecord(FILE *fp, struct User u, struct Record updated, char *acti
 void writeTrans(struct Transaction t) {
     FILE *fp;
     
-    if ((fp = fopen("./data/transactions.txt", "a")) == NULL)
+    if ((fp = fopen(TRANS_FILE, "a")) == NULL)
     {
         printf("\t\tError! opening file\n");
         exit(1);
@@ -160,27 +189,6 @@ int getUserID(char *file)
         {
             id = userChecker.id;
         }
-    }
-    
-    fclose(fp);
-    
-    return id + 1; // Increment the highest ID by 1
-}
-
-int getTransID(char *file)
-{
-    FILE *fp = openUserFile(file);
-    struct Transaction t;
-    
-    int id = 0;
-    
-    while (fscanf(fp, "%d %d %d/%d/%d %d %s %lf", &t.id, &t.userId, &t.date.month, &t.date.day, &t.date.year, &t.accountNbr, t.type, &t.amount) != EOF)
-    {
-        if (t.id > id)
-        {
-            id = t.id;
-        }
-
     }
     
     fclose(fp);
