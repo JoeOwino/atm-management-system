@@ -1,12 +1,16 @@
 #include "header.h"
 
-
 void loginMenu(struct User *u)
 {
     struct termios oflags, nflags;
     char pass[50];
     char name[50];
     char userPass [50];
+    FILE *fp = openUserFile(*u);
+    if (fp == NULL) {
+        printf("\t\tFailed to open users file");
+        return;
+    }
 
     while (1)
     {
