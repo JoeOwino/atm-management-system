@@ -1,11 +1,43 @@
 #include "header.h"
 
-FILE *openUserFile(const char *filePath) {
+FILE *openFile(const char *filePath) {
     FILE *fp = fopen(filePath, "r");
     if (fp == NULL) {
         printf("\t\tError! opening file: %s\n", filePath);
         exit(1);
     }
+    return fp;
+}
+
+FILE *openUserFile(struct User u) {
+    FILE *fp = fopen(USERS_FILE, "a+");
+
+    if (fp == NULL) {
+        perror("Error opening file");
+        return NULL;
+    }
+
+    fseek(fp, 0, SEEK_END); 
+    if (ftell(fp) == 0) {
+        system("clear");
+        printf("\n\n\t\t=======================  ATM  ==========================\n");
+        printf("\t\t                    Login to continue \n");
+        printf("\t\t  You can exit the system at any point by pressing ctrl+c\n");
+        printf("\t\t==========================================================\n");
+
+        printf("\n\t\tNo user created yet.\n");
+        printf("\t\tEnter 1 to register or any other character(s) to go to go back: ");
+    
+        char choice[10];
+        fgets(choice, sizeof(choice), stdin);
+    
+        if (choice[0] == '1') {
+            registerUser(u.name, u.password);
+        } else {
+            initMenu(&u);
+        }
+    }
+    
     return fp;
 }
 
@@ -23,7 +55,7 @@ FILE *openAccFile(struct User u, char *msg) {
         
         printf("\n\t\t======= %s =======\n\n", msg);
         printf("\n\t\tNo Accounts record created yet.\n");
-        printf("\t\tEnter 1 to create account, any other character(s) to go to main menu: ");
+        printf("\t\tEnter 1 to create account or any other character(s) to go to main menu: ");
     
         char choice[10];
         fgets(choice, sizeof(choice), stdin);
@@ -153,7 +185,7 @@ bool getAccount(int acc, struct Record *r, struct User *u, int userID)
 
 const char *getPassword(struct User *u)
 {
-    FILE *fp = openUserFile(USERS_FILE);
+    FILE *fp = openFile(USERS_FILE);
     struct User userChecker;
 
 
@@ -175,9 +207,9 @@ const char *getPassword(struct User *u)
     return "no user found";
 }
 
-int getUserID(char *file)
+int getUserID()
 {
-    FILE *fp = openUserFile(file);
+    FILE *fp = openFile(USERS_FILE);
 
     struct User userChecker;
     
