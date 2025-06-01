@@ -71,8 +71,9 @@ void registerUser(char name[50], char pass[50]);
 // fileio IO functions
 int getUserID(char *file);
 void writeUser(struct User u);
-int getAccountFromFile(FILE *ptr, char name[50], struct Record *r);
-int saveUpdatedRecord(struct Record updated, struct User u, char *action);
+int getAccountFromFile(FILE *fp, char name[50], struct Record *r);
+void saveAccountToFile(FILE *fp, struct User u, struct Record r);
+int saveUpdatedRecord(FILE *fp, struct User u, struct Record updated, char *action);
 int getTransID(char *file);
 void writeTrans(struct Transaction t);
 
