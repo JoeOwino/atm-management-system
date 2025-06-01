@@ -1,41 +1,25 @@
 #include "header.h"
 
-void saveAccountToFile(FILE *ptr, struct User u, struct Record r)
-{
-    fprintf(ptr, "%d %d %s %d %d/%d/%d %s %s %.2lf %s\n\n",
-            r.id,
-	        u.id,
-	        u.name,
-            r.accountNbr,
-            r.deposit.month,
-            r.deposit.day,
-            r.deposit.year,
-            r.country,
-            r.phone,
-            r.amount,
-            r.accountType);
-}
-
 void createNewAcc(struct User u)
 {
     struct Record r;
     struct Record cr;
     char userName[50];
-    FILE *pf = fopen(RECORDS_FILE, "a+");
     struct Date dt;
-    
-    if (pf == NULL) { 
+
+    FILE *fp = fopen(RECORDS_FILE, "a+");
+    if (fp == NULL) { 
         printf("\n\nError opening file.\n");
         return;
     }
     
     // Get the next available ID for the new record
-    fseek(pf, 0, SEEK_END); 
-    if (ftell(pf) == 0) {
+    fseek(fp, 0, SEEK_END); 
+    if (ftell(fp) == 0) {
         r.id = 1; // If file is empty, start with ID 1
     } else {
-        fseek(pf, 0, SEEK_SET); // Reset file position to start
-        while (getAccountFromFile(pf, userName, &cr)) {
+        fseek(fp, 0, SEEK_SET); // Reset file position to start
+        while (getAccountFromFile(fp, userName, &cr)) {
             r.id = cr.id + 1; // Increment the last ID found
         }
     }
@@ -185,8 +169,8 @@ void createNewAcc(struct User u)
     }
     
 
-    saveAccountToFile(pf, u, r);
-    fclose(pf);
+    saveAccountToFile(fp, u, r);
+    fclose(fp);
 }
 
 void updateAccount(struct User u)
@@ -196,9 +180,36 @@ void updateAccount(struct User u)
         int option;
         bool isUpdated = false;
 
+        FILE *fp = fopen(RECORDS_FILE, "a+");
+        if (fp == NULL) {
+            perror("Error opening file");
+            return;
+        }
+
+        fseek(fp, 0, SEEK_END); 
+        if (ftell(fp) == 0) {
+            printWelcomeMessage(u);
+            
+            printf("\n\n\t\t======= Acount Update =======\n\n");
+            printf("\n\t\tNo Accounts record created yet.\n");
+            printf("\t\tEnter 1 to create account, any other character(s) to exit: ");
+        
+            char choice[10];
+            fgets(choice, sizeof(choice), stdin);
+        
+            if (choice[0] == '1') {
+                createNewAcc(u);
+            } else {
+                printf("Exiting...\n");
+                system("clear");
+                exit(1);
+            }
+        }
+
         while (1)
         {
-            system("clear");
+            printWelcomeMessage(u);
+            
             printf("\n\n\t\t======= Acount Update =======\n\n");
             printf("\n\t\t-->> Please enter the account number to update: ");
 
@@ -303,7 +314,7 @@ void updateAccount(struct User u)
         return;
     }
 
-    saveUpdatedRecord(r, u, "update");
+    saveUpdatedRecord(fp, u, r, "update");
     printf("\n\t\tAccount updated successfully!\n");
 }
 
@@ -327,6 +338,12 @@ void removeAccount(struct User u)
     struct Record r;
     int acc;
     int option;
+
+    FILE *fp = fopen(RECORDS_FILE, "a+");
+    if (fp == NULL) { 
+        printf("\n\nError opening file.\n");
+        return;
+    }
 
     while (1)
     {
@@ -373,7 +390,7 @@ void removeAccount(struct User u)
         return;
     }
 
-    saveUpdatedRecord(r, u, "delete");
+    saveUpdatedRecord(fp, u, r, "delete");
     printf("\n\t\tAccount deleted successfully!\n");
 }   
 
@@ -382,6 +399,12 @@ void transferOwnership(struct User u)
     struct Record r;
     int acc;
     int option;
+
+    FILE *fp = fopen(RECORDS_FILE, "a+");
+    if (fp == NULL) { 
+        printf("\n\nError opening file.\n");
+        return;
+    }
 
     while (1)
     {
@@ -468,7 +491,7 @@ void transferOwnership(struct User u)
     strcpy(r.name, u.name);
     r.userId = u.id;
 
-    saveUpdatedRecord(r, u, "transfer");
+    saveUpdatedRecord(fp, u, r, "transfer");
     printf("\n\t\tAccount transfered successfully!  to %d: %s\n", u.id, u.name);
 }
 
