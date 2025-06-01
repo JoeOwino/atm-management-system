@@ -1,26 +1,52 @@
 #include "header.h"
 
+int getTransID()
+{
+    int id = 0;
+
+    FILE *fp = fopen(TRANS_FILE, "a+");
+    if (fp == NULL) { 
+        printf("\n\nError opening file.\n");
+        return id;
+    }
+    
+    struct Transaction t;
+        
+    while (fscanf(fp, "%d %d %d/%d/%d %d %s %lf", 
+        &t.id, &t.userId, &t.date.month, &t.date.day, 
+        &t.date.year, &t.accountNbr, t.type, &t.amount) != EOF)
+    {
+        if (t.id > id)
+        {
+            id = t.id;
+        }
+
+    }
+    
+    fclose(fp);
+    
+    return id + 1; // Increment the highest ID by 1
+}
+
 void createTransaction(struct User u)
 {
-
     struct Transaction t;
     struct Record r;
     int option;
     struct Date dt;
 
-    FILE *fp = fopen(RECORDS_FILE, "a+");
+    FILE *fp = openAccFile(u, "Create Transaction");
     if (fp == NULL) { 
-        printf("\n\nError opening file.\n");
         return;
     }
 
-    t.id = getTransID("./data/transactions.txt");
+    t.id = getTransID();
     t.userId = u.id;
 
     while (1) 
     {
         printWelcomeMessage(u);
-        printf("\n\n\t\t======= Create  Transaction =======\n");
+        printf("\n\n\t\t======= Create Transaction =======\n");
         printf("\n\t\t-->> Selcet Transction Type: ");
         printf("\n\t\t[1]- Deposit\n");
         printf("\n\t\t[2]- Withdraw\n");
