@@ -129,7 +129,7 @@ void createTransaction(struct User u)
         printf("\n\n\t\tAccount: %d", t.accountNbr);
         printf("\n\n\t\tDated: %d/%d/%d\n", t.date.month, t.date.day, t.date.year);
 
-        printf("\n\t\t-->> Please enter the amount: ");
+        printf("\n\t\t-->> Please enter the amount: $");
         if (!isvalidAmount(&t.amount, 50, 999999999)) {
             printf("\t\tPress enter to continue...");
             getchar(); 
