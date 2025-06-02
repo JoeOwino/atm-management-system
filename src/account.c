@@ -156,7 +156,7 @@ void createNewAcc(struct User u)
             continue;
         }
 
-   if (strcmp(r.accountType, "current") != 0 && strcmp(r.accountType, "saving") != 0 && strcmp(r.accountType, "fixed01") != 0 && strcmp(r.accountType, "fixed02") != 0 && strcmp(r.accountType, "fixed03") != 0) {
+     if (strcmp(r.accountType, "current") != 0 && strcmp(r.accountType, "saving") != 0 && strcmp(r.accountType, "fixed01") != 0 && strcmp(r.accountType, "fixed02") != 0 && strcmp(r.accountType, "fixed03") != 0) {
         
         printf("\n\t\tInvalid account type. Please select from the available options.");
         printf("\n\t\tPress enter to continue...");
