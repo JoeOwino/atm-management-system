@@ -11,7 +11,7 @@
 
 #define RECORDS_FILE "./data/records.txt"
 #define USERS_FILE "./data/users.txt"
-#define TRANS_FILE "./data/transactions.txt"
+#define TRANS_FILE "./data/history.txt"
 
 struct Date
 {
