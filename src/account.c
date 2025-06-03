@@ -197,7 +197,7 @@ void updateAccount(struct User u)
                 continue;
             }
             
-            if (!getAccount(acc, &r, &u, u.id)) {
+            if (!getAccountByID(fp, u.id, &r, acc)) {
                 printf("\n\t\tAccount not found!\n");
                 printf("\t\tPress enter to continue...");
                 getchar();
@@ -334,7 +334,7 @@ void removeAccount(struct User u)
             continue;
         }
         
-        if (!getAccount(acc, &r, &u, u.id)) {
+        if (!getAccountByID(fp, u.id, &r, acc)) { 
             printf("\n\tAccount not found!\n");
             printf("\t\tPress enter to continue...");
             getchar();
@@ -394,7 +394,7 @@ void transferOwnership(struct User u)
             continue;
         }
         
-        if (!getAccount(acc, &r, &u, u.id)) {
+        if (!getAccountByID(fp, u.id, &r, acc)) {
             printf("\n\tAccount not found!\n");
             printf("\t\tPress enter to continue...");
             getchar();
@@ -494,7 +494,7 @@ void checkAccounts(struct User u)
             continue;
         }
         
-        if (!getAccount(acc, &r, &u, u.id)) {
+        if (!getAccountByID(fp, u.id, &r, acc)) {
             printf("\n\t\tAccount not found!\n");
             printf("\t\tPress enter to continue...");
             getchar();
