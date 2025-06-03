@@ -1,64 +1,54 @@
 #include "header.h"
 
-void registerUser(char name[50], char pass[50])
-{
+void registerUser(char name[50], char pass[50]) {
     struct User u;
     struct termios oflags, nflags;
-    while(1) {
+
+    // --- Input Name ---
+    while (1) {
         printWelcomeMessage("guest");
-
         printf("\t\t============= Member Registration ================\n\n\n");
-
-        printf("\t\tEnter Your name (no spaces or special charators):");
-        // scanf("%s", name);
-
-        // // Get input as a string
+        printf("\t\tEnter Your name (no spaces or special characters): ");
+        
         if (!isValidName(name, &u)) {
-            printf("\t\tPress Enter to continue...");
-            getchar();
+            printf("\t\tInvalid name. Press Enter to continue...");
+            getchar(); // flush newline
             continue;
         }
-
         break;
+    }
 
-    } 
-    
-    // disabling echo
+    // Disable echo for password
     tcgetattr(fileno(stdin), &oflags);
     nflags = oflags;
     nflags.c_lflag &= ~ECHO;
     nflags.c_lflag |= ECHONL;
+    tcsetattr(fileno(stdin), TCSANOW, &nflags);
 
-
-    while(1) {
+    // --- Input Password ---
+    while (1) {
         printWelcomeMessage("Guest");
-
         printf("\t\t============= Member Registration ================\n\n\n");
+        printf("\t\tEnter Your name: %s\n", name);
+        printf("\n\n\t\tEnter Your password (at least 8 characters and no spaces): ");
 
-        printf("\t\tEnter Your name (no spaces or special charators):%s", name);
-
-        printf("\n\n\t\tEnter Your password (at least 8 charactors and no spaces):");
-
-        // Get input as a string
         if (!isValidPassword(pass)) {
-            printf("\t\tPress Enter to continue...");
-            getchar();
+            printf("\t\tInvalid password. Press Enter to continue...");
+            getchar(); // flush newline
             continue;
         }
-
         break;
-    } 
-
-    // restore terminal
-    if (tcsetattr(fileno(stdin), TCSANOW, &oflags) != 0)
-    {
-        perror("tcsetattr");
-        return exit(1);
     }
 
-    u.id = getUserID(USERS_FILE);;
+    // Restore terminal settings
+    if (tcsetattr(fileno(stdin), TCSANOW, &oflags) != 0) {
+        perror("tcsetattr");
+        exit(1);
+    }
+
+    // --- Save user ---
+    u.id = getUserID(USERS_FILE);
     strcpy(u.name, name);
     strcpy(u.password, pass);
     writeUser(u);
-   
 }
