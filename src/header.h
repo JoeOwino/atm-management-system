@@ -73,6 +73,7 @@ FILE *openUserFile(struct User u);
 FILE *openAccFile(struct User u, char *msg);
 void writeUser(struct User u);
 int getAccountFromFile(FILE *fp, char name[50], struct Record *r);
+bool getAccountByID(FILE *fp, int id, struct Record *r, int accNbr);
 void saveAccountToFile(FILE *fp, struct User u, struct Record r);
 int saveUpdatedRecord(FILE *fp, struct User u, struct Record updated, char *action);
 int getTransID();
@@ -93,7 +94,6 @@ bool isUniqueAcc(int acc);
 bool isvalidAmount(double *amount, double min, double max);
 
 // Account Functions
-bool getAccount(int acc, struct Record *r, struct User *u, int userID);
 void printAccount(struct Record r, struct User u);
 void updateAccount(struct User u);
 void removeAccount(struct User u);
