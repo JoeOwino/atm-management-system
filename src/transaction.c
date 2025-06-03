@@ -81,7 +81,7 @@ void createTransaction(struct User u)
             continue;
         }
 
-        if (!getAccount(t.accountNbr, &r, &u, u.id)) {
+        if (!getAccountByID(fp, u.id, &r, t.accountNbr)) {
             printf("\n\t\tAccount not found!\n"); 
             printf("\t\tPress enter to continue...");
             getchar(); 
