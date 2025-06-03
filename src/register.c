@@ -52,7 +52,7 @@ void registerUser(char name[50], char pass[50]) {
         scanf("%s", pass2);
 
         if (strcmp(pass2, pass) != 0) {
-            printf("\n\n\t\tThe passwords did not match\n");
+            printf("\n\t\tThe passwords did not match\n");
             printf("\t\tPress Enter to continue...");
             getchar(); getchar(); // flush newline
             continue;
