@@ -5,10 +5,9 @@ void registerUser(char name[50], char pass[50])
     struct User u;
     struct termios oflags, nflags;
     while(1) {
-        printWelcomeMessage(u);
+        printWelcomeMessage("guest");
 
-        printf("\n\n\t\t======= ATM =======\n");
-        printf("\t\tMember Registration\n\n\n");
+        printf("\t\t============= Member Registration ================\n\n\n");
 
         printf("\t\tEnter Your name (no spaces or special charators):");
         // scanf("%s", name);
@@ -24,7 +23,6 @@ void registerUser(char name[50], char pass[50])
 
     } 
     
-    
     // disabling echo
     tcgetattr(fileno(stdin), &oflags);
     nflags = oflags;
@@ -33,9 +31,9 @@ void registerUser(char name[50], char pass[50])
 
 
     while(1) {
-        printWelcomeMessage(u);
+        printWelcomeMessage("Guest");
 
-        printf("\t\t========== User Registration ==========\n\n\n");
+        printf("\t\t============= Member Registration ================\n\n\n");
 
         printf("\t\tEnter Your name (no spaces or special charators):%s", name);
 

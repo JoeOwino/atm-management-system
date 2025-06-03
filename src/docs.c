@@ -51,7 +51,7 @@ FILE *openAccFile(struct User u, char *msg) {
 
     fseek(fp, 0, SEEK_END); 
     if (ftell(fp) == 0) {
-        printWelcomeMessage(u);
+        printWelcomeMessage(u.name);
         
         printf("\n\t\t======= %s =======\n\n", msg);
         printf("\n\t\tNo Accounts record created yet.\n");

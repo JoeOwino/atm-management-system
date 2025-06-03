@@ -5,7 +5,7 @@ void stayOrReturn(int notGood, void f(struct User u), struct User u)
     int option;
     if (notGood == 0)
     {
-        printWelcomeMessage(u);
+        printWelcomeMessage(u.name);
 
         printf("\n✖ Record not found!!\n");
     invalid:

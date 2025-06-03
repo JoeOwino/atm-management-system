@@ -26,7 +26,7 @@ void createNewAcc(struct User u)
     r.userId = u.id; // Set the user ID for the new record
 
     while (1) {
-        printWelcomeMessage(u);
+        printWelcomeMessage(u.name);
 
         printf("\t\t====== Create new account =====\n\n");
         printf("\t\tEnter the date of deposit (MM/DD/YYYY): "); 
@@ -47,7 +47,7 @@ void createNewAcc(struct User u)
 
     while (1)
     {
-        printWelcomeMessage(u);
+        printWelcomeMessage(u.name);
         
         printf("\t\t====== Create new account =====\n\n");
         printf("\t\tEnter the date of deposit (MM/DD/YYYY): %d/%d/%d\n", dt.month, dt.day, dt.year); 
@@ -72,7 +72,7 @@ void createNewAcc(struct User u)
     
     while (1)
     {
-        printWelcomeMessage(u);
+        printWelcomeMessage(u.name);
         
         printf("\t\t====== Create new account =====\n\n");
         printf("\t\tEnter the date of deposit (MM/DD/YYYY): %d/%d/%d", dt.month, dt.day, dt.year); 
@@ -97,7 +97,7 @@ void createNewAcc(struct User u)
 
     while (1)
     {
-        printWelcomeMessage(u);
+        printWelcomeMessage(u.name);
         
         printf("\t\t====== Create new account =====\n\n");
         printf("\t\tEnter the date of deposit (MM/DD/YYYY): %d/%d/%d", dt.month, dt.day, dt.year); 
@@ -118,7 +118,7 @@ void createNewAcc(struct User u)
 
     while (1)
     {
-        printWelcomeMessage(u);
+        printWelcomeMessage(u.name);
         
         printf("\t\t====== Create new account =====\n\n");
         printf("\t\tEnter the date of deposit (MM/DD/YYYY): %d/%d/%d", dt.month, dt.day, dt.year); 
@@ -139,7 +139,7 @@ void createNewAcc(struct User u)
 
     while (1)
     {
-        printWelcomeMessage(u);
+        printWelcomeMessage(u.name);
         
         printf("\t\t====== Create new account =====\n\n");
         printf("\t\tEnter the date of deposit (MM/DD/YYYY): %d/%d/%d", dt.month, dt.day, dt.year); 
@@ -186,7 +186,7 @@ void updateAccount(struct User u)
 
         while (1)
         {
-            printWelcomeMessage(u);
+            printWelcomeMessage(u.name);
             
             printf("\n\n\t\t======= Acount Update =======\n\n");
             printf("\n\t\t-->> Please enter the account number to update: ");
@@ -211,7 +211,7 @@ void updateAccount(struct User u)
         
         while (1)
         {
-            printWelcomeMessage(u);
+            printWelcomeMessage(u.name);
             
             printf("\n\n\t\t======= Acount Update =======\n\n");
             printf("\n\t\t-->> Please enter the account number to update: %d\n", acc);
@@ -236,7 +236,7 @@ void updateAccount(struct User u)
             /* Phone Number */
             while (1)
             {
-                printWelcomeMessage(u);
+                printWelcomeMessage(u.name);
                 
                 printf("\n\n\t\t======= Update Phone numebre for Account %d =======\n\n", acc);
 
@@ -257,7 +257,7 @@ void updateAccount(struct User u)
             /* Country */
             while (1)
             {
-                printWelcomeMessage(u);
+                printWelcomeMessage(u.name);
                 
                 printf("\n\n\t\t======= Update Counry for Account %d =======\n\n", acc);
 
@@ -298,7 +298,7 @@ void updateAccount(struct User u)
 
 void printAccount(struct Record r, struct User u)
 {
-    printWelcomeMessage(u);
+    printWelcomeMessage(u.name);
     printf("\n\t\t====== Account Details =======\n\n");
     printf("\t\tAccount number: %d\n\t\tDeposit Date: %d/%d/%d \n\t\tcountry: %s \n\t\tPhone number: %s \n\t\tAmount deposited: $%.2f \n\t\tType Of Account: %s\n",
             r.accountNbr,
@@ -324,7 +324,7 @@ void removeAccount(struct User u)
 
     while (1)
     {
-        printWelcomeMessage(u);
+        printWelcomeMessage(u.name);
         printf("\n\n\t\t======= Account Deletion =======\n\n");
         printf("\n\t\t-->> Please enter the account number to delete: ");
 
@@ -345,7 +345,7 @@ void removeAccount(struct User u)
     }
 
     while (1) {
-        printWelcomeMessage(u);
+        printWelcomeMessage(u.name);
         printf("\n\n\t\t======= Acount Deletion =======\n\n");
         printf("\n\t\t-->> This action will is not reverseble\n");
         printf("\n\t\tAre you sure you want to delete account %d? \n", acc);
@@ -384,7 +384,7 @@ void transferOwnership(struct User u)
 
     while (1)
     {
-        printWelcomeMessage(u);
+        printWelcomeMessage(u.name);
         printf("\n\n\t\t======= Account Transfer =======\n\n");
         printf("\n\t\t-->> Please enter the account number to transfer: ");
 
@@ -406,7 +406,7 @@ void transferOwnership(struct User u)
 
     while (1)
     {
-        printWelcomeMessage(u);
+        printWelcomeMessage(u.name);
     
         printf("\n\n\t\t======= Acount Transfer =======\n\n");
         printf("\n\t\t-->> Please enter the account number to transfer: %d\n", acc);
@@ -441,7 +441,7 @@ void transferOwnership(struct User u)
     }
 
     while (1) {
-        printWelcomeMessage(u);
+        printWelcomeMessage(u.name);
         
         printf("\n\n\t\t======= Acount Transfer =======\n\n");
         printf("\n\t\t-->> This action will is not reverseble\n");
@@ -484,7 +484,7 @@ void checkAccounts(struct User u)
 
     while (1)
     {
-        printWelcomeMessage(u);        
+        printWelcomeMessage(u.name);        
         printf("\n\n\t\t======= Acount Check =======\n\n");
         printf("\n\t\t-->> Please enter the account number to check: ");
 
@@ -547,7 +547,7 @@ void checkAllAccounts(struct User u)
         return;
     }
 
-    printWelcomeMessage(u);        
+    printWelcomeMessage(u.name);        
     
     printf("\t\t====== List of Account =====\n\n");
     while (getAccountFromFile(fp, userName, &r))

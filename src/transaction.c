@@ -45,7 +45,7 @@ void createTransaction(struct User u)
 
     while (1) 
     {
-        printWelcomeMessage(u);
+        printWelcomeMessage(u.name);
         printf("\n\n\t\t======= Create Transaction =======\n");
         printf("\n\t\t-->> Selcet Transction Type: ");
         printf("\n\t\t[1]- Deposit\n");
@@ -63,7 +63,7 @@ void createTransaction(struct User u)
 
     while (1)
     {
-        printWelcomeMessage(u);
+        printWelcomeMessage(u.name);
         
         printf("\n\n\t\t======= Create  Transaction =======\n");
         if (option == 1) {
@@ -100,7 +100,7 @@ void createTransaction(struct User u)
 
     while (1)
     {
-        printWelcomeMessage(u);
+        printWelcomeMessage(u.name);
         
         printf("\n\n\t\t======= Create  Transaction =======\n");
         printf("\n\n\t\tTransaction: %s", t.type);
@@ -122,7 +122,7 @@ void createTransaction(struct User u)
 
     while (1)
     {
-        printWelcomeMessage(u);
+        printWelcomeMessage(u.name);
         
         printf("\n\n\t\t======= Create  Transaction =======\n");
         printf("\n\n\t\tTransaction: %s", t.type);
