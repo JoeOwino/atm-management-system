@@ -303,8 +303,6 @@ void updateAccount(struct User u)
 
 void printAccount(struct Record r, struct User u)
 {
-    printWelcomeMessage(u.name);
-    printf("\n\t\t====== Account Details =======\n\n");
     printf("\t\tAccount number: %d\n\t\tDeposit Date: %d/%d/%d \n\t\tcountry: %s \n\t\tPhone number: %s \n\t\tAmount deposited: $%.2f \n\t\tType Of Account: %s\n",
             r.accountNbr,
             r.deposit.day,
@@ -509,6 +507,8 @@ void checkAccounts(struct User u)
         break;
     }
 
+    printWelcomeMessage(u.name);
+    printf("\n\t\t====== Account Details =======\n\n");
     printAccount(r, u);
 
     double interest = calculateInterest(r.accountNbr, r.accountType, r.amount);
@@ -518,9 +518,9 @@ void checkAccounts(struct User u)
     }
 
     if (strcmp(r.accountType, "saving") == 0) {
-        printf("\n\t\tYou will get %.2lf as interest on day %d of every month\n", interest, r.deposit.day);
+        printf("\n\n\t\tYou will get %.2lf as interest on day %d of every month\n", interest, r.deposit.day);
     } else {
-        printf("\n\t\tYou will get %.2lf as interest on %d/%d/%d\n", interest, r.deposit.month, r.deposit.day, r.deposit.year+1);
+        printf("\n\n\t\tYou will get %.2lf as interest on %d/%d/%d\n", interest, r.deposit.month, r.deposit.day, r.deposit.year+1);
     }
 }
 
@@ -555,11 +555,14 @@ void checkAllAccounts(struct User u)
     printWelcomeMessage(u.name);        
     
     printf("\t\t====== List of Account =====\n\n");
+    rewind(fp);  // Ensure we're reading from the start
+
     while (getAccountFromFile(fp, userName, &r))
     {
         if (strcmp(userName, u.name) == 0)
         {
             printAccount(r, u);
+            printf("\n\t\t=======================================\n\n");
         }
     }
 
