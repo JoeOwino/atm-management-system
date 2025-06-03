@@ -25,7 +25,7 @@ int mainMenuLoop(struct User u)
         printf("\n\t\t[6]- Remove existing account\n");
         printf("\n\t\t[7]- Transfer ownership\n");
         printf("\n\t\t[8]- Exit\n");
-
+    
         printf("\n\t\tEnter choice: ");
         
         if (!isValidMenuInput(1, 8, &option)) {
@@ -53,6 +53,8 @@ invalid:
         exit(1);
     }
  
+    while (getchar() != '\n');
+
     mainMenu(u);
 }
 

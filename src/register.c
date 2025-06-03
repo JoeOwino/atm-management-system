@@ -70,8 +70,8 @@ void registerUser(char name[50], char pass[50]) {
     u.id = getUserID(USERS_FILE);
     strcpy(u.name, name);
     strcpy(u.password, pass);
-    writeUser(u);
-
+    writeUser(u);   
+    
     while (getchar() != '\n');
     
 }
