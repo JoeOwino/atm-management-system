@@ -46,6 +46,8 @@ void success(struct User u)
 invalid:
     printf("\t\tEnter any cahracter(s) to go to the main menu and 0 to exit!: ");
     scanf("%d", &option);
+    while (getchar() != '\n');
+
     system("clear");
 
     if (option == 0)
@@ -53,7 +55,6 @@ invalid:
         exit(1);
     }
  
-    while (getchar() != '\n');
 
     mainMenu(u);
 }

@@ -79,7 +79,9 @@ void saveAccountToFile(FILE *fp, struct User u, struct Record r)
 }
 
 int saveUpdatedRecord(FILE *fp, struct User u, struct Record updated, char *action)
-{       
+{   
+    rewind(fp);  // Ensure we're reading from the start
+
     FILE *temp = fopen("./data/temp.txt", "w");
     if (!temp) {
         perror("\t\tError opening temporary file for writing");
@@ -95,7 +97,7 @@ int saveUpdatedRecord(FILE *fp, struct User u, struct Record updated, char *acti
                   &r.id, &temp_user.id, temp_user.name, &r.accountNbr,
                   &r.deposit.month, &r.deposit.day, &r.deposit.year,
                   r.country, r.phone, &r.amount, r.accountType) == 11) {
-        
+                        
         if (r.id == updated.id) {
             // Record found - update it
             r = updated;

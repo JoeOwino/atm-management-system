@@ -292,7 +292,12 @@ void updateAccount(struct User u)
         return;
     }
 
-    saveUpdatedRecord(fp, u, r, "update");
+    int isSaved = saveUpdatedRecord(fp, u, r, "update");
+    if (isSaved == 0) {
+        printf("\t\tfailed to update account\n");
+        return;
+    }
+
     printf("\n\t\tAccount updated successfully!\n");
 }
 
