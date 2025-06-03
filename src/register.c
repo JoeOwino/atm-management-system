@@ -3,6 +3,7 @@
 void registerUser(char name[50], char pass[50]) {
     struct User u;
     struct termios oflags, nflags;
+    char pass2[50];
 
     // --- Input Name ---
     while (1) {
@@ -35,6 +36,25 @@ void registerUser(char name[50], char pass[50]) {
         if (!isValidPassword(pass)) {
             printf("\t\tInvalid password. Press Enter to continue...");
             getchar(); // flush newline
+            continue;
+        }
+        break;
+    }
+
+    // --- Confirm Password ---
+    while (1) {
+        printWelcomeMessage("Guest");
+        printf("\t\t============= Member Registration ================\n\n\n");
+        printf("\t\tEnter Your name: %s\n", name);
+        printf("\n\n\t\tEnter Your password (at least 8 characters and no spaces): ");
+
+        printf("\n\n\t\tConfirm Password): ");
+        scanf("%s", pass2);
+
+        if (strcmp(pass2, pass) != 0) {
+            printf("\n\n\t\tThe passwords did not match\n");
+            printf("\t\tPress Enter to continue...");
+            getchar(); getchar(); // flush newline
             continue;
         }
         break;
