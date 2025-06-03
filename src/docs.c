@@ -157,31 +157,33 @@ void writeTrans(struct Transaction t) {
     fclose(fp);
 }
 
-bool getAccount(int acc, struct Record *r, struct User *u, int userID)
+bool getAccountByID(FILE *fp, int id, struct Record *r, int accNbr) 
 {
-    struct User tempUser = *u; 
-    
-    FILE *fp;
-    if ((fp = fopen(RECORDS_FILE, "r")) == NULL) {
-        printf("\t\tError! opening file");
-        return false;
-    }
-    
-    while (fscanf(fp, "%d %d %s %d %d/%d/%d %s %s %.2lf %s\n",
-           &r->id, &u->id, u->name, &r->accountNbr,
-           &r->deposit.month, &r->deposit.day, &r->deposit.year,
-           r->country, r->phone, &r->amount, r->accountType) == 11) {
-            
-        if (r->accountNbr == acc && userID == u->id) {
-            fclose(fp);
+    struct Record tr;
+    rewind(fp);  // Ensure we're reading from the start
+
+    while (fscanf(fp, "%d %d %s %d %d/%d/%d %s %s %lf %s",
+                  &tr.id,
+                  &tr.userId,
+                  tr.name,
+                  &tr.accountNbr,
+                  &tr.deposit.month,
+                  &tr.deposit.day,
+                  &tr.deposit.year,
+                  tr.country,
+                  tr.phone,
+                  &tr.amount,
+                  tr.accountType) == 11) {
+
+        if (id == tr.userId && tr.accountNbr == accNbr) {
+            *r = tr;
             return true;
         }
     }
-    fclose(fp);
 
-    *u = tempUser; 
     return false;
 }
+
 
 const char *getPassword(struct User *u)
 {
@@ -246,16 +248,16 @@ void writeUser(struct User u)
 int getAccountFromFile(FILE *ptr, char name[50], struct Record *r)
 {
     return fscanf(ptr, "%d %d %s %d %d/%d/%d %s %s %lf %s",
-                  &r->id,
-		  &r->userId,
-		  name,
-                  &r->accountNbr,
-                  &r->deposit.month,
-                  &r->deposit.day,
-                  &r->deposit.year,
-                  r->country,
-                  r->phone,
-                  &r->amount,
-                  r->accountType) != EOF;
+                    &r->id,
+                    &r->userId,
+                    name,
+                    &r->accountNbr,
+                    &r->deposit.month,
+                    &r->deposit.day,
+                    &r->deposit.year,
+                    r->country,
+                    r->phone,
+                    &r->amount,
+                    r->accountType) != EOF;
 }
 
