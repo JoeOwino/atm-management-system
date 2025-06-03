@@ -25,6 +25,7 @@ int mainMenuLoop(struct User u)
         printf("\n\t\t[6]- Remove existing account\n");
         printf("\n\t\t[7]- Transfer ownership\n");
         printf("\n\t\t[8]- Exit\n");
+
         printf("\n\t\tEnter choice: ");
         
         if (!isValidMenuInput(1, 8, &option)) {
@@ -89,10 +90,13 @@ void mainMenu(struct User u)
         transferOwnership(u);
         break;
     case 8:
+        system("clear");
         exit(1);
         break;
     default:
         printf("Invalid operation!\n");
+        system("clear");
+        exit(1);
         break;
     }
 
@@ -135,11 +139,14 @@ void initMenu(struct User *u)
             break;
         case 3:
             printf("\n\t\tThank you for using our ATM service. Goodbye!\n");
+            system("clear");
             exit(0);  // Exit with success code
             break;
             
         default:
             printf("\n\t\tInsert a valid operation!\n");
+            system("clear");
+            exit(1);
             // This should never execute due to the do-while validation
     }
 }

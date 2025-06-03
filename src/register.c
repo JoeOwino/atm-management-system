@@ -71,4 +71,7 @@ void registerUser(char name[50], char pass[50]) {
     strcpy(u.name, name);
     strcpy(u.password, pass);
     writeUser(u);
+
+    while (getchar() != '\n');
+    
 }
