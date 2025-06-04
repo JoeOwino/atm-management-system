@@ -25,14 +25,16 @@ void loginMenu(struct User *u)
         if (!validateStringInput(name, 50)) {
             printf("\n\t\tError reading input\n");
             printf("\t\tPress enter to continue....");
-            getchar(); 
+             while (getchar() != '\n');
+; 
             continue;
         }
 
         if (isContainsSpaces(name)) {
             printf("\n\t\tInvalid name. Please enter a valid name without spaces.\n");
             printf("\t\tPress enter to continue....");
-            getchar(); 
+             while (getchar() != '\n');
+; 
             continue;
         }
 
@@ -41,7 +43,8 @@ void loginMenu(struct User *u)
         if (isUniqueName(name, u)) {
             printf("\n\t\tUser with name %s not found.\n", name);
             printf("\t\tPress enter to continue....");
-            getchar(); 
+             while (getchar() != '\n');
+; 
             continue;
         }
 
@@ -86,7 +89,8 @@ void loginMenu(struct User *u)
         if (strcmp(pass, userPass) != 0) {
             printf("\n\n\t\tWrong password!\n");
             printf("\t\tPress enter to continue....");
-            getchar();
+             while (getchar() != '\n');
+;
             continue;
         }
 
