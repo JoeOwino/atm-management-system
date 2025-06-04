@@ -33,7 +33,8 @@ void createNewAcc(struct User u)
         
         if (!isValidDate(&dt)) {
             printf("\t\tPress enter to continue...");
-            getchar(); 
+             while (getchar() != '\n');
+; 
             continue;
         }
         
@@ -55,14 +56,16 @@ void createNewAcc(struct User u)
         printf("\n\t\tEnter the account number: ");
         if (!isvalidIntegerInput(&r.accountNbr)) {
             printf("\t\tPress enter to continue...");
-            getchar(); 
+             while (getchar() != '\n');
+; 
             continue;
         }
 
         if (!isUniqueAcc(r.accountNbr)) {
             printf("\n\t\tAccount number already exists. Please enter a unique account number.\n");
             printf("\t\tPress enter to continue...");
-            getchar(); 
+             while (getchar() != '\n');
+; 
             continue;
         }
 
@@ -81,13 +84,15 @@ void createNewAcc(struct User u)
         printf("\n\t\tEnter the country: ");
         if (!validateStringInput(r.country, 50)) {
             printf("\t\tPress enter to continue...");
-            getchar(); 
+             while (getchar() != '\n');
+; 
             continue;
         }
 
         if (isContainsSpaces(r.country)) {
             printf("\t\tPress enter to continue...");
-            getchar(); 
+             while (getchar() != '\n');
+; 
             continue;
         }
 
@@ -108,7 +113,8 @@ void createNewAcc(struct User u)
 
         if (!isValidPhoneNo(r.phone)) {
             printf("\t\tPress enter to continue...");
-            getchar(); 
+             while (getchar() != '\n');
+; 
             continue;
         }
 
@@ -129,7 +135,8 @@ void createNewAcc(struct User u)
         printf("\n\t\tEnter amount to deposit: $");
         if (!isvalidAmount(&r.amount, 50, 1000000)) {
             printf("\t\tPress enter to continue...");
-            getchar(); 
+             while (getchar() != '\n');
+; 
             continue;
         }
 
@@ -152,7 +159,8 @@ void createNewAcc(struct User u)
 
         if (!validateStringInput(r.accountType, 20)) {
             printf("\t\tPress enter to continue...");
-            getchar(); 
+             while (getchar() != '\n');
+; 
             continue;
         }
 
@@ -160,7 +168,8 @@ void createNewAcc(struct User u)
         
         printf("\n\t\tInvalid account type. Please select from the available options.");
         printf("\n\t\tPress enter to continue...");
-        getchar();
+         while (getchar() != '\n');
+;
         continue;
     }
 
@@ -193,14 +202,16 @@ void updateAccount(struct User u)
 
             if (!isvalidIntegerInput(&acc)) {
                 printf("\t\tPress enter to continue...");
-                getchar();
+                 while (getchar() != '\n');
+;
                 continue;
             }
             
             if (!getAccountByID(fp, u.id, &r, acc)) {
                 printf("\n\t\tAccount not found!\n");
                 printf("\t\tPress enter to continue...");
-                getchar();
+                 while (getchar() != '\n');
+;
                 continue;
             } 
 
@@ -223,7 +234,8 @@ void updateAccount(struct User u)
 
             if (!isValidMenuInput(1, 2, &option)) {
                 printf("\t\tPress Enter to continue...");
-                getchar();
+                 while (getchar() != '\n');
+;
                 continue;
             }
 
@@ -243,7 +255,8 @@ void updateAccount(struct User u)
                 printf("\n\t\t-->> Please enter the new phone number: ");
                 if (!isValidPhoneNo(r.phone)) {
                     printf("\t\tPress enter to continue...");
-                    getchar();
+                     while (getchar() != '\n');
+;
                     continue;
                 }
 
@@ -265,13 +278,15 @@ void updateAccount(struct User u)
 
                 if (!validateStringInput(r.country, sizeof(r.country))) {
                     printf("\t\tPress enter to continue...");
-                    getchar();
+                     while (getchar() != '\n');
+;
                     continue;
                 }
 
                 if (isContainsSpaces(r.country)) {
                     printf("\t\tPress enter to continue...");
-                    getchar(); 
+                     while (getchar() != '\n');
+; 
                     continue;
                 }
             
@@ -288,7 +303,8 @@ void updateAccount(struct User u)
     if (!isUpdated) {
         printf("\n\t\tNo changes made to the account.\n");
         printf("\t\tPress enter to continue...");
-        getchar();
+         while (getchar() != '\n');
+;
         return;
     }
 
@@ -333,14 +349,16 @@ void removeAccount(struct User u)
 
         if (!isvalidIntegerInput(&acc)) {
             printf("\t\tPress enter to continue...");
-            getchar();
+             while (getchar() != '\n');
+;
             continue;
         }
         
         if (!getAccountByID(fp, u.id, &r, acc)) { 
             printf("\n\tAccount not found!\n");
             printf("\t\tPress enter to continue...");
-            getchar();
+             while (getchar() != '\n');
+;
             continue;
         } 
 
@@ -358,7 +376,8 @@ void removeAccount(struct User u)
 
         if (!isValidMenuInput(1, 2, &option)) {
             printf("\t\tPress Enter to continue...");
-            getchar();
+             while (getchar() != '\n');
+;
             continue;
         }
 
@@ -397,14 +416,16 @@ void transferOwnership(struct User u)
 
         if (!isvalidIntegerInput(&acc)) {
             printf("\t\tPress enter to continue...");
-            getchar();
+             while (getchar() != '\n');
+;
             continue;
         }
         
         if (!getAccountByID(fp, u.id, &r, acc)) {
             printf("\n\t\tAccount not found!\n");
             printf("\t\tPress enter to continue...");
-            getchar();
+             while (getchar() != '\n');
+;
             continue;
         } 
 
@@ -421,33 +442,38 @@ void transferOwnership(struct User u)
 
         if (!validateStringInput(newOwner, 50)) {
             printf("\t\tPress enter to continue...");
-            getchar();
+             while (getchar() != '\n');
+;
             continue;
         }
 
         if (isContainsSpaces(newOwner)) {
             printf("\t\tPress enter to continue...");
-            getchar(); 
+             while (getchar() != '\n');
+; 
             continue;
         }
 
         if (isUniqueName(newOwner, &u)) {
             printf("\n\t\t%s not in the system. Please choose another New Owner.\n", newOwner);
             printf("\t\tPress enter to continue...");
-            getchar();
+             while (getchar() != '\n');
+;
             continue;
         }
 
         if (isContainsSpaces(newOwner)) {
             printf("\n\t\tPress enter to continue...");
-            getchar(); 
+             while (getchar() != '\n');
+; 
             continue;
         }
 
         if (strcmp(newOwner, owner) == 0) {
             printf("\n\t\tYou cannot transfer ownership to yourself.\n");
             printf("\t\tPress enter to continue...");
-            getchar();
+             while (getchar() != '\n');
+;
             continue;
         }
         
@@ -466,7 +492,8 @@ void transferOwnership(struct User u)
 
         if (!isValidMenuInput(1, 2, &option)) {
             printf("\t\tPress Enter to continue...");
-            getchar();
+             while (getchar() != '\n');
+;
             continue;
         }
 
@@ -504,14 +531,16 @@ void checkAccounts(struct User u)
 
         if (!isvalidIntegerInput(&acc)) {
             printf("\t\tPress enter to continue...");
-            getchar();
+             while (getchar() != '\n');
+;
             continue;
         }
         
         if (!getAccountByID(fp, u.id, &r, acc)) {
             printf("\n\t\tAccount not found!\n");
             printf("\t\tPress enter to continue...");
-            getchar();
+             while (getchar() != '\n');
+;
             continue;
         } 
 
