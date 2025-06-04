@@ -30,7 +30,9 @@ int mainMenuLoop(struct User u)
         
         if (!isValidMenuInput(1, 8, &option)) {
             printf("\t\tPress Enter to continue...");
-            getchar(); getchar(); 
+             while (getchar() != '\n');
+;  while (getchar() != '\n');
+; 
         }
 
     } while (option < 1 || option > 8);
@@ -47,7 +49,7 @@ invalid:
     printf("\t\tEnter any cahracter(s) to go to the main menu and 0 to exit!: ");
     scanf("%d", &option);
     while (getchar() != '\n');
-
+    
     system("clear");
 
     if (option == 0)
@@ -124,7 +126,8 @@ void initMenu(struct User *u)
         
         if (!isValidMenuInput(1, 3, &option)) {
             printf("\t\tPress Enter to continue...");
-            getchar();
+             while (getchar() != '\n');
+;
             continue;
         }
 
