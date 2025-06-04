@@ -65,7 +65,7 @@ void initMenu(struct User *u);
 void printWelcomeMessage(char *name);
 
 // registration functions
-void registerUser(char name[50], char pass[50]);
+void registerUser(int id, char name[50], char pass[50]);
 
 // fileio IO functions
 int getUserID();
@@ -81,7 +81,7 @@ void writeTrans(struct Transaction t);
 
 // validation functions
 bool isValidDate(struct Date *dt);
-bool isValidPassword(char input[50]);
+bool isValidPassword(char *input);
 bool isValidPhoneNo(char *phone);
 bool isValidName(char *input, struct User *u);
 bool isvalidIntegerInput(int *result);

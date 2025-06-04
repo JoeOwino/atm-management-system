@@ -2,9 +2,10 @@
 
 int main()
 {
-    struct User u;
+    struct User u = {0, "", ""};
 
     initMenu(&u);
+    
     mainMenu(u);
 
     return 0;
