@@ -32,7 +32,7 @@ FILE *openUserFile(struct User u) {
         fgets(choice, sizeof(choice), stdin);
     
         if (choice[0] == '1') {
-            registerUser(u.name, u.password);
+            registerUser(u.id, u.name, u.password);
         } else {
             initMenu(&u);
         }
