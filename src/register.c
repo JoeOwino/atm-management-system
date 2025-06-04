@@ -13,7 +13,7 @@ void registerUser(char name[50], char pass[50]) {
         
         if (!isValidName(name, &u)) {
             printf("\t\tInvalid name. Press Enter to continue...");
-            getchar(); // flush newline
+            while (getchar() != '\n');
             continue;
         }
         break;
@@ -35,7 +35,7 @@ void registerUser(char name[50], char pass[50]) {
 
         if (!isValidPassword(pass)) {
             printf("\t\tInvalid password. Press Enter to continue...");
-            getchar(); // flush newline
+            while (getchar() != '\n');
             continue;
         }
         break;
@@ -54,7 +54,7 @@ void registerUser(char name[50], char pass[50]) {
         if (strcmp(pass2, pass) != 0) {
             printf("\n\t\tThe passwords did not match\n");
             printf("\t\tPress Enter to continue...");
-            getchar(); getchar(); // flush newline
+            getchar(); // flush newline
             continue;
         }
         break;
