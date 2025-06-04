@@ -54,7 +54,8 @@ void createTransaction(struct User u)
 
         if (!isValidMenuInput(1, 2, &option)) {
             printf("\t\tPress enter to continue...");
-            getchar(); 
+             while (getchar() != '\n');
+; 
             continue;
         }
 
@@ -77,21 +78,24 @@ void createTransaction(struct User u)
         printf("\n\t\t-->> Please enter the Account Number: ");
         if (!isvalidIntegerInput(&t.accountNbr)) {
             printf("\t\tPress enter to continue...");
-            getchar(); 
+             while (getchar() != '\n');
+; 
             continue;
         }
 
         if (!getAccountByID(fp, u.id, &r, t.accountNbr)) {
             printf("\n\t\tAccount not found!\n"); 
             printf("\t\tPress enter to continue...");
-            getchar(); 
+             while (getchar() != '\n');
+; 
             continue;
         }
 
         if (strcmp(r.accountType, "fixed01") == 0 || strcmp(r.accountType, "fixed02") == 0 || strcmp(r.accountType, "fixed03") == 0) {
             printf("\n\t\tThis account is not eligible for transactions!\n");
             printf("\t\tPress enter to continue...");
-            getchar();
+             while (getchar() != '\n');
+;
             continue;
         }
 
@@ -109,7 +113,8 @@ void createTransaction(struct User u)
         printf("\n\t\t-->> Please enter the transaction date: ");
         if (!isValidDate(&dt)) {
             printf("\t\tPress enter to continue...");
-            getchar(); 
+             while (getchar() != '\n');
+; 
             continue;
         } 
 
@@ -132,14 +137,16 @@ void createTransaction(struct User u)
         printf("\n\t\t-->> Please enter the amount: $");
         if (!isvalidAmount(&t.amount, 50, 999999999)) {
             printf("\t\tPress enter to continue...");
-            getchar(); 
+             while (getchar() != '\n');
+; 
             continue;
         } 
 
         if (strcmp(t.type, "WITHDRAWAL") == 0 && t.amount > r.amount) {
             printf("\n\t\tInsufficient funds for withdrawal!\n");
             printf("\t\tPress enter to continue...");
-            getchar();
+             while (getchar() != '\n');
+;
             continue;
         }
 
