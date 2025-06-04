@@ -90,6 +90,7 @@ void createNewAcc(struct User u)
         }
 
         if (isContainsSpaces(r.country)) {
+            printf("\n\t\tInvalid country name. Please enter a valid country name without spaces.\n");
             printf("\t\tPress enter to continue...");
              while (getchar() != '\n');
 ; 
@@ -355,7 +356,7 @@ void removeAccount(struct User u)
         }
         
         if (!getAccountByID(fp, u.id, &r, acc)) { 
-            printf("\n\tAccount not found!\n");
+            printf("\n\t\tAccount not found!\n");
             printf("\t\tPress enter to continue...");
              while (getchar() != '\n');
 ;
@@ -525,7 +526,7 @@ void checkAccounts(struct User u)
 
     while (1)
     {
-        printWelcomeMessage(u.name);        
+        printWelcomeMessage(u.name); 
         printf("\n\n\t\t======= Acount Check =======\n\n");
         printf("\n\t\t-->> Please enter the account number to check: ");
 
