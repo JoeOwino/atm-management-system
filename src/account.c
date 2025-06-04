@@ -365,7 +365,7 @@ void removeAccount(struct User u)
         break;
     }
 
-    if (option == 0) {
+    if (option == 1) {
         printf("\n\t\tAccount deletion cancelled.\n");
         return;
     }
@@ -379,6 +379,10 @@ void transferOwnership(struct User u)
     struct Record r;
     int acc;
     int option;
+    char owner[50];
+    char newOwner[50];
+
+    strcpy(owner, u.name);
 
     FILE *fp = openAccFile(u, "Account Transfer");
     if (fp == NULL) { 
@@ -387,7 +391,7 @@ void transferOwnership(struct User u)
 
     while (1)
     {
-        printWelcomeMessage(u.name);
+        printWelcomeMessage(owner);
         printf("\n\n\t\t======= Account Transfer =======\n\n");
         printf("\n\t\t-->> Please enter the account number to transfer: ");
 
@@ -398,7 +402,7 @@ void transferOwnership(struct User u)
         }
         
         if (!getAccountByID(fp, u.id, &r, acc)) {
-            printf("\n\tAccount not found!\n");
+            printf("\n\t\tAccount not found!\n");
             printf("\t\tPress enter to continue...");
             getchar();
             continue;
@@ -409,34 +413,41 @@ void transferOwnership(struct User u)
 
     while (1)
     {
-        printWelcomeMessage(u.name);
+        printWelcomeMessage(owner);
     
         printf("\n\n\t\t======= Acount Transfer =======\n\n");
         printf("\n\t\t-->> Please enter the account number to transfer: %d\n", acc);
-        printf("\n\t\t-->> Please enter the new owner name: ");
+        printf("\n\t\t-->> Please enter the new owner's name: ");
 
-        if (!validateStringInput(r.name, 50)) {
+        if (!validateStringInput(newOwner, 50)) {
             printf("\t\tPress enter to continue...");
             getchar();
             continue;
         }
 
-        if (isContainsSpaces(r.name)) {
+        if (isContainsSpaces(newOwner)) {
             printf("\t\tPress enter to continue...");
             getchar(); 
             continue;
         }
 
-        if (isUniqueName(r.name, &u)) {
-            printf("Name Does not exist. Please choose another New Owner.\n");
+        if (isUniqueName(newOwner, &u)) {
+            printf("\n\t\t%s not in the system. Please choose another New Owner.\n", newOwner);
             printf("\t\tPress enter to continue...");
             getchar();
             continue;
         }
 
-        if (isContainsSpaces(r.name)) {
-            printf("\t\tPress enter to continue...");
+        if (isContainsSpaces(newOwner)) {
+            printf("\n\t\tPress enter to continue...");
             getchar(); 
+            continue;
+        }
+
+        if (strcmp(newOwner, owner) == 0) {
+            printf("\n\t\tYou cannot transfer ownership to yourself.\n");
+            printf("\t\tPress enter to continue...");
+            getchar();
             continue;
         }
         
@@ -444,7 +455,7 @@ void transferOwnership(struct User u)
     }
 
     while (1) {
-        printWelcomeMessage(u.name);
+        printWelcomeMessage(owner);
         
         printf("\n\n\t\t======= Acount Transfer =======\n\n");
         printf("\n\t\t-->> This action will is not reverseble\n");
@@ -462,12 +473,12 @@ void transferOwnership(struct User u)
         break;
     }
 
-    if (option == 0) {
+    if (option == 1) {
         printf("\n\t\tAccount transfer cancelled.\n");
         return;
     }
 
-    strcpy(r.name, u.name);
+    strcpy(u.name, newOwner);
     r.userId = u.id;
 
     saveUpdatedRecord(fp, u, r, "transfer");
