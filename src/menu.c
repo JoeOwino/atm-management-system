@@ -30,7 +30,7 @@ int mainMenuLoop(struct User u)
         
         if (!isValidMenuInput(1, 8, &option)) {
             printf("\t\tPress Enter to continue...");
-            getchar();
+            getchar(); getchar(); 
         }
 
     } while (option < 1 || option > 8);
@@ -135,8 +135,7 @@ void initMenu(struct User *u)
     switch (option) {
         case 1:
             loginMenu(u);
-            break;
-            
+            break; 
         case 2:
             registerUser(u->name, u->password);  
             break;
