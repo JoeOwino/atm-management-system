@@ -1,13 +1,13 @@
 #include "header.h"
 
+
 void printWelcomeMessage(char *name)
 {
-    system("clear");
+    system("clear"); 
     printf("\n\n\t\t=======================  ATM  ==========================\n");
     printf("\t\t                    Welcome %s\n", name);
-    printf("\t\t  Yuo can exit the system at any point by prssing ctr+c\n");
+    printf("\t\t  You can exit the system at any point by pressing ctrl+c\n");
     printf("\t\t==========================================================\n\n");
-
 }
 
 int mainMenuLoop(struct User u)
@@ -49,7 +49,7 @@ invalid:
     printf("\t\tEnter any cahracter(s) to go to the main menu and 0 to exit!: ");
     scanf("%d", &option);
     while (getchar() != '\n');
-    
+
     system("clear");
 
     if (option == 0)
@@ -140,7 +140,8 @@ void initMenu(struct User *u)
             loginMenu(u);
             break; 
         case 2:
-            registerUser(u->name, u->password);  
+            registerUser(u->id, u->name, u->password);  
+            u->id = getUserID() - 1;
             break;
         case 3:
             printf("\n\t\tThank you for using our ATM service. Goodbye!\n");

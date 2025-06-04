@@ -1,6 +1,6 @@
 #include "header.h"
 
-void registerUser(char name[50], char pass[50]) {
+void registerUser(int id, char name[50], char pass[50]) {
     struct User u;
     struct termios oflags, nflags;
     char pass2[50];
@@ -71,7 +71,8 @@ void registerUser(char name[50], char pass[50]) {
     u.id = getUserID(USERS_FILE);
     strcpy(u.name, name);
     strcpy(u.password, pass);
-    writeUser(u);   
+
+    writeUser(u); 
     
     while (getchar() != '\n');
 }
